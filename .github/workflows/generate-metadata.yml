@@ -7,7 +7,6 @@ on:
     paths-ignore:
       - 'metadata/**'
       - 'README.md'
-      - 'scripts/**'
       - '.gitignore'
 
 jobs:
@@ -24,7 +23,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install dependencies
-        run: pip install pyyaml
+        run: pip install pyyaml packaging
 
       - name: Generate metadata JSON
         run: python generate_packs_metadata.py
