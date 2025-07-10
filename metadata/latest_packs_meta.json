@@ -287,18 +287,18 @@
   },
   {
     "pack_name": "Network Device Discovery",
-    "pack_version": "8.0.3",
+    "pack_version": "9.0.0",
     "tar_file_name": "network_pack.tar.gz",
-    "tar_file_url": "https://raw.githubusercontent.com/cloudfabrix/rda_packs/main/Network Device Discovery/8.0.3/network_pack.tar.gz",
+    "tar_file_url": "https://raw.githubusercontent.com/cloudfabrix/rda_packs/main/Network Device Discovery/9.0.0/network_pack.tar.gz",
     "description": "Network Device Discovery solution package collects inventory data for network devices.",
     "required_fabric_services": [
       {
-        "name": "api-server",
-        "version": ">=8.0.0"
+        "name": "worker",
+        "version": ">=8.1.0"
       },
       {
-        "name": "rda_worker",
-        "version": ">=8.0.0"
+        "name": "api-server",
+        "version": ">=8.1.0"
       }
     ]
   },
