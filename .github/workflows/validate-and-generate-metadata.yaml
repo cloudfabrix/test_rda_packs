@@ -1,4 +1,4 @@
-name: Validate and Generate Metadata
+name: Validate and Generate Packs Metadata
 
 on:
   push:
