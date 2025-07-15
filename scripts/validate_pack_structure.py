@@ -11,16 +11,14 @@ def fail(message):
     print(f"❌ ERROR: {message}")
     sys.exit(1)
 
-def get_changed_or_added_manifest_files():
-    result = subprocess.run(
-        ["git", "diff", "--diff-filter=AM", "--name-only", "origin/main...HEAD"],
-        capture_output=True, text=True
-    )
-    if result.returncode != 0:
-        fail("Could not determine changed files from git")
-    print("📁 Files changed:", result.stdout.strip())
-    files = result.stdout.strip().split("\n")
-    return [f for f in files if f.endswith("manifest.yaml")]
+def get_all_manifest_files():
+    manifests = []
+    for root, dirs, files in os.walk(REPO_ROOT):
+        for f in files:
+            if f == "manifest.yaml":
+                rel_path = os.path.relpath(os.path.join(root, f), REPO_ROOT)
+                manifests.append(rel_path)
+    return manifests
 
 def validate_manifest_path(manifest_rel_path):
     manifest_abs_path = os.path.join(REPO_ROOT, manifest_rel_path)
@@ -49,12 +47,11 @@ def validate_manifest_path(manifest_rel_path):
     print(f"✅ Validated: {manifest_rel_path}")
 
 def main():
-    changed_manifests = get_changed_or_added_manifest_files()
-    if not changed_manifests:
-        print("✅ No new or changed manifest.yaml files to validate.")
-        return
+    manifest_files = get_all_manifest_files()
+    if not manifest_files:
+        fail("No manifest.yaml files found in the repository.")
 
-    for manifest in changed_manifests:
+    for manifest in manifest_files:
         validate_manifest_path(manifest)
 
 if __name__ == "__main__":
