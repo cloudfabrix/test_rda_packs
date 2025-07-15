@@ -1,0 +1,25 @@
+{
+  "name": "mobility_schema_raw_data",
+  "datastore_type": "OS",
+  "read_only": false,
+  "attrs": {
+    "ism": {
+      "rollover": {
+        "min_index_age": "7d"
+      },
+      "delete": {
+        "min_index_age": "90d"
+      },
+      "index_settings": {
+        "index.mapping.total_fields.limit": "4000",
+        "index.refresh_interval": "60s"
+      }
+    },
+    "os_external": true
+  },
+  "status": "Running",
+  "index_template": "index_template_rollover_alias.json",
+  "ism_policy_template": "ism_policy_hot_rollover_delete.json",
+  "index_alias_template": "index_alias.json",
+  "index_name": "os-external-admin-3f89175ce8104956a289bfef8427d152-stream-fa3a083d-mobility_schema_raw_data"
+}

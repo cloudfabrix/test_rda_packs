@@ -1,0 +1,57 @@
+%% stream = no and limit = 0
+
+%% import_src_type = "agent"
+
+## This is child pipeline of create_ticket_request_processor.
+## Pipeline inputs: External ticket response
+## Send Collab Notification
+@c:new-block
+    --> @exec:get-input
+    --> @dm:save name="temp-external-ticket-response"
+    --> @dm:skip-pipeline-if-shape row_count=0
+    --> @dm:copy-columns to="roomid" & from="project_id"
+    --> @dm:copy-columns to="projectId" & from="project_id"
+    --> @dm:copy-columns to="customerid" & from="customer_id"
+    --> @dm:copy-columns to="incidentid" & from="incident_id"
+    --> @dm:eval creator="team_name"
+    --> @dm:add-missing-columns columns = 'notification_subject,notification_message'
+    --> @dm:fixnull columns = 'notification_subject' & value=""
+    --> @dm:fixnull columns = 'notification_message' & value=""
+    --> @dm:copy-columns to="summary" & from="notification_message"
+    --> @dm:selectcolumns include="notification_message|customerid|roomid|projectId|incidentid|summary|creator|notification_subject"
+    --> @rn:write-stream compression="auto" & name="oia-incident-collab-message-stream"
+    ## Send FSM Notification
+    --> @dm:recall name="temp-external-ticket-response"
+    --> @dm:selectcolumns include="team_id|customer_id|project_id|incident_id|ticket_number|shared_time|ticket_id|link"
+    --> *dm:filter ticket_number is not None
+    --> @dm:save name= "temp-ticket-info"
+    --> @dm:skip-pipeline-if-shape row_count=0
+    --> @dm:map to="fsmInputEventName" & func="fixed" & value="save-ticket-id"
+    --> @dm:map to="fsmModelName" & func="fixed" & value="oia_ticketing_with_soothing_interval"
+    ## Audit ##
+    --> @dm:save name="temp-fsm-ticketing-audit"
+    --> @dm:to-json output_column = 'payload'
+    --> @dm:eval execution_block = "'create-ticket: save-ticket-id'"
+    --> @dm:selectcolumns include = 'customer|project|incident|^execution_block$|^payload$'
+    --> @rn:write-stream name = 'fsm-events'
+    --> @dm:recall name="temp-fsm-ticketing-audit"
+    ## #########
+    --> @exec:run-pipeline name="fsm-publish"
+    ## updateIncidents with external ticket link
+    --> @dm:recall name = 'temp-ticket-info'
+    --> @dm:skip-pipeline-if-shape row_count=0
+    --> @dm:copy-columns to="label" & from="ticket_number"
+    --> @dm:eval attrs=' "[{\"name\":\"externalUrl\",\"value\":\"" + link + "\"}]" '
+    --> @dm:eval attributes = "json_loads(attrs)"
+    --> @dm:copy-columns to="incidentid" & from="incident_id"
+    --> @dm:copy-columns to="roomid" & from="project_id"
+    --> @dm:selectcolumns include="roomid|incidentid|label|attributes"
+    --> @agent:agent-irm:irmagent:updateIncidents
+    ## Updating Collaboration Teams with External Ticket
+    --> @dm:recall name = 'temp-ticket-info'
+    --> @dm:skip-pipeline-if-shape row_count=0
+    --> @dm:eval collab_type="'Others'"
+    --> @dm:selectcolumns include="team_id|customer_id|project_id|incident_id|collab_type|ticket_number|shared_time|ticket_id|link"
+    --> @agent:agent-collab:collabagent:addExternalTicket
+    --> @dm:recall name = 'temp-external-ticket-response'
+

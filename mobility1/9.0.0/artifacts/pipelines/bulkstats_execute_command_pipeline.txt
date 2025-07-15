@@ -1,0 +1,205 @@
+%% stream = no and limit = 0
+
+%% import_src_type = "email_sender,cisco-bpa,restclient,apscheduler"
+
+@c:new-block
+    --> @exec:get-input
+    --> @dm:eval email_col_name = 'Script_name+"_emailId"'
+    --> @dm:save name="temp-cmd_builder_input"
+    --> @dm:save name="temp-schedule"
+    --> @dm:save name="temp-cmd_input"
+    --> @dm:empty
+    --> @dm:save name="temp-data"
+    --> @dm:save name="temp-command_builder_input"
+    --> @dm:add-missing-columns columns="executed_time,USER_ID,script_name,startTime,startDate,endDate,scheduleType,timeZone,devices,network_type,script_params"
+    --> @dm:save name="temp-schedule_details"
+
+--> @c:data-loop columns="email_col_name" and dataset ="temp-cmd_input"
+    --> @dm:recall name="temp-cmd_input" and return_empty= "yes"
+    --> @dm:rename-columns emailId = `$email_col_name`
+    --> @dm:save name="temp-schedule"
+    --> @dm:save name="temp-cmd_input"
+
+## Process the pipeline input dataset and add execution_time, filename, minio_location
+--> @c:new-block
+    --> @dm:recall name="temp-cmd_input"
+    --> @dm:skip-pipeline-if-shape row_count=0
+    --> @dm:rename-columns script_name = Script_name and script_type = Script_type and devices = Others
+    --> @dm:add-missing-columns columns="script_name,Script_type,network_type,devices,USER_ID,schedule,emailId"
+    --> @dm:selectcolumns exclude="ENV_APP_TYPE|ENV_HOSTNAME|custom_context|name|reportInitialFilterItems|use_script|Script_type"
+    --> @dm:eval executed_time ='int(time_now_as_ms())'
+    --> @dm:copy-columns from="executed_time" and to ="current_time"
+    --> @dm:change-time-format columns="current_time" and from_format = "ms" and to_format ="%mM%dD%YY_%Hh%Mm"
+    --> @dm:eval filename= "script_name +'_'+str(current_time)+'.json'"
+    --> @dm:eval key="'key'"
+    --> @dm:eval devices= "[item['device'] for item in devices] if devices != None else devices"
+    --> @dm:eval devices = "','.join(devices) if devices else devices"
+    --> @dm:eval minio_location = "'Bulkstats/'+script_name+'/'+current_time"
+    --> @dm:eval script_suffix ="script_name + '_'"
+    --> @dm:save name="temp-cmd_input"
+
+## create list of params that needs to provide as input to the scripts
+## if the number of columns == 0, param will be empty list else it will create [{key}:{value}] pairs
+--> @c:data-loop columns="script_name,email_col_name,script_suffix" and dataset ="temp-cmd_input"
+    --> @dm:recall name="temp-cmd_input" and return_empty= "yes"
+    --> @dm:rename-columns emailId = `$email_col_name`
+    --> @dm:skip-block-if-shape row_count=0
+    --> @dm:selectcolumns exclude="script_name|script_type|schedule|USER_ID|custom_context|reportInitialFilterItems|executed_time|key|network_type|devices|current_time|filename|emailId|name|minio_location|retryInterval|retryCount|configureRetries|MSP_ID|job_id"
+            and include="$script_suffix"
+    --> *exec:if-shape num_cols > 0
+       --> @dm:to-json output_column ="param"
+       --> @dm:eval param="json_loads(param) if param else {}"
+       --> @dm:eval param='",".join([f"{key.split("_")[-1]}:{value}" if "$script_name"+"_" in key else f"{key}:{value}" for key, value in param.items()])'
+       --> @dm:eval key="'key'"
+       --> @dm:implode key_columns="key" and merge_columns ="param"
+       --> @dm:eval param = "param.split(',') if param else []"
+       --> @dm:save name="temp-params_list"
+    --> @exec:end-if
+    --> *exec:if-shape num_cols = 0
+       --> @dm:empty
+       --> @dm:addrow key="key"
+       --> @dm:eval param = "[]"
+       --> @dm:save name="temp-params_list"
+    --> @exec:end-if
+
+## Enrich params list to the processed input dataset and create ingestion_id using script_name,current_time and script_params
+--> @c:new-block
+    --> @dm:recall name="temp-cmd_input"
+    --> @dm:eval key="'key'"
+    --> @dm:enrich dict="temp-params_list" and src_key_cols="key" and dict_key_cols="key" and enrich_cols="param" and enrich_cols_as ="script_params"
+    --> @dm:copy-columns from="script_params" and to ="ingestion_id"
+    --> @dm:to-type columns="ingestion_id" and type="str"
+    --> @dm:manipulate-string from="current_time,script_name,ingestion_id" and func="concat_columns" and to="ingestion_id"
+    --> @dm:map from = 'ingestion_id' & to = 'ingestion_id' & func = 'md5'
+    --> @dm:save name="temp-cmd_input"
+    --> @dm:save name="temp-cmd_input-1"
+
+## process schedule details
+--> @c:new-block
+    --> @dm:recall name="temp-schedule"
+    --> @dm:add-missing-columns columns="schedule_dashboard"
+    --> @dm:to-type columns="schedule_dashboard" and type="str"
+    --> *dm:filter schedule_dashboard == "True"
+    --> @dm:skip-block-if-shape row_count=0
+    --> @dm:recall name="temp-cmd_input"
+    --> @dm:to-type columns="schedule" and type='str'
+    --> @dm:replace-data columns="schedule" and expr="'" and replace='"'
+    --> @dm:replace-data columns="schedule" and expr="False" and replace='false'
+    --> @dm:replace-data columns="schedule" and expr="True" and replace='true'
+    --> @dm:replace-data columns="schedule" and expr="None" and replace='null'
+    --> @dm:eval schedule = "json_loads(schedule) if schedule else schedule"
+    --> @dm:explode-json column= "schedule"
+    --> @dm:explode-json column="scheduleTime"
+    --> @dm:to-type columns="script_params" and type="str"
+    --> @dm:eval script_params = "script_params if script_params != '[]' else None"
+    --> @dm:add-missing-columns columns="script_params"
+    --> @dm:save name="temp-schedule_details"
+
+## create entry in "script_schedule" dataset
+--> @c:data-loop columns="executed_time,USER_ID,script_name,startTime,startDate,endDate,scheduleType,timeZone,devices,network_type,script_params" and dataset ="temp-schedule_details"
+    --> @dm:recall name="temp-schedule"
+    --> @dm:add-missing-columns columns="schedule_dashboard"
+    --> @dm:to-type columns="schedule_dashboard" and type="str"
+    --> *dm:filter schedule_dashboard == "True"
+    --> @dm:skip-block-if-shape row_count=0
+    --> @dm:eval executed_time ='int(time_now_as_ms())'
+    --> @dm:empty
+    --> @dm:addrow inputs="$script_params" and script_name ="$script_name" and startDate=$startDate and scheduleType="$scheduleType" and timeZone="$timeZone" and device= "$devices" and startTime=$startTime and updated_time="$executed_time" and USER_ID="$USER_ID" and network_type = "$network_type" and endDate="$endDate"
+    --> @dm:to-type columns="updated_time" and type="int"
+    --> @dm:save name="temp-script_schedule"
+
+## check with and without schedule
+--> @c:new-block
+    --> @dm:recall name="temp-cmd_builder_input"
+    --> @dm:add-missing-columns columns="schedule_dashboard"
+    --> @dm:to-type columns="schedule_dashboard" and type="str"
+    --> *dm:filter schedule_dashboard == "True"
+    --> @dm:skip-block-if-shape row_count=0
+    --> @dm:to-type columns="schedule" and type="str"
+    --> @dm:replace-data columns = 'schedule' & expr = "'" & replace = '"'
+    --> @dm:replace-data columns = 'schedule' &
+            expr = "False" &
+            replace = 'false'
+    --> @dm:replace-data columns = 'schedule' &
+            expr = "True" &
+            replace = 'true'
+    --> @dm:replace-data columns = 'schedule' &
+            expr = "None" &
+            replace = 'null'
+    --> @dm:explode-json column = "schedule"
+    --> @dm:explode-json column = "scheduleTime"
+    --> @dm:add-missing-columns columns="startTime,endDate,scheduleType,interval"
+    --> @dm:save name="temp-data"
+
+--> @c:new-block
+    --> @dm:recall name="temp-data"
+    --> @dm:skip-block-if-shape row_count=0
+    --> *dm:filter scheduleType=="Once"
+    --> @dm:skip-block-if-shape row_count=0
+    --> @dm:eval interval="None"
+    --> @dm:save name="temp-command_builder_input"
+
+--> @c:new-block
+    --> @dm:recall name="temp-data"
+    --> @dm:skip-block-if-shape row_count=0
+    --> *dm:filter scheduleType=="Hourly"
+    --> @dm:skip-block-if-shape row_count=0
+    --> @dm:explode-json column = "Hourly"
+    --> @dm:eval interval="hoursApart"
+    --> @dm:save name="temp-command_builder_input"
+
+--> @c:new-block
+    --> @dm:recall name="temp-data"
+    --> @dm:skip-block-if-shape row_count=0
+    --> *dm:filter scheduleType=="Daily"
+    --> @dm:skip-block-if-shape row_count=0
+    --> @dm:explode-json column = "Daily"
+    --> @dm:eval interval="daysApart"
+    --> @dm:save name="temp-command_builder_input"
+
+## create ingestion_id
+--> @c:new-block
+    --> @dm:recall name="temp-command_builder_input"
+    --> @dm:selectcolumns include="Script_name"
+    --> @dm:add-checksum key="Script_name" and row_checksum_column="job_id"
+    --> @dm:save name="temp-dict"
+    --> @dm:recall name="temp-command_builder_input"
+    --> @dm:enrich dict="temp-dict" and src_key_cols="Script_name" and dict_key_cols="Script_name" and enrich_cols="job_id"
+    --> @dm:eval endDate="endDate if endDate else None"
+    --> @dm:save name="temp-command_builder_input"
+
+--> @c:data-loop dataset="temp-command_builder_input" and columns="startTime,endDate,scheduleType,interval,job_id,timeZone"
+    --> @dm:recall name="temp-cmd_input-1"
+    --> @dm:save-to-location name="$job_id" and location="cmd_builder_schedules/" and format="csv"
+    --> @dm:recall name="temp-command_builder_input"
+    --> @dm:skip-block-if-shape row_count="0"
+    --> @dm:eval job_id="'$job_id'"
+    --> @apscheduler:add-job job_name="Run_Pipeline" and job_id="job_id" and start_time="$startTime" and schedule_type="$scheduleType" and end_time="$endDate" and interval="$interval" and time_zone="$timeZone" and pipeline_name="execute_command_pipeline"
+    --> @dm:sleep seconds="10"
+
+--> @c:data-loop dataset="temp-command_builder_input" and columns="startTime,endDate,scheduleType,interval,job_id,timeZone"
+    --> @apscheduler:next-run job_id="$job_id"
+    --> @dm:add-missing-columns columns="next_run_time"
+    --> @dm:change-time-format columns="next_run_time" and from_format="datetimestr" and to_format="ms"
+    --> @dm:save name="temp-next-run"
+    --> @dm:recall name="temp-script_schedule"
+    --> @dm:eval job_id="'$job_id'"
+    --> @dm:enrich dict="temp-next-run" and src_key_cols="job_id" and dict_key_cols="job_id" and enrich_cols="next_run_time"
+    --> @dm:save name="temp-schedule"
+    --> @dm:recall name="temp-command_builder_input"
+    --> @dm:skip-block-if-shape row_count="0"
+    --> @dm:recall name="temp-schedule"
+    --> @dm:eval key="'key'"
+    --> @dm:enrich dict="temp-cmd_input" and src_key_cols="key" and dict_key_cols="key" and enrich_cols="schedule"
+    --> @dm:to-type columns="endDate" and type="int"
+    --> @dm:fixnull-regex value=""
+    --> @rn:write-stream name="script_schedule"
+
+--> @c:new-block
+    --> @dm:recall name="temp-cmd_input"
+    --> @dm:add-missing-columns columns="schedule_dashboard"
+    --> @dm:to-type columns="schedule_dashboard" and type="str"
+    --> *dm:filter schedule_dashboard != "True"
+    --> @dm:skip-block-if-shape row_count=0
+    --> @exec:run-pipeline name="execute_command_pipeline"
+

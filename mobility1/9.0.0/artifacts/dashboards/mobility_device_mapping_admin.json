@@ -1,0 +1,762 @@
+{
+    "name": "mobility_device_mapping_admin",
+    "label": "Device Mappings",
+    "description": "mobility_device_mapping: Insights",
+    "dashboard_folder": "mobility",
+    "version": "1.0.2",
+    "enabled": false,
+    "live_edit": true,
+    "stream": "mobility_device_mappings",
+    "dashboard_type": "dashboard",
+    "dashboard_filters": {
+        "time_filter": true,
+        "default_time_filter_labels": [
+            "Last 12 months"
+        ],
+        "columns_filter": [
+            {
+                "id": "timestamp",
+                "label": "Timestamp",
+                "type": "DATETIME"
+            },
+            {
+                "id": "device",
+                "label": "Device",
+                "type": "TEXT"
+            },
+            {
+                "id": "ip_address",
+                "label": "IP Address",
+                "type": "TEXT"
+            },
+            {
+                "id": "city",
+                "label": "City",
+                "type": "TEXT"
+            },
+            {
+                "id": "clli_code",
+                "label": "CLLI Code",
+                "type": "TEXT"
+            },
+            {
+                "id": "region",
+                "label": "Region",
+                "type": "TEXT"
+            },
+            {
+                "id": "zone",
+                "label": "Zone",
+                "type": "TEXT"
+            },
+            {
+                "id": "image",
+                "label": "Image",
+                "type": "TEXT"
+            },
+            {
+                "id": "network_code",
+                "label": "Network Code",
+                "type": "TEXT"
+            },
+            {
+                "id": "network_type",
+                "label": "Network Type",
+                "type": "TEXT"
+            }
+        ],
+        "group_filters": [
+            {
+                "stream": "mobility_device_mappings",
+                "title": "Image",
+                "duration_hours": 1080,
+                "limit": 200,
+                "extra_filter": null,
+                "group_by": [
+                    "image"
+                ],
+                "ts_column": "timestamp",
+                "agg": "sum",
+                "column": "count_",
+                "type": "int"
+            },
+            {
+                "stream": "mobility_device_mappings",
+                "title": "City",
+                "duration_hours": 1080,
+                "limit": 200,
+                "extra_filter": null,
+                "group_by": [
+                    "city"
+                ],
+                "ts_column": "timestamp",
+                "agg": "sum",
+                "column": "count_",
+                "type": "int"
+            },
+            {
+                "stream": "mobility_device_mappings",
+                "title": "Region",
+                "duration_hours": 1080,
+                "limit": 200,
+                "extra_filter": null,
+                "group_by": [
+                    "region"
+                ],
+                "ts_column": "timestamp",
+                "agg": "sum",
+                "column": "count_",
+                "type": "int"
+            },
+            {
+                "stream": "mobility_device_mappings",
+                "title": "Zone",
+                "duration_hours": 1080,
+                "limit": 200,
+                "extra_filter": null,
+                "group_by": [
+                    "zone"
+                ],
+                "ts_column": "timestamp",
+                "agg": "sum",
+                "column": "count_",
+                "type": "int"
+            },
+            {
+                "stream": "mobility_device_mappings",
+                "title": "Network Type",
+                "duration_hours": 1080,
+                "limit": 200,
+                "extra_filter": null,
+                "group_by": [
+                    "network_type"
+                ],
+                "ts_column": "timestamp",
+                "agg": "sum",
+                "column": "count_",
+                "type": "int"
+            },
+            {
+                "stream": "mobility_device_mappings",
+                "title": "CLLI Code",
+                "duration_hours": 1080,
+                "limit": 200,
+                "extra_filter": null,
+                "group_by": [
+                    "clli_code"
+                ],
+                "ts_column": "timestamp",
+                "agg": "sum",
+                "column": "count_",
+                "type": "int"
+            }
+        ]
+    },
+    "dashboard_sections": [
+        {
+            "title": "Device List",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "widget_type": "bar_chart",
+                    "title": "Image",
+                    "duration_hours": 1080,
+                    "stream": "mobility_device_mappings",
+                    "ts_column": "timestamp",
+                    "extra_filter": null,
+                    "column": "count_",
+                    "limit": 20,
+                    "agg": "sum",
+                    "group_by": [
+                        "image"
+                    ],
+                    "type": "int",
+                    "min_width": 4,
+                    "height": 5,
+                    "chartProperties": {
+                        "yAxisLabel": null,
+                        "xAxisLabel": null,
+                        "stacked": true,
+                        "legendLocation": "none",
+                        "orientation": "horizontal"
+                    },
+                    "max_width": 12,
+                    "widget_id": "45124d37"
+                },
+                {
+                    "widget_type": "bar_chart",
+                    "title": "Network Type",
+                    "duration_hours": 1080,
+                    "stream": "mobility_device_mappings",
+                    "ts_column": "timestamp",
+                    "extra_filter": null,
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "type": "int",
+                    "min_width": 2,
+                    "height": 5,
+                    "chartProperties": {
+                        "yAxisLabel": null,
+                        "xAxisLabel": null,
+                        "stacked": true,
+                        "legendLocation": "none",
+                        "orientation": "vertical"
+                    },
+                    "style": {
+                        "color-map": {
+                            "Failed": [
+                                "#F44336",
+                                "#ffffff"
+                            ],
+                            "Passed": [
+                                "#4CAF50",
+                                "#ffffff"
+                            ]
+                        }
+                    },
+                    "max_width": 5,
+                    "widget_id": "18599e9d"
+                },
+                {
+                    "title": "Devices",
+                    "widget_type": "tabular",
+                    "max_width": 12,
+                    "height": 10,
+                    "min_width": 12,
+                    "stream": "mobility_device_mappings",
+                    "ts_column": "timestamp",
+                    "virtual_scrolling": true,
+                    "remote_searchable0": true,
+                    "remote_searchable_cols0": [
+                        "device",
+                        "ip_address",
+                        "network_type"
+                    ],
+                    "resizableColumns0": [
+                        "device"
+                    ],
+                    "columns": {
+                        "device": {
+                            "title": "Device",
+                            "type": "TEXT",
+                            "key": true,
+                            "hidden": false
+                        },
+                        "ip_address": {
+                            "title": "IP Address",
+                            "type": "TEXT",
+                            "key": true,
+                            "hidden": false
+                        },
+                        "image": {
+                            "title": "Image",
+                            "type": "TEXT",
+                            "key": true,
+                            "hidden": false
+                        },
+                        "city": {
+                            "title": "City",
+                            "type": "TEXT",
+                            "key": true,
+                            "hidden": false
+                        },
+                        "clli_code": {
+                            "title": "CLLI Code",
+                            "type": "TEXT",
+                            "hidden": false,
+                            "key": true
+                        },
+                        "zone": {
+                            "title": "Zone",
+                            "type": "TEXT",
+                            "hidden": false,
+                            "key": true
+                        },
+                        "region": {
+                            "title": "Region",
+                            "type": "TEXT",
+                            "hidden": false,
+                            "key": true
+                        },
+                        "network_code": {
+                            "title": "Network Code",
+                            "type": "TEXT",
+                            "hidden": false,
+                            "key": true
+                        },
+                        "network_type": {
+                            "title": "Network Type",
+                            "type": "TEXT",
+                            "hidden": false,
+                            "key": true
+                        },
+                        "__uuid": {
+                            "title": "UUID ID",
+                            "key": true,
+                            "visible": false
+                        }
+                    },
+                    "actions": [
+                        {
+                            "permission": "rda:mobility:update",
+                            "title": "Delete Device",
+                            "type": "POPUP_FORM",
+                            "selectionType": "SINGLE",
+                            "identifier": "saas-service-action:userdashboard-add-yaml",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.dynamic.form",
+                                        "formActionList": {
+                                            "formActions": [
+                                                {
+                                                    "identifier": "Submit",
+                                                    "actionLabel": "Delete"
+                                                }
+                                            ]
+                                        },
+                                        "formDefinition": {
+                                            "id": "rda.saas.dynamic.form",
+                                            "refreshRequired": true,
+                                            "formFieldList": [
+                                                {
+                                                    "help": "Delete this Device",
+                                                    "dataType": "string",
+                                                    "required": true,
+                                                    "editable": false,
+                                                    "label": "Delete this Device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "device"
+                                                }
+                                            ]
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "RUN_PIPELINE",
+                                                "pipelineName": "delete_device",
+                                                "isSync": true
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "permission1": "rda:mobility:update",
+                            "title": "Edit Device",
+                            "type": "POPUP_FORM",
+                            "selectionType": "SINGLE",
+                            "identifier": "saas-service-action:userdashboard-add-yaml",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.dynamic.form",
+                                        "formDefinition": {
+                                            "id": "rda.saas.dynamic.form",
+                                            "refreshRequired": true,
+                                            "formFieldList": [
+                                                {
+                                                    "help": "Enter the Device Name",
+                                                    "dataType": "string",
+                                                    "required": true,
+                                                    "editable": false,
+                                                    "label": "Enter the Device Name",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "device"
+                                                },
+                                                {
+                                                    "help": "Enter the IP Address for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the IP Address for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "ip_address"
+                                                },
+                                                {
+                                                    "help": "Enter the image for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the Image for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "image"
+                                                },
+                                                {
+                                                    "help": "Enter the city for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the city for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "city"
+                                                },
+                                                {
+                                                    "help": "Enter the region for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the region for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "region"
+                                                },
+                                                {
+                                                    "help": "Enter the zone for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the zone for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "zone"
+                                                },
+                                                {
+                                                    "help": "Enter the CLLI Code for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the CCLI Code for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "clli_code"
+                                                },
+                                                {
+                                                    "help": "Enter the network type for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the network type for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "network_type"
+                                                },
+                                                {
+                                                    "help": "Enter the network code for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the network code for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "network_code"
+                                                }
+                                            ]
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "RUN_PIPELINE",
+                                                "pipelineName": "device_editing",
+                                                "isSync": true
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "permission": "rda:mobility:update",
+                            "title": "Add",
+                            "type": "POPUP_FORM",
+                            "selectionType": "NONE",
+                            "identifier": "saas-service-action:userdashboard-add-yaml",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.dynamic.form",
+                                        "formActionList": {
+                                            "formActions": [
+                                                {
+                                                    "identifier": "Submit",
+                                                    "actionLabel": "Add"
+                                                }
+                                            ]
+                                        },
+                                        "formDefinition": {
+                                            "id": "rda.saas.dynamic.form",
+                                            "refreshRequired": true,
+                                            "formFieldList": [
+                                                {
+                                                    "help": "Device will come into action after reload",
+                                                    "required": false,
+                                                    "editable": false,
+                                                    "label": "Device will come into action after reload",
+                                                    "hidden": false,
+                                                    "dataType": "string",
+                                                    "controlType": "LABEL"
+                                                },
+                                                {
+                                                    "help": "Enter the Device Name",
+                                                    "dataType": "string",
+                                                    "required": true,
+                                                    "editable": true,
+                                                    "label": "Enter the Device Name",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "device"
+                                                },
+                                                {
+                                                    "help": "Enter the IP Address for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the IP Address for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "ip_address"
+                                                },
+                                                {
+                                                    "help": "Enter the Image version for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the Image version for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "image"
+                                                },
+                                                {
+                                                    "help": "Enter the City for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the City for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "city"
+                                                },
+                                                {
+                                                    "help": "Enter the CLLI Code for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the CLLI Code for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "clli_code"
+                                                },
+                                                {
+                                                    "help": "Enter the Region for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the Region for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "region"
+                                                },
+                                                {
+                                                    "help": "Enter the Zone for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the Zone for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "zone"
+                                                },
+                                                {
+                                                    "help": "Enter the network type for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the network type for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "network_type"
+                                                },
+                                                {
+                                                    "help": "Enter the network code for the device",
+                                                    "dataType": "string",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Enter the network code for the device",
+                                                    "controlType": "TEXT",
+                                                    "hidden": false,
+                                                    "fieldId": "network_code"
+                                                }
+                                            ]
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "RUN_PIPELINE",
+                                                "pipelineName": "add_device",
+                                                "isSync": true,
+                                                "workerGroup": "rda-site-01"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "permission": "rda:mobility:update",
+                            "title": "Upload",
+                            "type": "POPUP_FORM",
+                            "selectionType": "NONE",
+                            "identifier": "saas-service-action:userdashboard-add-yaml",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.dynamic.form",
+                                        "formActionList": {
+                                            "formActions": [
+                                                {
+                                                    "identifier": "Submit",
+                                                    "actionLabel": "Upload"
+                                                }
+                                            ]
+                                        },
+                                        "formDefinition": {
+                                            "id": "rda.saas.dynamic.form",
+                                            "refreshRequired": true,
+                                            "formFieldList": [
+                                                {
+                                                    "help": "Choose file to upload",
+                                                    "dataType": "string",
+                                                    "required": true,
+                                                    "editable": true,
+                                                    "label": "Choose file to upload",
+                                                    "controlType": "FILE_UPLOAD",
+                                                    "hidden": false,
+                                                    "fieldId": "fileUpload"
+                                                },
+                                                {
+                                                    "help": "Devices will come into action after reload",
+                                                    "required": false,
+                                                    "editable": false,
+                                                    "label": "Devices will come into action after reload",
+                                                    "hidden": false,
+                                                    "dataType": "string",
+                                                    "controlType": "LABEL"
+                                                },
+                                                {
+                                                    "help": "Overwrite existing onboarded data",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Replace Data",
+                                                    "hidden": false,
+                                                    "fieldId": "replace",
+                                                    "dataType": "boolean",
+                                                    "controlType": "BOOLEAN_FIELD",
+                                                    "defaultValue": false,
+                                                    "controlPropertyList": [
+                                                        {
+                                                            "attribute": "layout-group-id",
+                                                            "value": "Features"
+                                                        },
+                                                        {
+                                                            "attribute": "layout-percent",
+                                                            "value": "25"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "RUN_PIPELINE",
+                                                "pipelineName": "upload_device",
+                                                "isSync": true,
+                                                "workerGroup": "rda-site-01"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "permission": "rda:mobility:update",
+                            "title": "Reload",
+                            "type": "POPUP_FORM",
+                            "selectionType": "NONE",
+                            "identifier": "saas-service-action:userdashboard-add-yaml",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.dynamic.form",
+                                        "formActionList": {
+                                            "formActions": [
+                                                {
+                                                    "api-endpoint": {
+                                                        "methodName": "reload_device_maps",
+                                                        "parse-output": false,
+                                                        "namespace": "io.cfx.dimensions.app",
+                                                        "params": [
+                                                            {
+                                                                "args": [
+                                                                    "mobility_device_mappings"
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "service-name": "rapid-ingestion-service",
+                                                        "stringified-params": false
+                                                    },
+                                                    "identifier": "Submit",
+                                                    "actionLabel": "Reload"
+                                                }
+                                            ]
+                                        },
+                                        "formData": {
+                                            "confirmLabel": "Do you want to Reload?"
+                                        },
+                                        "formDefinition": {
+                                            "id": "rda.saas.dynamic.form",
+                                            "refreshRequired": true,
+                                            "formFieldList": [
+                                                {
+                                                    "fieldId": "confirmLabel",
+                                                    "help": "Do you want to Reload?",
+                                                    "dataType": "string",
+                                                    "controlType": "LABEL",
+                                                    "required": false,
+                                                    "editable": false,
+                                                    "label": "Uploaded Devices will be affected / picked up during ingestion of device files. Do you want to Reload?",
+                                                    "hidden": false
+                                                }
+                                            ]
+                                        },
+                                        "actions": [],
+                                        "context": {
+                                            "confirmLabel": "Uploaded Devices will be affected / picked up during ingestion of device files. Do you want to continue?"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "widget_id": "b039e934"
+                }
+            ]
+        }
+    ],
+    "saved_time": "2025-04-22T06:39:32.921859"
+}

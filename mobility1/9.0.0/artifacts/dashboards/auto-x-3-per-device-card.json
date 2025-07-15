@@ -1,0 +1,4386 @@
+{
+  "name": "auto-x-3-per-device-card",
+  "label": "star OS",
+  "description": "mobility_kpi_metrics_data: Insights",
+  "dashboard_folder": "mobility-auto-x-3",
+  "context_label_id0": "device",
+  "version": "1.0.1",
+  "enabled": false,
+  "live_edit": true,
+  "stream": "mobility_kpi_metrics_data",
+  "dashboard_type": "template",
+  "section_as_dashboard": true,
+  "template_variables": {
+    "DEVICE": {
+      "contextId": [
+        "device"
+      ],
+      "defaultValue": "CNCRCANZ31G",
+      "default": "CNCRCANZ31G"
+    }
+  },
+  "dashboard_filters": {
+    "time_filter": true,
+    "default_time_filter_labels": [
+      "Last 12 months"
+    ],
+    "columns_filter": [
+      {
+        "id": "timestamp",
+        "label": "Timestamp",
+        "type": "DATETIME"
+      },
+      {
+        "id": "instance_key",
+        "label": "Instance Key",
+        "type": "TEXT"
+      },
+      {
+        "id": "card",
+        "label": "Card",
+        "type": "TEXT"
+      }
+    ],
+    "group_filters": [
+      {
+        "stream": "mobility_kpi_metrics_data",
+        "title": "Instance Key",
+        "group_by": [
+          "instance_key"
+        ],
+        "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+        "ts_column": "timestamp",
+        "agg": "sum",
+        "column": "count_",
+        "type": "int",
+        "show_counts": false
+      },
+      {
+        "stream": "mobility_kpi_metrics_data",
+        "title": "Card",
+        "group_by": [
+          "card"
+        ],
+        "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+        "ts_column": "timestamp",
+        "agg": "sum",
+        "column": "count_",
+        "type": "int",
+        "show_counts": false
+      }
+    ]
+  },
+  "dashboard_sections": [
+    {
+      "title": "trend_1d_max",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "d7b753c2"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "46e6814f"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1316ed88"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "63fb31a9"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "df617012"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "df617012"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "df617012"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "df617012"
+        }
+      ]
+    },
+    {
+      "title": "trend_1h_max",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "1f26a89f"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "22b20827"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "9ec8c9d5"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "fdd5b449"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "d387180b"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "d387180b"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "d387180b"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "d387180b"
+        }
+      ]
+    },
+    {
+      "title": "trend_15m_max",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "745be270"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "dfb767d3"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "5cc90984"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "d5417e9b"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "c8566574"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "c8566574"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "c8566574"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "c8566574"
+        }
+      ]
+    },
+    {
+      "title": "trend_5m_max",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "b6ad111a"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "f3cbeee7"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "86c32d97"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "36444f2e"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "52c6870d"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "52c6870d"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "52c6870d"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "52c6870d"
+        }
+      ]
+    },
+    {
+      "title": "trend_1d_avg",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "47f9e797"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "5eb0c67a"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "7e29b22e"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "15197327"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "49463e3c"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "49463e3c"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "49463e3c"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "49463e3c"
+        }
+      ]
+    },
+    {
+      "title": "trend_1h_avg",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "1c01a2b9"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "34a78825"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "2f4b3795"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "4f3e9716"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "64874643"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "64874643"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "64874643"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "64874643"
+        }
+      ]
+    },
+    {
+      "title": "trend_15m_avg",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "16eb698c"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "0c50e9ec"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "54892361"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "f94e8768"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "f7bae24a"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "f7bae24a"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "f7bae24a"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "f7bae24a"
+        }
+      ]
+    },
+    {
+      "title": "trend_5m_avg",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "f690179a"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "f051d7da"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "152f579e"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "8dc1e475"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "38a3ea57"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "38a3ea57"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "38a3ea57"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "38a3ea57"
+        }
+      ]
+    },
+    {
+      "title": "trend_1d_min",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "1dcd19ed"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "8a4d08d8"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "81c80197"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "8fe7205a"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "aac60321"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "aac60321"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "aac60321"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "aac60321"
+        }
+      ]
+    },
+    {
+      "title": "trend_1h_min",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "b5f32b6a"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "3bf25872"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "f34089e9"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "45ec5055"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "014b423b"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "014b423b"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "014b423b"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "014b423b"
+        }
+      ]
+    },
+    {
+      "title": "trend_15m_min",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "2c326432"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "7c7edb79"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "9cde4b27"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "f06a3a6a"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1bf062a6"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1bf062a6"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1bf062a6"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1bf062a6"
+        }
+      ]
+    },
+    {
+      "title": "trend_5m_min",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "c8e9bb49"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "6af288f8"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "b042140a"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "e8b7a1f3"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "fa2ae483"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "fa2ae483"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "fa2ae483"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "fa2ae483"
+        }
+      ]
+    },
+    {
+      "title": "trend_1d_sum",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "7bc71ec2"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "61fb4d7e"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "7321c4d9"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1b89e4a6"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "5c27c024"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "5c27c024"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "5c27c024"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "5c27c024"
+        }
+      ]
+    },
+    {
+      "title": "trend_1h_sum",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "c8ee44fc"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "742eb6b1"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "15291de6"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "d2f19f8e"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "bfe9a4ad"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "bfe9a4ad"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "bfe9a4ad"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "bfe9a4ad"
+        }
+      ]
+    },
+    {
+      "title": "trend_15m_sum",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "20bb3e5b"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "6b81bfb3"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "aff59c56"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "01c3a9cf"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "d00f2a0f"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "d00f2a0f"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "d00f2a0f"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "d00f2a0f"
+        }
+      ]
+    },
+    {
+      "title": "trend_5m_sum",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "59f3de54"
+        },
+        {
+          "title": "Session_Manager_Max_CPU",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)\nDescription: Session Manager Max CPU (%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "dd5e273e"
+        },
+        {
+          "title": "Aggregate_CPU_Utilization_New",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpubusy%/%numcpu%)\nDescription: Aggregate CPU Utilization New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Aggregate_CPU_Utilization_New",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "36b8f211"
+        },
+        {
+          "title": "CPU_Memory_Usage_Aggregate_new",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%memused%)/(%memtotal%) * 100)\nDescription: CPU Memory Usage Aggregate New",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Memory_Usage_Aggregate_new",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "5b035492"
+        },
+        {
+          "title": "Session_Manager_Average_Memory_Utilization",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-avgmem%)\nDescription: Session Manager Average Memory Utilization",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Session_Manager_Max_CPU_NEW",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "39d9d8fe"
+        },
+        {
+          "title": "Session_Manager_Max_CPU_NEW",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%task-sessmgr-maxcpu%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "39d9d8fe"
+        },
+        {
+          "title": "CPU0_Load_Busy_Last_5_Minutes_Average",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-5avg-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "39d9d8fe"
+        },
+        {
+          "title": "CPU_Load_Busy",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: (%cpu0-cpubusy%)",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'card'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "CPU_Load_Busy",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "39d9d8fe"
+        }
+      ]
+    },
+    {
+      "title": "kpi_defs",
+      "show_filter": false,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "ae0bd781"
+        },
+        {
+          "widget_type": "label",
+          "label": "<div style='padding: 10px;height: 100%;overflow: auto;'><br/><details><summary>Session_Manager_Max_CPU</summary><table cellspacing=10 cellpadding=2 border=0><tr><td align='right'><b>Description</td><td align='left'>Session Manager Max CPU (%)</td></tr><tr><td align='right'><b>Formula</td><td align='left'><code>(%task-sessmgr-maxcpu%)</code></td></tr><tr><td align='right'><b>Variables</td><td align='left'><ol><li>%task-sessmgr-maxcpu% (Float / Gauge)</li></ol></td></tr></table></details><br/><details><summary>Aggregate_CPU_Utilization_New</summary><table cellspacing=10 cellpadding=2 border=0><tr><td align='right'><b>Description</td><td align='left'>Aggregate CPU Utilization New</td></tr><tr><td align='right'><b>Formula</td><td align='left'><code>(%cpubusy%/%numcpu%)</code></td></tr><tr><td align='right'><b>Variables</td><td align='left'><ol><li>%cpubusy% (Float / Gauge)</li><li>%numcpu% (Int32 / Gauge)</li></ol></td></tr></table></details><br/><details><summary>CPU_Memory_Usage_Aggregate_new</summary><table cellspacing=10 cellpadding=2 border=0><tr><td align='right'><b>Description</td><td align='left'>CPU Memory Usage Aggregate New</td></tr><tr><td align='right'><b>Formula</td><td align='left'><code>((%memused%)/(%memtotal%) * 100)</code></td></tr><tr><td align='right'><b>Variables</td><td align='left'><ol><li>%memused% (Int32 / Gauge)</li><li>%memtotal% (Int32 / Gauge)</li></ol></td></tr></table></details><br/><details><summary>Session_Manager_Average_Memory_Utilization</summary><table cellspacing=10 cellpadding=2 border=0><tr><td align='right'><b>Description</td><td align='left'>Session Manager Average Memory Utilization</td></tr><tr><td align='right'><b>Formula</td><td align='left'><code>(%task-sessmgr-avgmem%)</code></td></tr><tr><td align='right'><b>Variables</td><td align='left'><ol><li>%task-sessmgr-avgmem% (Float / Gauge)</li></ol></td></tr></table></details></div>",
+          "min_width": 12,
+          "max_width": 12,
+          "height": 14,
+          "widget_id": "29245033"
+        }
+      ]
+    },
+    {
+      "title": "data_report",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "tabular",
+          "title": "Device {{DEVICE}} card Data",
+          "extra_filter": "schema = 'card' and device = '{{DEVICE}}'",
+          "stream": "mobility_kpi_metrics_data",
+          "ts_column": "timestamp",
+          "min_width": 12,
+          "max_width": 12,
+          "height": 12,
+          "virtual_scrolling": true,
+          "showRowSummary": true,
+          "remote_searchable": true,
+          "remote_searchable_cols": [
+            "network_type",
+            "region",
+            "city",
+            "clli_code",
+            "device",
+            "instance_key",
+            "card"
+          ],
+          "columns": {
+            "network_type": "network_type",
+            "region": "region",
+            "city": "city",
+            "clli_code": "clli_code",
+            "device": "device",
+            "instance_key": "instance_key",
+            "timestamp": "timestamp",
+            "Session_Manager_Max_CPU": "Session_Manager_Max_CPU",
+            "Aggregate_CPU_Utilization_New": "Aggregate_CPU_Utilization_New",
+            "CPU_Memory_Usage_Aggregate_new": "CPU_Memory_Usage_Aggregate_new",
+            "Session_Manager_Average_Memory_Utilization": "Session_Manager_Average_Memory_Utilization"
+          },
+          "sorting": [
+            {
+              "timestamp": "desc"
+            }
+          ],
+          "widget_id": "c54d9467"
+        }
+      ]
+    },
+    {
+      "title": "pivot_report",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "tabular",
+          "title": "Device {{DEVICE}} card Pivot Report",
+          "extra_filter": "schema = 'card' and device = '{{DEVICE}}'",
+          "stream": "mobility_kpi_metrics_data",
+          "ts_column": "timestamp",
+          "min_width": 12,
+          "max_width": 12,
+          "height": 12,
+          "remote_searchable": true,
+          "showRowSummary": true,
+          "remote_searchable_cols": [
+            "device",
+            "instance_key"
+          ],
+          "columns": {
+            "device": "Device",
+            "instance_key": "Row Instance"
+          },
+          "pivot": {
+            "pivot_type": "advanced",
+            "group_by": [
+              "device",
+              "instance_key"
+            ],
+            "series": [
+              {
+                "column": "timestamp",
+                "agg": "min",
+                "type": "str",
+                "label": "Timestamp Begin"
+              },
+              {
+                "column": "timestamp",
+                "agg": "max",
+                "type": "str",
+                "label": "Timestamp End"
+              },
+              {
+                "column": "Session_Manager_Max_CPU",
+                "agg": "min",
+                "type": "int",
+                "label": "min_Session_Manager_Max_CPU"
+              },
+              {
+                "column": "Session_Manager_Max_CPU",
+                "agg": "avg",
+                "type": "int",
+                "label": "avg_Session_Manager_Max_CPU"
+              },
+              {
+                "column": "Session_Manager_Max_CPU",
+                "agg": "max",
+                "type": "int",
+                "label": "max_Session_Manager_Max_CPU"
+              },
+              {
+                "column": "Aggregate_CPU_Utilization_New",
+                "agg": "min",
+                "type": "int",
+                "label": "min_Aggregate_CPU_Utilization_New"
+              },
+              {
+                "column": "Aggregate_CPU_Utilization_New",
+                "agg": "avg",
+                "type": "int",
+                "label": "avg_Aggregate_CPU_Utilization_New"
+              },
+              {
+                "column": "Aggregate_CPU_Utilization_New",
+                "agg": "max",
+                "type": "int",
+                "label": "max_Aggregate_CPU_Utilization_New"
+              },
+              {
+                "column": "CPU_Memory_Usage_Aggregate_new",
+                "agg": "min",
+                "type": "int",
+                "label": "min_CPU_Memory_Usage_Aggregate_new"
+              },
+              {
+                "column": "CPU_Memory_Usage_Aggregate_new",
+                "agg": "avg",
+                "type": "int",
+                "label": "avg_CPU_Memory_Usage_Aggregate_new"
+              },
+              {
+                "column": "CPU_Memory_Usage_Aggregate_new",
+                "agg": "max",
+                "type": "int",
+                "label": "max_CPU_Memory_Usage_Aggregate_new"
+              },
+              {
+                "column": "Session_Manager_Average_Memory_Utilization",
+                "agg": "min",
+                "type": "int",
+                "label": "min_Session_Manager_Average_Memory_Utilization"
+              },
+              {
+                "column": "Session_Manager_Average_Memory_Utilization",
+                "agg": "avg",
+                "type": "int",
+                "label": "avg_Session_Manager_Average_Memory_Utilization"
+              },
+              {
+                "column": "Session_Manager_Average_Memory_Utilization",
+                "agg": "max",
+                "type": "int",
+                "label": "max_Session_Manager_Average_Memory_Utilization"
+              }
+            ]
+          },
+          "widget_id": "0532429c"
+        }
+      ]
+    }
+  ],
+  "navigation_dashboards": {
+    "Agg: Max": [
+      {
+        "section": "trend_1d_max",
+        "label": "1 Day Interval Trend"
+      },
+      {
+        "section": "trend_1h_max",
+        "label": "1 Hour Interval Trend"
+      },
+      {
+        "section": "trend_15m_max",
+        "label": "15Min Interval Trend"
+      },
+      {
+        "section": "trend_5m_max",
+        "label": "5Min Interval Trend"
+      }
+    ],
+    "Agg: Avg": [
+      {
+        "section": "trend_1d_avg",
+        "label": "1 Day Interval Trend"
+      },
+      {
+        "section": "trend_1h_avg",
+        "label": "1 Hour Interval Trend"
+      },
+      {
+        "section": "trend_15m_avg",
+        "label": "15Min Interval Trend"
+      },
+      {
+        "section": "trend_5m_avg",
+        "label": "5Min Interval Trend"
+      }
+    ],
+    "Agg: Min": [
+      {
+        "section": "trend_1d_min",
+        "label": "1 Day Interval Trend"
+      },
+      {
+        "section": "trend_1h_min",
+        "label": "1 Hour Interval Trend"
+      },
+      {
+        "section": "trend_15m_min",
+        "label": "15Min Interval Trend"
+      },
+      {
+        "section": "trend_5m_min",
+        "label": "5Min Interval Trend"
+      }
+    ],
+    "Agg: Sum": [
+      {
+        "section": "trend_1d_sum",
+        "label": "1 Day Interval Trend"
+      },
+      {
+        "section": "trend_1h_sum",
+        "label": "1 Hour Interval Trend"
+      },
+      {
+        "section": "trend_15m_min",
+        "label": "15Min Interval Trend"
+      },
+      {
+        "section": "trend_5m_sum",
+        "label": "5Min Interval Trend"
+      }
+    ],
+    "Data Model": [
+      {
+        "section": "kpi_defs",
+        "label": "KPI Definitions"
+      }
+    ],
+    "Data": [
+      {
+        "section": "data_report",
+        "label": "Data"
+      },
+      {
+        "section": "pivot_report",
+        "label": "Pivot Table"
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Autox_KPI_list_new",
+  "datastore_type": "OS",
+  "read_only": true,
+  "attrs": {
+    "source_dataset": "Autox_KPI_list_new",
+    "os_external": true
+  },
+  "status": "Read Only",
+  "index_name": "os-external-3f89175ce8104956a289bfef8427d152-stream-943108ce-autox_kpi_list_new-replace-f739f315"
+}

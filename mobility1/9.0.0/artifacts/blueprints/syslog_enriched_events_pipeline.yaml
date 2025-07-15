@@ -1,0 +1,21 @@
+name: syslog_enriched_events_pipeline
+id: syslog_enriched_events_pipeline
+version: 2024041201
+category: Syslog
+comment: Syslog Enrichment raising incident
+enabled: false
+type: Service
+provider: CloudFabrix Software, Inc.
+attrs: {}
+service_pipelines:
+    -   name: syslog_enriched_events_pipeline
+        label: syslog_enriched_events_pipeline
+        restart_on_pipeline_update: true
+        site: rda.*
+        version: '*'
+        site_type: regex
+        instances: 1
+        scaling_policy:
+            min_instances: 1
+            max_instances: 1
+saved_time: '2025-07-04T11:04:24.100806'

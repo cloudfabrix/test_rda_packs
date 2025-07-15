@@ -1,0 +1,1037 @@
+{
+    "name": "Storyboard-auto-x-mobility",
+    "label": "The 4G Mobility - Overview and Insights",
+    "description": "Storyboard that shows the 4G Mobility - Overview and Insights",
+    "version": "25.2.25",
+    "enabled": false,
+    "live_edit": true,
+    "use_storyboard": true,
+    "default_storyboard": "Mobility Overview",
+    "debug": true,
+    "dashboard_style": "auto",
+    "dashboard_type": "dashboard",
+    "dashboard_filters": {
+        "time_filter": true,
+        "default_time_filter_labels": [
+            "All Time"
+        ]
+    },
+    "dashboard_sections": [
+        {
+            "title": "Ingestion Stat Overview",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "widget_type": "label",
+                    "max_width": 12,
+                    "height": 0.5,
+                    "min_width": 12,
+                    "label": "<div style='text-align:center;width:100%;'><h1><a style='text-decoration:none;color:#0066ff;' target='_blank'>  4G Evolved Packet Core",
+                    "widget_id": "a2e0ffb4"
+                },
+                {
+                    "title": "Network Devices",
+                    "widget_type": "counter",
+                    "min_width": 12,
+                    "max_width": 12,
+                    "extra_filter": "network_type in ['Consumer','FirstNet','Enterprise']",
+                    "stream": "mobility_device_mappings",
+                    "ts_column": "device",
+                    "style": {
+                        "color-map": {
+                            "Consumer": "#388e3c",
+                            "FirstNet": "#8e24aa",
+                            "Enterprise": "#d32f2f"
+                        }
+                    },
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "total_counter": {
+                        "show": true,
+                        "label": "Total",
+                        "location": "right",
+                        "color": "#0096FF"
+                    },
+                    "column": "count_",
+                    "agg": "sum",
+                    "type": "int",
+                    "widget_id": "2cdc076a"
+                },
+                {
+                    "widget_type": "label",
+                    "max_width": 12,
+                    "height": 0.5,
+                    "min_width": 12,
+                    "label": "<div style='text-align:center;width:100%;'><h1><a style='text-decoration:none;color:#0066ff;' target='_blank'>  Top N KPI's",
+                    "widget_id": "ca007c09"
+                },
+                {
+                    "title": "System Active Sessions",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "System_Calls_Active(%sess-total-sessions%)",
+                    "ts_column": "timestamp",
+                    "extra_filter": "",
+                    "gap_interval": "join",
+                    "max_width": 6,
+                    "height": 6,
+                    "min_width": 6,
+                    "chartProperties": {
+                        "yAxisLabel": "Count",
+                        "xAxisLabel": null,
+                        "legendLocation": "bottom"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation": "compact"
+                    },
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "interval": "1h",
+                    "series_spec": [
+                        {
+                            "column": "System_Calls_Active",
+                            "agg": "avg",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "382077da"
+                },
+                {
+                    "title": "Aggregate Number of VoLTE Sessions",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "SAEGW_VoLTE_Active_Sessions(%pgw-subqosstat-bearact-qci5%)",
+                    "ts_column": "timestamp",
+                    "extra_filter": "network_type is not 'Enterprise'",
+                    "gap_interval": "join",
+                    "max_width": 6,
+                    "height": 6,
+                    "min_width": 6,
+                    "chartProperties": {
+                        "yAxisLabel": "Count",
+                        "xAxisLabel": null,
+                        "legendLocation": "bottom"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation": "compact"
+                    },
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "interval": "1h",
+                    "series_spec": [
+                        {
+                            "column": "SAEGW_VoLTE_Active_Sessions",
+                            "agg": "avg",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "91d176ce"
+                },
+                {
+                    "title": "Aggregate Number of Sessions",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "System_Calls_Active(%sess-curactcall%)",
+                    "ts_column": "timestamp",
+                    "extra_filter": "",
+                    "gap_interval": "join",
+                    "max_width": 6,
+                    "height": 6,
+                    "min_width": 6,
+                    "chartProperties": {
+                        "yAxisLabel": "Count",
+                        "xAxisLabel": null,
+                        "legendLocation": "bottom"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation": "compact"
+                    },
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "interval": "1h",
+                    "series_spec": [
+                        {
+                            "column": "System_Calls_Active",
+                            "agg": "avg",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "bdce5a7e"
+                },
+                {
+                    "title": "Credit Control Initial Success Rate",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "(100 * (%dpca-msg-ccainitacc% / %dpca-msg-ccrinit%))",
+                    "ts_column": "timestamp",
+                    "extra_filter": "IMSA_Credit_Control_Initial_Success_Rate > 50",
+                    "gap_interval": "join",
+                    "max_width": 6,
+                    "height": 8,
+                    "min_width": 6,
+                    "chartProperties": {
+                        "yAxisLabel": "Count",
+                        "xAxisLabel": null,
+                        "legendLocation": "bottom"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 0,
+                        "notation": "compact"
+                    },
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "interval": "1h",
+                    "series_spec": [
+                        {
+                            "column": "IMSA_Credit_Control_Initial_Success_Rate",
+                            "agg": "avg",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "cda4a281"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Top 5 Highest VoLTE  Sessions",
+                    "description": "SAEGW_VoLTE_Active_Sessions(%pgw-subqosstat-bearact-qci5%)",
+                    "duration_hours0": 24,
+                    "stream": "mobility_kpi_metrics_data",
+                    "ts_column": "timestamp",
+                    "extra_filter": null,
+                    "column": "SAEGW_VoLTE_Active_Sessions",
+                    "agg": "max",
+                    "group_by": [
+                        "device"
+                    ],
+                    "formatting": {
+                        "maximumFractionDigits": 0,
+                        "notation": "compact"
+                    },
+                    "top_n": 5,
+                    "type": "int",
+                    "min_width": 6,
+                    "height": 6,
+                    "max_width": 6,
+                    "widget_id": "29c372c5"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Top 5 Highest Sessions",
+                    "description": "System_Calls_Active(%sess-curactcall%)",
+                    "duration_hours0": 24,
+                    "stream": "mobility_kpi_metrics_data",
+                    "ts_column": "timestamp",
+                    "extra_filter": null,
+                    "column": "System_Calls_Active",
+                    "agg": "max",
+                    "group_by": [
+                        "device"
+                    ],
+                    "formatting": {
+                        "maximumFractionDigits": 0,
+                        "notation": "compact"
+                    },
+                    "top_n": 5,
+                    "type": "int",
+                    "min_width": 6,
+                    "height": 6,
+                    "max_width": 6,
+                    "widget_id": "83beaf9b"
+                },
+                {
+                    "title": "Aggregate Throughput",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "SYSTEM_Throughput_Mbps((8*(%sess-txbytes%+%sess-rxbytes%))/(INTERVAL*60)/1000/1000)",
+                    "ts_column": "timestamp",
+                    "extra_filter": "",
+                    "gap_interval": "join",
+                    "max_width": 6,
+                    "height": 6,
+                    "min_width": 6,
+                    "chartProperties": {
+                        "yAxisLabel": "Mbps",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "mode_0": "selection",
+                        "column-id": "timestamp"
+                    },
+                    "group_by0": [
+                        "network_type"
+                    ],
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation0": "compact"
+                    },
+                    "interval": "1h",
+                    "series_spec": [
+                        {
+                            "column": "SYSTEM_Throughput_Mbps",
+                            "agg": "avg",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "3e9606cc"
+                },
+                {
+                    "widget_type": "bar_chart",
+                    "title": "Top 5 Highest Throughput",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "SYSTEM_Throughput_Mbps((8*(%sess-txbytes%+%sess-rxbytes%))/(INTERVAL*60)/1000/1000)",
+                    "extra_filter": "device is not 'BOTHWANZ12G'",
+                    "chartProperties": {
+                        "orientation": "vertical"
+                    },
+                    "formatting0": {
+                        "notation": "compact"
+                    },
+                    "group_by": [
+                        "device"
+                    ],
+                    "ts_column": "timestamp",
+                    "top_n": 5,
+                    "column": "SYSTEM_Throughput_Mbps",
+                    "agg": "avg",
+                    "type": "int",
+                    "widget_id": "786ae9c3"
+                },
+                {
+                    "title": "Top 5 Session Memory Utilization",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "Session_Manager_Average_Memory_Utilization(%task-sessmgr-avgmem%)",
+                    "ts_column": "timestamp",
+                    "gap_interval": "join",
+                    "max_width": 6,
+                    "height": 6,
+                    "min_width": 6,
+                    "chartProperties": {
+                        "yAxisLabel": "Count",
+                        "xAxisLabel": null,
+                        "legendLocation": "right"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 0,
+                        "notation": "compact"
+                    },
+                    "group_by": [
+                        "device"
+                    ],
+                    "group_selection": {
+                        "column": "Session_Manager_Average_Memory_Utilization",
+                        "agg": "avg",
+                        "limit": 5,
+                        "orderby": "desc"
+                    },
+                    "interval": "1h",
+                    "series_spec": [
+                        {
+                            "column": "Session_Manager_Average_Memory_Utilization",
+                            "agg": "avg",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "0bfdaf8f"
+                },
+                {
+                    "title": "Top 5 Lowest IMS Gx CCR-U Success Rate",
+                    "widget_type": "tabular",
+                    "description": "(100 * ((%dpca-msg-ccaupd% - %dpca-msg-ccaupderror%) / %dpca-msg-ccrupd%) )",
+                    "stream": "mobility_kpi_metrics_data",
+                    "ts_column": "timestamp",
+                    "interval_type": "day",
+                    "extra_filter": "IMSA_Credit_control_Update_Success_Rate >= 90 and schema is 'imsa' and servname is 'Gx'",
+                    "min_width": 6,
+                    "height": 8,
+                    "max_width": 6,
+                    "limit": 5,
+                    "agg_size0": 3,
+                    "resizableColumns": true,
+                    "paginated": true,
+                    "pivot": {
+                        "pivot_type": "advanced",
+                        "group_by": [
+                            "device",
+                            "ip_address"
+                        ],
+                        "series": [
+                            {
+                                "column": "IMSA_Credit_control_Update_Success_Rate",
+                                "agg": "min",
+                                "type": "int",
+                                "label": "Success Rate"
+                            }
+                        ],
+                        "agg_sort_order": "asc"
+                    },
+                    "formatting": {
+                        "notation": "compact"
+                    },
+                    "columns": {
+                        "device": "Device",
+                        "ip_address": "IPAddress"
+                    },
+                    "widget_id": "faad0c11"
+                },
+                {
+                    "title": "Top 5 Lowest IMS Gx CCR-I Success Rate",
+                    "widget_type": "tabular",
+                    "description": "(100 * (%dpca-msg-ccainitacc% / %dpca-msg-ccrinit%))",
+                    "stream": "mobility_kpi_metrics_data",
+                    "ts_column": "timestamp",
+                    "interval_type": "day",
+                    "extra_filter": " IMSA_Credit_Control_Initial_Success_Rate >= 90 and schema is 'imsa' and servname is 'Gx'",
+                    "min_width": 6,
+                    "height": 8,
+                    "max_width": 6,
+                    "top_n": 10,
+                    "max_rows": 10,
+                    "resizableColumns": true,
+                    "paginated": true,
+                    "pivot": {
+                        "pivot_type": "advanced",
+                        "group_by": [
+                            "device",
+                            "ip_address"
+                        ],
+                        "series": [
+                            {
+                                "column": "IMSA_Credit_Control_Initial_Success_Rate",
+                                "agg": "min",
+                                "type": "int",
+                                "label": "Success Rate"
+                            }
+                        ],
+                        "agg_sort_order": "asc"
+                    },
+                    "formatting": {
+                        "notation": "compact"
+                    },
+                    "columns": {
+                        "device": "Device",
+                        "ip_address": "IPAddress"
+                    },
+                    "widget_id": "7567440c"
+                },
+                {
+                    "title": "Top 5 Lowest IMS Gx RAR Success Rate",
+                    "widget_type": "tabular",
+                    "description": "((%dpca-imsa-raa-msg-success%/%dpca-msg-rar%)*100)",
+                    "stream": "mobility_kpi_metrics_data",
+                    "ts_column": "timestamp",
+                    "interval_type": "day",
+                    "extra_filter": "Gx_RAR_Success_Rate >= 90  and schema is 'imsa' and servname is 'Gx'",
+                    "min_width": 6,
+                    "height": 8,
+                    "max_width": 6,
+                    "max_rows": 10,
+                    "resizableColumns": true,
+                    "paginated": true,
+                    "pivot": {
+                        "pivot_type": "advanced",
+                        "group_by": [
+                            "device",
+                            "ip_address"
+                        ],
+                        "series": [
+                            {
+                                "column": "Gx_RAR_Success_Rate",
+                                "agg": "min",
+                                "type": "int",
+                                "label": "Success Rate"
+                            }
+                        ],
+                        "agg_sort_order": "asc"
+                    },
+                    "formatting": {
+                        "notation": "compact"
+                    },
+                    "columns": {
+                        "device": "Device",
+                        "ip_address": "IPAddress"
+                    },
+                    "widget_id": "2492083e"
+                },
+                {
+                    "widget_type": "label",
+                    "max_width": 12,
+                    "height": 0.5,
+                    "min_width": 12,
+                    "label": "<div style='text-align:center;width:100%;'><h1><a style='text-decoration:none;color:#0066ff;' target='_blank'>  Incidents",
+                    "widget_id": "ece65d00"
+                },
+                {
+                    "widget_type": "counter",
+                    "title": "By State",
+                    "stream": "oia-incidents-stream",
+                    "limit": 10,
+                    "ts_column": "i_updated_ts",
+                    "column": "count_",
+                    "max_width": 6,
+                    "extra_filter": "i_state does not contains 'cancelled' AND network_type in ['FirstNet','Consumer','Enterprise']",
+                    "height": 4,
+                    "min_width": 4,
+                    "agg": "sum",
+                    "group_by": [
+                        "i_state"
+                    ],
+                    "style": {
+                        "color-map": {
+                            "Resolved": [
+                                "#4CAF50",
+                                "#ffffff"
+                            ],
+                            "Assigned": [
+                                "#FFA726",
+                                "#ffffff"
+                            ],
+                            "Open": [
+                                "#B71C1C",
+                                "#ffffff"
+                            ]
+                        }
+                    },
+                    "total_counter": {
+                        "show": true,
+                        "label": "Count",
+                        "location": "right",
+                        "color": "#0096FF"
+                    },
+                    "type": "int",
+                    "widget_id": "c9ac6704"
+                },
+                {
+                    "title": "By State",
+                    "widget_type1": "counter",
+                    "max_width": 8,
+                    "height": 4,
+                    "limit": 10,
+                    "min_width": 3,
+                    "stream": "oia-incidents-stream",
+                    "extra_filter": "i_state does not contains 'cancelled'  AND network_type in ['FirstNet','Consumer','Enterprise']",
+                    "ts_column": "i_up",
+                    "style": {
+                        "color-map": {
+                            "Resolved": "#4CAF50",
+                            "Assigned": "#FFA726",
+                            "Open": "#B71C1C",
+                            "On Hold": "#FFA726",
+                            "Cancelled": "#4CAF50",
+                            "Closed": "#4CAF50"
+                        }
+                    },
+                    "group_by": [
+                        "i_state"
+                    ],
+                    "total_counter": {
+                        "show": true,
+                        "label": "Count",
+                        "location": "right",
+                        "color": "#0096FF"
+                    },
+                    "column": "count_",
+                    "agg": "sum",
+                    "type": "int",
+                    "widget_id": "07d1327a"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "By Network",
+                    "duration_hours": 1080,
+                    "stream": "oia-incidents-stream",
+                    "ts_column": "timestamp",
+                    "extra_filter": "i_state does not contains 'cancelled'  AND network_type in ['FirstNet','Consumer','Enterprise']",
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "type": "int",
+                    "max_width": 8,
+                    "height": 4,
+                    "min_width": 3,
+                    "widget_id": "567ba2bd"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "FirstNet",
+                    "duration_hours": 1080,
+                    "stream": "oia-incidents-stream",
+                    "ts_column": "timestamp",
+                    "extra_filter": "network_type is 'FirstNet' and i_state does not contains 'cancelled'",
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "i_state"
+                    ],
+                    "type": "int",
+                    "max_width": 6,
+                    "height": 4,
+                    "min_width": 3,
+                    "widget_id": "5d3b7166"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Consumer",
+                    "duration_hours": 1080,
+                    "stream": "oia-incidents-stream",
+                    "ts_column": "timestamp",
+                    "extra_filter": "network_type is 'Consumer' and i_state does not contains 'cancelled'",
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "i_state"
+                    ],
+                    "type": "int",
+                    "max_width": 6,
+                    "height": 4,
+                    "min_width": 3,
+                    "widget_id": "c0ba6813"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Enterprise",
+                    "duration_hours": 1080,
+                    "stream": "oia-incidents-stream",
+                    "ts_column": "timestamp",
+                    "extra_filter": "network_type is 'Enterprise' and i_state does not contains 'cancelled'",
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "i_state"
+                    ],
+                    "type": "int",
+                    "max_width": 6,
+                    "height": 4,
+                    "min_width": 3,
+                    "widget_id": "9d4fa867"
+                },
+                {
+                    "widget_type": "label",
+                    "max_width": 12,
+                    "height": 0.5,
+                    "min_width": 12,
+                    "label": "<div style='text-align:center;width:100%;'><h1><a style='text-decoration:none;color:#0066ff;' target='_blank'>  Ingestion Stats",
+                    "widget_id": "79724668"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Bulkstats",
+                    "duration_hours": 1080,
+                    "stream": "mobility_file_system_tracker",
+                    "ts_column": "timestamp",
+                    "extra_filter": null,
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "type": "int",
+                    "min_width": 3,
+                    "height": 4,
+                    "max_width": 6,
+                    "widget_id": "55e0de96"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Syslogs",
+                    "duration_hours": 1080,
+                    "stream": "syslog_enriched_events",
+                    "ts_column": "rda_gw_timestamp",
+                    "extra_filter": null,
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "type": "int",
+                    "min_width": 3,
+                    "height": 4,
+                    "max_width": 6,
+                    "widget_id": "fa65de3c"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "SNMP Traps",
+                    "duration_hours": 1080,
+                    "stream": "snmp_trap_enriched_events_stream",
+                    "ts_column": "rda_gw_timestamp",
+                    "extra_filter": null,
+                    "column": "count_",
+                    "style": {
+                        "color-map": {
+                            "ERROR": "#EF5350",
+                            "NOTICE": "#4DD0E1",
+                            "EMERGENCY": "#B71C1C",
+                            "INFORMATIONAL": "#03A9F4",
+                            "WARNING": "#FFD54F",
+                            "ALERT": "#FFA726",
+                            "CRITICAL": "#E53935",
+                            "DEBUG": "#BCAAA4"
+                        }
+                    },
+                    "agg": "sum",
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "type": "int",
+                    "min_width": 3,
+                    "height": 4,
+                    "max_width": 6,
+                    "widget_id": "73436249"
+                }
+            ]
+        },
+        {
+            "title": "Metrics Insights",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "title": "Devices",
+                    "widget_type": "custom_counter",
+                    "formatter": "DescriptiveCountFormatter",
+                    "stream": "ml-bulkstats-correlated-devices-per-group",
+                    "ts_column": "timestamp",
+                    "duration_hours": 1000,
+                    "min_width": 3,
+                    "max_width": 4,
+                    "height": 3,
+                    "column": "device",
+                    "agg": "cardinality",
+                    "type": "int",
+                    "widget_id": "02be1e20"
+                },
+                {
+                    "title": "KPIs",
+                    "widget_type": "custom_counter",
+                    "formatter": "DescriptiveCountFormatter",
+                    "stream": "ml-bulkstats-correlated-devices-per-group",
+                    "ts_column": "timestamp",
+                    "duration_hours": 1000,
+                    "min_width": 3,
+                    "max_width": 4,
+                    "height": 3,
+                    "column": "KPI_Name",
+                    "agg": "cardinality",
+                    "type": "int",
+                    "widget_id": "68f7438e"
+                },
+                {
+                    "title": "Instance Keys",
+                    "widget_type": "custom_counter",
+                    "formatter": "DescriptiveCountFormatter",
+                    "stream": "ml-bulkstats-correlated-devices-per-group",
+                    "ts_column": "timestamp",
+                    "duration_hours": 1000,
+                    "max_width": 3,
+                    "min_width": 4,
+                    "column": "instance_key",
+                    "agg": "cardinality",
+                    "type": "int",
+                    "widget_id": "4fce29d7"
+                },
+                {
+                    "title": "Devices with Increasing Trend",
+                    "widget_type": "counter",
+                    "formatter": "DescriptiveCountFormatter",
+                    "extra_filter": "overall_trend is 'Increasing'",
+                    "stream": "ml-bulkstats-correlated-devices-per-group",
+                    "ts_column": "timestamp",
+                    "group_by": [
+                        "KPI_Name",
+                        "instance_key"
+                    ],
+                    "min_width": 4,
+                    "max_width": 6,
+                    "height": 4,
+                    "duration_hours": 1000,
+                    "column": "device",
+                    "agg": "cardinality",
+                    "type": "int",
+                    "widget_id": "34e55fc4"
+                },
+                {
+                    "title": "Devices with Decreasing Trend",
+                    "widget_type": "counter",
+                    "formatter": "DescriptiveCountFormatter",
+                    "extra_filter": "overall_trend is 'Decreasing'",
+                    "stream": "ml-bulkstats-correlated-devices-per-group",
+                    "ts_column": "timestamp",
+                    "group_by": [
+                        "KPI_Name",
+                        "instance_key"
+                    ],
+                    "min_width": 4,
+                    "max_width": 6,
+                    "height": 4,
+                    "duration_hours": 1000,
+                    "column": "device",
+                    "agg": "cardinality",
+                    "type": "int",
+                    "widget_id": "986e1b6e"
+                },
+                {
+                    "title": "Anomalies by Device",
+                    "widget_type": "multi_bar_chart",
+                    "stream": "ml-bulkstats-correlated-devices-per-group",
+                    "min_width": 6,
+                    "max_width": 6,
+                    "height": 6,
+                    "ts_column": "timestamp",
+                    "chartProperties": {
+                        "yAxisLabel": "Anomalies Count",
+                        "xAxisLabel": "Device",
+                        "stacked": false,
+                        "legendLocation": "none",
+                        "orientation": "vertical"
+                    },
+                    "duration_hours": 10000,
+                    "group_by": [
+                        "KPI_Name",
+                        "device"
+                    ],
+                    "others_spec": {
+                        "limit": 5,
+                        "show_others": false
+                    },
+                    "column": "anomalies_count",
+                    "agg": "sum",
+                    "type": "int",
+                    "widget_id": "f4786acb"
+                },
+                {
+                    "title": "Overall Accuracy",
+                    "widget_type": "multi_bar_chart",
+                    "stream": "ml-bulkstats-correlated-devices-per-group",
+                    "min_width": 6,
+                    "max_width": 6,
+                    "height": 6,
+                    "ts_column": "timestamp",
+                    "chartProperties": {
+                        "yAxisLabel": "Accuracy",
+                        "xAxisLabel": "Device",
+                        "stacked": false,
+                        "legendLocation": "none",
+                        "orientation": "vertical"
+                    },
+                    "duration_hours": 10000,
+                    "group_by": [
+                        "KPI_Name",
+                        "device"
+                    ],
+                    "others_spec": {
+                        "limit": 5,
+                        "show_others": false
+                    },
+                    "column": "accuracy",
+                    "agg": "avg",
+                    "type": "float",
+                    "widget_id": "b51e9508"
+                },
+                {
+                    "title": "Summary",
+                    "widget_type": "tabular",
+                    "stream": "ml-bulkstats-correlated-devices-per-group",
+                    "min_width": 12,
+                    "height": 8,
+                    "max_width": 12,
+                    "ts_column": "timestamp",
+                    "resizableColumns": true,
+                    "paginated": true,
+                    "duration_hours": 1000,
+                    "remote_searchable": true,
+                    "remote_searchable_cols": [
+                        "device",
+                        "instance_key",
+                        "KPI_Name"
+                    ],
+                    "columns": {
+                        "id": {
+                            "title": "ID",
+                            "type": "FIXED_VALUE",
+                            "value": "user-dashboard-bulkstats_regression_dashboard",
+                            "key": true,
+                            "hidden": true
+                        },
+                        "instance_key": {
+                            "title": "Instance Key",
+                            "key": true,
+                            "visible": true
+                        },
+                        "schema": {
+                            "title": "Schema",
+                            "key": true,
+                            "visible": true
+                        },
+                        "device": {
+                            "title": "Device",
+                            "key": true
+                        },
+                        "KPI_Name": {
+                            "title": "KPI",
+                            "visible": true,
+                            "key": true
+                        },
+                        "group_label": {
+                            "title": "Correlation Group",
+                            "hidden": true
+                        },
+                        "group": {
+                            "title": "Correlation Group",
+                            "key": true,
+                            "hidden": true
+                        },
+                        "model_name": {
+                            "title": "Model Name",
+                            "key": true,
+                            "visible": false
+                        },
+                        "seasonality": "Seasonality",
+                        "overall_trend": "Overall Trend",
+                        "accuracy": "Accuracy (%)",
+                        "anomalies_percent": "Anomalies (%)"
+                    },
+                    "actions": [
+                        {
+                            "appName": "user-dashboard",
+                            "permission": "ml:ml-jobs:viewSampledata",
+                            "identifier": "ViewRegressionDashboard",
+                            "selectionType": "SINGLE",
+                            "stateName": "app.featureapp",
+                            "drillDownLinkField": "device",
+                            "title": "View Regression Dashboard",
+                            "type": "GO_TO_APP_STATE"
+                        }
+                    ],
+                    "widget_id": "3d7466a3"
+                }
+            ]
+        },
+        {
+            "title": "Bulkstats Variables",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Schema",
+                    "duration_hours": 1080,
+                    "stream": "bulkstats_variables",
+                    "ts_column": "timestamp",
+                    "extra_filter": null,
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "schema"
+                    ],
+                    "type": "int",
+                    "min_width": 3,
+                    "height": 4,
+                    "max_width": 6,
+                    "widget_id": "2bbaf109"
+                },
+                {
+                    "widget_type": "bar_chart",
+                    "title": "Schema",
+                    "duration_hours": 1080,
+                    "stream": "mobility_new_kpi_list",
+                    "ts_column": "timestamp",
+                    "extra_filter": null,
+                    "column": "count_",
+                    "limit": 20,
+                    "agg": "sum",
+                    "group_by": [
+                        "schema"
+                    ],
+                    "type": "int",
+                    "min_width": 4,
+                    "height": 5,
+                    "chartProperties": {
+                        "yAxisLabel": null,
+                        "xAxisLabel": null,
+                        "stacked": true,
+                        "legendLocation": "none",
+                        "orientation": "horizontal"
+                    },
+                    "max_width": 12,
+                    "widget_id": "45124d37"
+                }
+            ]
+        },
+        {
+            "title": "Ingestion Tracker",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Ingestion by Device",
+                    "duration_hours": 1080,
+                    "stream": "mobility_file_system_tracker",
+                    "ts_column": "timestamp",
+                    "extra_filter": null,
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "device"
+                    ],
+                    "type": "int",
+                    "min_width": 3,
+                    "height": 4,
+                    "max_width": 6,
+                    "widget_id": "48d9c52c"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Ingestion by KPI Status",
+                    "duration_hours": 1080,
+                    "stream": "mobility_file_system_tracker",
+                    "ts_column": "timestamp",
+                    "extra_filter": null,
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "kpi_status"
+                    ],
+                    "style": {
+                        "color-map": {
+                            "SUCCESS": [
+                                "#00BB00",
+                                "#ffffff"
+                            ],
+                            "SKIPPED": [
+                                "#BB0000",
+                                "#ffffff"
+                            ],
+                            "LAST_PROCESSED": [
+                                "#FF5722",
+                                "#ffffff"
+                            ]
+                        }
+                    },
+                    "type": "int",
+                    "min_width": 3,
+                    "height": 4,
+                    "max_width": 6,
+                    "widget_id": "5cb5e9f8"
+                }
+            ]
+        }
+    ],
+    "storyboards": [
+        {
+            "name": "Mobility Overview",
+            "value": "{\n    \"stage\": {\n        \"size\": {\n            \"width\": 1920,\n            \"height\": 1080\n        },\n        \"background\": {\n            \"fill\": null,\n            \"src\": \"/assets/img/backgrounds/bgr_5.png\",\n            \"gradient\": null\n        },\n        \"theme\": null,\n        \"autoFitByDefault\": true\n    },\n    \"widgets\": [\n        {\n            \"widget_id\": \"2cdc076a\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 634,\n                \"height\": 130,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#CCCCCC\",\n                \"opacity\": 1,\n                \"name\": \"widget-33\",\n                \"draggable\": true,\n                \"x\": 159,\n                \"y\": 63,\n                \"id\": \"cfx-bda055c9-349f-44c6-d586-0bb5a0e2eed1\"\n            }\n        },\n        {\n            \"widget_id\": \"a2e0ffb4\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 577,\n                \"height\": 43,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#FFFFFF00\",\n                \"opacity\": 1,\n                \"name\": \"widget-34\",\n                \"draggable\": true,\n                \"x\": 186,\n                \"y\": 16,\n                \"id\": \"cfx-0c0555d4-3b47-4a91-d59e-553559784e02\"\n            }\n        },\n        {\n            \"widget_id\": \"382077da\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 163.36,\n                \"height\": 147.87,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#FFFFFF00\",\n                \"opacity\": 1,\n                \"name\": \"widget-35\",\n                \"draggable\": true,\n                \"x\": 145,\n                \"y\": 208,\n                \"id\": \"cfx-9aa742aa-f0f3-4a7f-a19d-6de3d148c04d\",\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"91d176ce\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 164.26,\n                \"height\": 140.87,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#FFFFFF00\",\n                \"opacity\": 1,\n                \"name\": \"widget-36\",\n                \"draggable\": true,\n                \"x\": 320,\n                \"y\": 211,\n                \"id\": \"cfx-b43c9d5a-741f-4c6c-b1b3-293420f2a5e8\",\n                \"offsetX\": 0,\n                \"offsetY\": 0,\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"bdce5a7e\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 184.48,\n                \"height\": 147.54,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#FFFFFF00\",\n                \"opacity\": 1,\n                \"name\": \"widget-37\",\n                \"draggable\": true,\n                \"x\": 495.96,\n                \"y\": 208,\n                \"id\": \"cfx-1781bcde-be2f-4edf-9dc4-af2b30059bc6\",\n                \"offsetX\": 0,\n                \"offsetY\": 0,\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"cda4a281\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 183.26,\n                \"height\": 142.41,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#FFFFFF00\",\n                \"opacity\": 1,\n                \"name\": \"widget-38\",\n                \"draggable\": true,\n                \"x\": 687,\n                \"y\": 385,\n                \"id\": \"cfx-9997adc3-cf30-4449-d038-b6ba3608f6f8\",\n                \"offsetX\": 0,\n                \"offsetY\": 0,\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"3e9606cc\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 180.14,\n                \"height\": 146.1,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#FFFFFF00\",\n                \"opacity\": 1,\n                \"name\": \"widget-39\",\n                \"draggable\": true,\n                \"x\": 688,\n                \"y\": 210,\n                \"id\": \"cfx-857a58f9-da98-4683-ff41-939cb595c42b\",\n                \"offsetX\": 0,\n                \"offsetY\": 0,\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"29c372c5\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 160.85,\n                \"height\": 142.16,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#FFFFFF00\",\n                \"opacity\": 1,\n                \"name\": \"widget-40\",\n                \"draggable\": true,\n                \"x\": 140.4,\n                \"y\": 386,\n                \"id\": \"cfx-69ae7217-f55c-4fac-d9f3-c3cd46a18c1e\",\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"83beaf9b\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 174.27,\n                \"height\": 140.53,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#FFFFFF00\",\n                \"opacity\": 1,\n                \"name\": \"widget-41\",\n                \"draggable\": true,\n                \"x\": 311.4,\n                \"y\": 386,\n                \"id\": \"cfx-1b18e157-4074-4e4d-d3bf-53fd808af1f8\",\n                \"offsetX\": 0,\n                \"offsetY\": 0,\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"786ae9c3\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 179.56,\n                \"height\": 139.39,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#FFFFFF00\",\n                \"opacity\": 1,\n                \"name\": \"widget-42\",\n                \"draggable\": true,\n                \"x\": 495.4,\n                \"y\": 386,\n                \"id\": \"cfx-b599787f-f3b7-49f0-c77b-9b8ed3da92be\",\n                \"offsetX\": 0,\n                \"offsetY\": 0,\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"567ba2bd\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 171.12,\n                \"height\": 199.66,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#fafafa33\",\n                \"opacity\": 1,\n                \"name\": \"widget-43\",\n                \"draggable\": true,\n                \"x\": 144,\n                \"y\": 572,\n                \"id\": \"cfx-a5001633-df0f-43a3-f431-e7ca68a88d4b\",\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"5d3b7166\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 162.81,\n                \"height\": 197.4,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#fafafa33\",\n                \"opacity\": 1,\n                \"name\": \"widget-44\",\n                \"draggable\": true,\n                \"x\": 322,\n                \"y\": 572,\n                \"id\": \"cfx-f6667763-f93d-4790-f160-2d2a68953140\",\n                \"offsetX\": 0,\n                \"offsetY\": 0,\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"c0ba6813\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 202.04,\n                \"height\": 196.18,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#fafafa33\",\n                \"opacity\": 1,\n                \"name\": \"widget-45\",\n                \"draggable\": true,\n                \"x\": 490,\n                \"y\": 575.2,\n                \"id\": \"cfx-83e203f7-dd95-411f-f372-80eb9766119f\",\n                \"offsetX\": 0,\n                \"offsetY\": 0,\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"9d4fa867\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 179.13,\n                \"height\": 197.31,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#fafafa33\",\n                \"opacity\": 1,\n                \"name\": \"widget-46\",\n                \"draggable\": true,\n                \"x\": 700,\n                \"y\": 573.6,\n                \"id\": \"cfx-fae0ff0c-e071-4c4d-d2b9-485a0dd7dc2b\",\n                \"offsetX\": 0,\n                \"offsetY\": 0,\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"55e0de96\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 232.88,\n                \"height\": 212.6,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#CCCCCC\",\n                \"opacity\": 1,\n                \"name\": \"widget-47\",\n                \"draggable\": true,\n                \"x\": 153,\n                \"y\": 826,\n                \"id\": \"cfx-69b673f5-765f-4e74-ab21-33050d3b0a69\",\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"fa65de3c\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 230.3,\n                \"height\": 217.82,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#CCCCCC\",\n                \"opacity\": 1,\n                \"name\": \"widget-48\",\n                \"draggable\": true,\n                \"x\": 399,\n                \"y\": 824.8,\n                \"id\": \"cfx-5fbcd4a7-2413-40da-b693-fc947eedb48b\",\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"73436249\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 223.41,\n                \"height\": 221.92,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#CCCCCC\",\n                \"opacity\": 1,\n                \"name\": \"widget-49\",\n                \"draggable\": true,\n                \"x\": 644,\n                \"y\": 825.2,\n                \"id\": \"cfx-244edf6d-edca-4118-cb08-df90fec9599c\",\n                \"offsetX\": 0,\n                \"offsetY\": 0,\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"02be1e20\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 199.8,\n                \"height\": 171.26,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#CCCCCC\",\n                \"opacity\": 1,\n                \"name\": \"widget-50\",\n                \"draggable\": true,\n                \"x\": 1027,\n                \"y\": 83,\n                \"id\": \"cfx-5b46ef9f-33e5-4845-a396-cfbc0da21cc4\"\n            }\n        },\n        {\n            \"widget_id\": \"68f7438e\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 185.63,\n                \"height\": 169.82,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#CCCCCC\",\n                \"opacity\": 1,\n                \"name\": \"widget-51\",\n                \"draggable\": true,\n                \"x\": 1248.4,\n                \"y\": 85,\n                \"id\": \"cfx-5c50c088-959a-41ef-8487-f7e714a9b195\"\n            }\n        },\n        {\n            \"widget_id\": \"4fce29d7\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 180.1,\n                \"height\": 169.8,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#CCCCCC\",\n                \"opacity\": 1,\n                \"name\": \"widget-52\",\n                \"draggable\": true,\n                \"x\": 1452.4,\n                \"y\": 84,\n                \"id\": \"cfx-a2f623dc-b728-42a7-92e6-68570562a681\"\n            }\n        },\n        {\n            \"widget_id\": \"34e55fc4\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 995,\n                \"height\": 132,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#CCCCCC\",\n                \"opacity\": 1,\n                \"name\": \"widget-53\",\n                \"draggable\": true,\n                \"x\": 916.4,\n                \"y\": 302,\n                \"id\": \"cfx-78cd5c47-0ff8-426a-9365-68debb48bcff\",\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"986e1b6e\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 996,\n                \"height\": 123,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#CCCCCC\",\n                \"opacity\": 1,\n                \"name\": \"widget-54\",\n                \"draggable\": true,\n                \"x\": 914,\n                \"y\": 495,\n                \"id\": \"cfx-6790ad44-6878-4fc7-c757-fcfb13f133b7\",\n                \"skewX\": 0,\n                \"skewY\": 0\n            }\n        },\n        {\n            \"widget_id\": \"f4786acb\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 485,\n                \"height\": 300,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#FFFFFF00\",\n                \"opacity\": 1,\n                \"name\": \"widget-55\",\n                \"draggable\": true,\n                \"x\": 923,\n                \"y\": 681.2,\n                \"id\": \"cfx-f705ce89-aaa5-4e15-a8a3-89f78944e397\"\n            }\n        },\n        {\n            \"widget_id\": \"b51e9508\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 469,\n                \"height\": 294,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#FFFFFF00\",\n                \"opacity\": 1,\n                \"name\": \"widget-56\",\n                \"draggable\": true,\n                \"x\": 1423.4,\n                \"y\": 688.2,\n                \"id\": \"cfx-382929ae-e7d9-4776-a5d3-63d58c5916ca\"\n            }\n        }\n    ],\n    \"shapes\": [\n        {\n            \"fill\": \"#CCCCCC\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-0\",\n            \"text\": \"Network Devices\",\n            \"align\": \"center\",\n            \"fontSize\": 23,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": -16,\n            \"y\": 97,\n            \"id\": \"cfx-40194f56-ae08-4470-97e7-d0dd173f06bf\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 166.73,\n            \"height\": 69.31\n        },\n        {\n            \"compType\": \"vArrow\",\n            \"rotation\": 0,\n            \"x\": 121,\n            \"y\": 146,\n            \"points\": [\n                31,\n                -22,\n                -4,\n                -21\n            ],\n            \"width\": 100,\n            \"height\": 100,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"strokeWidth\": 4,\n            \"stroke\": \"#1976D2\",\n            \"name\": \"shape-1\",\n            \"draggable\": true,\n            \"pointerAtBeginning\": true,\n            \"pointerAtEnding\": false,\n            \"id\": \"cfx-cd1474e2-403b-4dc2-b80b-fc17af0d7743\",\n            \"dashEnabled\": true,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0\n        },\n        {\n            \"fill\": \"#CCCCCC\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-2\",\n            \"text\": \"Top N KPI's\",\n            \"align\": \"center\",\n            \"fontSize\": 23,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": -10,\n            \"y\": 380,\n            \"id\": \"cfx-ada24afb-8f6a-44fe-9b4c-9fd7cf455cf1\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 116.59,\n            \"height\": 55\n        },\n        {\n            \"compType\": \"vArrow\",\n            \"rotation\": 0,\n            \"x\": 160,\n            \"y\": 289,\n            \"points\": [\n                -32,\n                112,\n                -71,\n                113\n            ],\n            \"width\": 100,\n            \"height\": 100,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"strokeWidth\": 4,\n            \"stroke\": \"#1976D2\",\n            \"name\": \"shape-3\",\n            \"draggable\": true,\n            \"pointerAtBeginning\": true,\n            \"pointerAtEnding\": false,\n            \"id\": \"cfx-cd1474e2-403b-4dc2-b80b-fc17af0d7743\",\n            \"dashEnabled\": true,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0\n        },\n        {\n            \"compType\": \"vRect\",\n            \"rotation\": 0,\n            \"width\": 746.13,\n            \"height\": 350.13,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"fill\": \"#FFFFFF00\",\n            \"name\": \"shape-4\",\n            \"cornerRadius\": 10,\n            \"draggable\": true,\n            \"x\": 132.68,\n            \"y\": 202.68,\n            \"id\": \"cfx-27bd06f5-2670-4397-997e-c201cbf964a5\",\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"fillPriority\": \"color\",\n            \"stroke\": \"#CCCCCC\",\n            \"offsetX\": 0,\n            \"offsetY\": 0\n        },\n        {\n            \"fill\": \"#CCCCCC\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-5\",\n            \"text\": \"Incidents\",\n            \"align\": \"center\",\n            \"fontSize\": 26,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 1,\n            \"y\": 625,\n            \"id\": \"cfx-4fac30ae-c28a-4299-8c04-7da19f8dc006\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 108.01,\n            \"height\": 25\n        },\n        {\n            \"compType\": \"vArrow\",\n            \"rotation\": 0,\n            \"x\": 158,\n            \"y\": 531,\n            \"points\": [\n                -26,\n                102,\n                -51,\n                102\n            ],\n            \"width\": 100,\n            \"height\": 100,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"strokeWidth\": 4,\n            \"stroke\": \"#1976D2\",\n            \"name\": \"shape-6\",\n            \"draggable\": true,\n            \"pointerAtBeginning\": true,\n            \"pointerAtEnding\": false,\n            \"id\": \"cfx-cd1474e2-403b-4dc2-b80b-fc17af0d7743\",\n            \"dashEnabled\": true,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"dash\": [\n                \"\"\n            ],\n            \"lineJoin\": \"butt\",\n            \"lineCap\": \"butt\"\n        },\n        {\n            \"compType\": \"vRect\",\n            \"rotation\": 0,\n            \"width\": 749.13,\n            \"height\": 216.13,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"fill\": \"#FFFFFF00\",\n            \"name\": \"shape-7\",\n            \"cornerRadius\": 10,\n            \"draggable\": true,\n            \"x\": 136.68,\n            \"y\": 560.68,\n            \"id\": \"cfx-27bd06f5-2670-4397-997e-c201cbf964a5\",\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"fillPriority\": \"color\",\n            \"stroke\": \"#CCCCCC\",\n            \"offsetX\": 0,\n            \"offsetY\": 0\n        },\n        {\n            \"fill\": \"#CCCCCC\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-8\",\n            \"text\": \"Ingestion Stats\",\n            \"align\": \"center\",\n            \"fontSize\": 23,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": -1,\n            \"y\": 925,\n            \"id\": \"cfx-1e8c872d-b58f-4639-bea7-4a10ad19ac66\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 113.31,\n            \"height\": 58\n        },\n        {\n            \"compType\": \"vArrow\",\n            \"rotation\": 0,\n            \"x\": 181,\n            \"y\": 694,\n            \"points\": [\n                -52,\n                256,\n                -83,\n                256\n            ],\n            \"width\": 100,\n            \"height\": 100,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"strokeWidth\": 4,\n            \"stroke\": \"#1976D2\",\n            \"name\": \"shape-9\",\n            \"draggable\": true,\n            \"pointerAtBeginning\": true,\n            \"pointerAtEnding\": false,\n            \"id\": \"cfx-cd1474e2-403b-4dc2-b80b-fc17af0d7743\",\n            \"dashEnabled\": true,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"dash\": [\n                \"\"\n            ],\n            \"lineJoin\": \"butt\",\n            \"lineCap\": \"butt\"\n        },\n        {\n            \"compType\": \"vRect\",\n            \"rotation\": 0,\n            \"width\": 744.13,\n            \"height\": 235.13,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"fill\": \"#FFFFFF00\",\n            \"name\": \"shape-10\",\n            \"cornerRadius\": 10,\n            \"draggable\": true,\n            \"x\": 137.68,\n            \"y\": 816.68,\n            \"id\": \"cfx-27bd06f5-2670-4397-997e-c201cbf964a5\",\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"fillPriority\": \"color\",\n            \"stroke\": \"#CCCCCC\",\n            \"offsetX\": 0,\n            \"offsetY\": 0\n        },\n        {\n            \"fill\": \"#D5BA2A\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-11\",\n            \"text\": \"Bulkstats\",\n            \"align\": \"center\",\n            \"fontSize\": 20,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 218,\n            \"y\": 1059,\n            \"id\": \"cfx-989402b3-fc9c-4f5b-803e-ea9717db6c76\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 83.1,\n            \"height\": 16,\n            \"opacity\": 1\n        },\n        {\n            \"fill\": \"#D5BA2A\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-12\",\n            \"text\": \"Syslogs\",\n            \"align\": \"center\",\n            \"fontSize\": 20,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 475,\n            \"y\": 1056,\n            \"id\": \"cfx-e0123fc8-d9b7-406c-c7d6-38a063b6698f\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 86.48,\n            \"height\": 20,\n            \"opacity\": 1\n        },\n        {\n            \"fill\": \"#D5BA2A\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-13\",\n            \"text\": \"SNMP Traps\",\n            \"align\": \"center\",\n            \"fontSize\": 20,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 692,\n            \"y\": 1059.2,\n            \"id\": \"cfx-787fec52-4441-4dc2-a5eb-da2e18f2b18f\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 117.2,\n            \"height\": 23,\n            \"opacity\": 1\n        },\n        {\n            \"fill\": \"#0000FF\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-14\",\n            \"text\": \"Metrics Insights\",\n            \"align\": \"center\",\n            \"fontSize\": 32,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 1231,\n            \"y\": 33,\n            \"id\": \"cfx-7b794421-de18-4276-b69c-e1d29ab2a22f\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0\n        },\n        {\n            \"compType\": \"vRect\",\n            \"rotation\": 0,\n            \"width\": 638.13,\n            \"height\": 191.13,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"fill\": \"#FFFFFF00\",\n            \"name\": \"shape-15\",\n            \"cornerRadius\": 10,\n            \"draggable\": true,\n            \"x\": 1003.68,\n            \"y\": 73.68,\n            \"id\": \"cfx-27bd06f5-2670-4397-997e-c201cbf964a5\",\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"fillPriority\": \"color\",\n            \"stroke\": \"#CCCCCC\",\n            \"offsetX\": 0,\n            \"offsetY\": 0\n        },\n        {\n            \"compType\": \"vRect\",\n            \"rotation\": 0,\n            \"width\": 1002.13,\n            \"height\": 367.13,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"fill\": \"#FFFFFF00\",\n            \"name\": \"shape-16\",\n            \"cornerRadius\": 10,\n            \"draggable\": true,\n            \"x\": 901.68,\n            \"y\": 659.68,\n            \"id\": \"cfx-27bd06f5-2670-4397-997e-c201cbf964a5\",\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"fillPriority\": \"color\",\n            \"stroke\": \"#CCCCCC\",\n            \"offsetX\": 0,\n            \"offsetY\": 0\n        },\n        {\n            \"fill\": \"#D5BA2A\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-17\",\n            \"text\": \"Anomalies by device\",\n            \"align\": \"center\",\n            \"fontSize\": 20,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 1053.2,\n            \"y\": 993.2,\n            \"id\": \"cfx-18c05831-61a9-4d89-de22-0c0b1584936b\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 236.03,\n            \"height\": 28,\n            \"opacity\": 1\n        },\n        {\n            \"fill\": \"#D5BA2A\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-18\",\n            \"text\": \"Overall Accuracy\",\n            \"align\": \"center\",\n            \"fontSize\": 20,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 1608,\n            \"y\": 990.2000122070312,\n            \"id\": \"cfx-c95ead9a-9f96-4b55-fd9f-7c2d34774c4c\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"opacity\": 1\n        },\n        {\n            \"fill\": \"#D5BA2A\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-19\",\n            \"text\": \"Devices with Increasing Trend\",\n            \"align\": \"center\",\n            \"fontSize\": 20,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 1263,\n            \"y\": 442,\n            \"id\": \"cfx-d0f552b7-ba9f-4392-a197-a044c651b9b4\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"opacity\": 1\n        },\n        {\n            \"fill\": \"#D5BA2A\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-20\",\n            \"text\": \"Devices with Decreasing Trend\",\n            \"align\": \"center\",\n            \"fontSize\": 20,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 1262,\n            \"y\": 623,\n            \"id\": \"cfx-996459b1-126d-4c4d-e1b9-6f2abaf8fe47\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"opacity\": 1\n        },\n        {\n            \"fill\": \"#D5BA2A\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-21\",\n            \"text\": \"By Network\",\n            \"align\": \"center\",\n            \"fontSize\": 20,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 180,\n            \"y\": 782,\n            \"id\": \"cfx-e3e2b2fa-f79e-4b09-bcb7-ed22c3bd1eb7\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"opacity\": 1\n        },\n        {\n            \"fill\": \"#D5BA2A\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-22\",\n            \"text\": \"FirstNet\",\n            \"align\": \"center\",\n            \"fontSize\": 20,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 362,\n            \"y\": 783,\n            \"id\": \"cfx-8f7b43c3-0cc4-4379-a116-c5b6d02b7e78\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"opacity\": 1\n        },\n        {\n            \"fill\": \"#D5BA2A\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-23\",\n            \"text\": \"Consumer\",\n            \"align\": \"center\",\n            \"fontSize\": 20,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 525,\n            \"y\": 784,\n            \"id\": \"cfx-e790478d-01ff-403e-bc3f-6a3a59ea5e0d\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"opacity\": 1\n        },\n        {\n            \"fill\": \"#D5B92A\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-24\",\n            \"text\": \"Enterprise\",\n            \"align\": \"center\",\n            \"fontSize\": 20,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 730,\n            \"y\": 786.2000122070312,\n            \"id\": \"cfx-d2ccd450-5a2a-46d2-e2b2-3e1b7e9f3564\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0\n        },\n        {\n            \"fill\": \"#D3AA3F\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-25\",\n            \"text\": \"System Active Sessions\",\n            \"align\": \"center\",\n            \"fontSize\": 16,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"normal\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 136,\n            \"y\": 359,\n            \"id\": \"cfx-4498ab1f-602d-4769-871f-c7a2dfc1b71a\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 172.91,\n            \"height\": 40\n        },\n        {\n            \"fill\": \"#D3AA3F\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-26\",\n            \"text\": \"Aggregate Number of Volte Sessions\",\n            \"align\": \"center\",\n            \"fontSize\": 16,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"normal\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 318,\n            \"y\": 357,\n            \"id\": \"cfx-de9f8a5a-1339-42a2-e6a4-fc0edc1f6cdb\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 159.46,\n            \"height\": 37\n        },\n        {\n            \"fill\": \"#D3AA3F\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-27\",\n            \"text\": \"Aggregate Number of Sessions\",\n            \"align\": \"center\",\n            \"fontSize\": 16,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"normal\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 500,\n            \"y\": 358,\n            \"id\": \"cfx-09eb1e9a-3288-4acf-83e8-89df3356c9d4\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 168.93,\n            \"height\": 32\n        },\n        {\n            \"fill\": \"#D3AA3F\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-28\",\n            \"text\": \"Credit Control Initial Success Rate\",\n            \"align\": \"center\",\n            \"fontSize\": 16,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"normal\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 674,\n            \"y\": 532,\n            \"id\": \"cfx-33987d56-0760-4c79-9d73-ce7bae207cec\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 209.23,\n            \"height\": 17\n        },\n        {\n            \"fill\": \"#D3AA3F\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-29\",\n            \"text\": \"Aggregate Throughput\",\n            \"align\": \"center\",\n            \"fontSize\": 16,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"normal\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 695,\n            \"y\": 363,\n            \"id\": \"cfx-ca55e41b-61e4-4363-b0f1-e56f69626dbd\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 159.95,\n            \"height\": 15\n        },\n        {\n            \"fill\": \"#D3AA3F\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-30\",\n            \"text\": \"Top 5 Highest VoLTE Sessions\",\n            \"align\": \"center\",\n            \"fontSize\": 16,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"normal\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 133,\n            \"y\": 535,\n            \"id\": \"cfx-eba29b24-53c7-491a-e800-6a830c14c417\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 158.5,\n            \"height\": 16\n        },\n        {\n            \"fill\": \"#D3AA3F\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-31\",\n            \"text\": \"Top 5 Highest Sessions\",\n            \"align\": \"center\",\n            \"fontSize\": 16,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"normal\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 293,\n            \"y\": 533,\n            \"id\": \"cfx-b510389a-075d-4743-d560-a4a4d6cafb38\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 193.47,\n            \"height\": 32\n        },\n        {\n            \"fill\": \"#D3AA3F\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-32\",\n            \"text\": \"Top 5 Highest Throughput\",\n            \"align\": \"center\",\n            \"fontSize\": 16,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"normal\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 484,\n            \"y\": 532,\n            \"id\": \"cfx-208fad34-0f98-48ad-bfe1-702c04e2831a\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"width\": 193.27,\n            \"height\": 32\n        }\n    ],\n    \"lines\": [],\n    \"sbBookmarkList\": []\n}"
+        },
+        {
+            "name": "Data Model and Collections",
+            "value": "{\n    \"stage\": {\n        \"size\": {\n            \"width\": 1920,\n            \"height\": 1080\n        },\n        \"background\": {\n            \"fill\": null,\n            \"src\": \"/assets/img/backgrounds/bgr_5.png\",\n            \"gradient\": null\n        },\n        \"theme\": null,\n        \"autoFitByDefault\": true\n    },\n    \"widgets\": [\n        {\n            \"widget_id\": \"2bbaf109\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 379.43,\n                \"height\": 270.5,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#CCCCCC\",\n                \"opacity\": 1,\n                \"name\": \"widget-146\",\n                \"draggable\": true,\n                \"x\": 248.4,\n                \"y\": 81.99,\n                \"id\": \"cfx-f090013b-6827-4a13-e12f-06f24cfb54b2\"\n            }\n        },\n        {\n            \"widget_id\": \"45124d37\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 439.89,\n                \"height\": 279.48,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#CCCCCC\",\n                \"opacity\": 1,\n                \"name\": \"widget-147\",\n                \"draggable\": true,\n                \"x\": 640.8,\n                \"y\": 80,\n                \"id\": \"cfx-5036c90b-105c-4cfe-9539-cb8ddaafe8a1\"\n            }\n        },\n        {\n            \"widget_id\": \"48d9c52c\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 383.52,\n                \"height\": 262.73,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#CCCCCC\",\n                \"opacity\": 1,\n                \"name\": \"widget-148\",\n                \"draggable\": true,\n                \"x\": 246.8,\n                \"y\": 449,\n                \"id\": \"cfx-6c963a85-cd2e-47cc-ba77-d9e86b1bc65e\"\n            }\n        },\n        {\n            \"widget_id\": \"5cb5e9f8\",\n            \"layoutConfig\": {\n                \"rotation\": 0,\n                \"width\": 438.6,\n                \"height\": 260.23,\n                \"scaleX\": 1,\n                \"scaleY\": 1,\n                \"fill\": \"#CCCCCC\",\n                \"opacity\": 1,\n                \"name\": \"widget-149\",\n                \"draggable\": true,\n                \"x\": 643.8,\n                \"y\": 452,\n                \"id\": \"cfx-a0bca137-4bdf-4628-e074-cfc54b2cde1a\"\n            }\n        }\n    ],\n    \"shapes\": [\n        {\n            \"compType\": \"vRect\",\n            \"rotation\": 0,\n            \"width\": 860,\n            \"height\": 306,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"fill\": \"#FFFFFF00\",\n            \"name\": \"shape-132\",\n            \"cornerRadius\": 10,\n            \"draggable\": true,\n            \"x\": 235.4,\n            \"y\": 69,\n            \"id\": \"cfx-b5ad820f-784e-4c66-ca41-540f0800de43\",\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"stroke\": \"#CCCCCC\",\n            \"fillPriority\": \"color\",\n            \"offsetX\": 0,\n            \"offsetY\": 0\n        },\n        {\n            \"compType\": \"vRect\",\n            \"rotation\": 0,\n            \"width\": 865,\n            \"height\": 308,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"fill\": \"#FFFFFF00\",\n            \"name\": \"shape-133\",\n            \"cornerRadius\": 10,\n            \"draggable\": true,\n            \"x\": 234.4,\n            \"y\": 440,\n            \"id\": \"cfx-b5ad820f-784e-4c66-ca41-540f0800de43\",\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"stroke\": \"#CCCCCC\",\n            \"fillPriority\": \"color\",\n            \"offsetX\": 0,\n            \"offsetY\": 0\n        },\n        {\n            \"fill\": \"#DABC3C\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-134\",\n            \"text\": \"Data Model\",\n            \"align\": \"center\",\n            \"fontSize\": 25,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 48.399993896484375,\n            \"y\": 255,\n            \"id\": \"cfx-39b7e938-bd9f-446f-beab-f573765cfff7\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0\n        },\n        {\n            \"fill\": \"#DABC3C\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-135\",\n            \"text\": \"Data Collection\",\n            \"align\": \"center\",\n            \"fontSize\": 25,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 20.399993896484375,\n            \"y\": 611,\n            \"id\": \"cfx-4458c195-d4ff-4e9d-8945-a5390c8ee566\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0\n        },\n        {\n            \"fill\": \"#E6BE3E\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-136\",\n            \"text\": \"Bulkstats Variable\",\n            \"align\": \"center\",\n            \"fontSize\": 22,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 311.3999938964844,\n            \"y\": 384,\n            \"id\": \"cfx-58a50f1d-c2b0-466a-e809-b63fd6e6d948\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0\n        },\n        {\n            \"fill\": \"#E6BE3E\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-137\",\n            \"text\": \"KPI Administration\",\n            \"align\": \"center\",\n            \"fontSize\": 22,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 757.3999938964844,\n            \"y\": 383,\n            \"id\": \"cfx-9afb2556-ebc1-4923-b58b-005537765012\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0\n        },\n        {\n            \"fill\": \"#E6BE3E\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-138\",\n            \"text\": \"Bulkstats Ingestion Tracker\",\n            \"align\": \"center\",\n            \"fontSize\": 22,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 537.1999816894531,\n            \"y\": 764,\n            \"id\": \"cfx-02f3c981-ccdb-46ce-bc75-76fe0e0194ca\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0\n        },\n        {\n            \"fill\": \"#E6BE3E\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-139\",\n            \"text\": \"Schema\",\n            \"align\": \"center\",\n            \"fontSize\": 18,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 588.3999938964844,\n            \"y\": 357,\n            \"id\": \"cfx-71f2f2d2-677d-4316-d7ea-103c9b55ca0e\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0\n        },\n        {\n            \"fill\": \"#E6BE3E\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-140\",\n            \"text\": \"Ingestion by Device\",\n            \"align\": \"center\",\n            \"fontSize\": 18,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 342.3999938964844,\n            \"y\": 723,\n            \"id\": \"cfx-d51aa56b-fed5-4007-80dd-881185a4bd12\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0\n        },\n        {\n            \"fill\": \"#E6BE3E\",\n            \"compType\": \"vText\",\n            \"name\": \"shape-141\",\n            \"text\": \"Ingestion by KPI Status\",\n            \"align\": \"center\",\n            \"fontSize\": 18,\n            \"fontFamily\": \"Roboto\",\n            \"fontStyle\": \"bold\",\n            \"textDecoration\": [],\n            \"draggable\": true,\n            \"x\": 737.3999938964844,\n            \"y\": 724,\n            \"id\": \"cfx-f6b0697f-c4df-469c-aa07-f3c17a3d7322\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0\n        },\n        {\n            \"compType\": \"vArrow\",\n            \"rotation\": 0,\n            \"x\": 203,\n            \"y\": 227,\n            \"points\": [\n                24,\n                -1,\n                -32,\n                -1\n            ],\n            \"width\": 100,\n            \"height\": 100,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"strokeWidth\": 4,\n            \"stroke\": \"#1976D2\",\n            \"name\": \"shape-142\",\n            \"draggable\": true,\n            \"pointerAtBeginning\": true,\n            \"pointerAtEnding\": false,\n            \"id\": \"cfx-f0d15454-cc04-41d1-93c1-728bb5cd5554\",\n            \"dashEnabled\": true,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0\n        },\n        {\n            \"compType\": \"vArrow\",\n            \"rotation\": 0,\n            \"x\": 233,\n            \"y\": 257,\n            \"points\": [\n                -2,\n                332,\n                -63,\n                332\n            ],\n            \"width\": 100,\n            \"height\": 100,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"strokeWidth\": 4,\n            \"stroke\": \"#1976D2\",\n            \"name\": \"shape-143\",\n            \"draggable\": true,\n            \"pointerAtBeginning\": true,\n            \"pointerAtEnding\": false,\n            \"id\": \"cfx-f0d15454-cc04-41d1-93c1-728bb5cd5554\",\n            \"dashEnabled\": true,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0\n        },\n        {\n            \"width\": 68.12,\n            \"height\": 68.12,\n            \"draggable\": true,\n            \"compType\": \"vImage\",\n            \"name\": \"image-144\",\n            \"x\": 76,\n            \"y\": 179,\n            \"src\": \"/assets/img/icons/featureApp/svgIcons/blueprint.svg\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"image\": {}\n        },\n        {\n            \"width\": 67,\n            \"height\": 67,\n            \"draggable\": true,\n            \"compType\": \"vImage\",\n            \"name\": \"image-145\",\n            \"x\": 69,\n            \"y\": 534.2,\n            \"src\": \"/assets/img/icons/featureApp/svgIcons/overall.svg\",\n            \"rotation\": 0,\n            \"scaleX\": 1,\n            \"scaleY\": 1,\n            \"skewX\": 0,\n            \"skewY\": 0,\n            \"offsetX\": 0,\n            \"offsetY\": 0,\n            \"image\": {}\n        }\n    ],\n    \"lines\": [],\n    \"sbBookmarkList\": []\n}"
+        }
+    ]
+}

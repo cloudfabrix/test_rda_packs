@@ -1,0 +1,14 @@
+{
+  "name": "mobility_new_kpi_list",
+  "datastore_type": "OS",
+  "read_only": false,
+  "attrs": {
+    "retention_days": 365,
+    "unique_keys": [
+      "KPI_Name"
+    ],
+    "os_external": true
+  },
+  "status": "Running",
+  "index_name": "os-external-3f89175ce8104956a289bfef8427d152-stream-65ec4db8-mobility_new_kpi_list"
+}

@@ -1,0 +1,785 @@
+{
+    "name": "customer_discovery",
+    "label": "On Demand Discovery",
+    "description": "onboarded_devices: Insights",
+    "dashboard_folder": "Default",
+    "version": "1.0.5",
+    "enabled": false,
+    "live_edit": true,
+    "stream": "onboard_devices",
+    "dashboard_type": "template",
+    "dashboard_filters": {
+        "time_filter": true,
+        "default_time_filter_labels": [
+            "Last 1 month"
+        ],
+        "columns_filter": [
+            {
+                "id": "timestamp",
+                "label": "Timestamp",
+                "type": "DATETIME"
+            }
+        ],
+        "group_filters": []
+    },
+    "dashboard_sections": [
+        {
+            "title": "Onboarded Devices",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "title": "Discovery",
+                    "widget_type": "tabular",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "stream": "onboard_devices",
+                    "ts_column": "timestamp",
+                    "columns": {
+                        "device": {
+                            "title": "Device",
+                            "type": "TEXT",
+                            "key": true,
+                            "hidden": false
+                        },
+                        "ip_address": {
+                            "title": "Device IP",
+                            "type": "TEXT",
+                            "key": true,
+                            "hidden": false
+                        },
+                        "org_id": {
+                            "title": "ORG ID",
+                            "key": true,
+                            "hidden": true
+                        },
+                        "zone": {
+                            "title": "Zone",
+                            "type": "TEXT",
+                            "key": true,
+                            "hidden": false
+                        },
+                        "network_type": {
+                            "title": "Network Type",
+                            "type": "TEXT",
+                            "key": true,
+                            "hidden": false
+                        },
+                        "CLLI_code": {
+                            "title": "CLLI Code",
+                            "type": "TEXT",
+                            "key": true,
+                            "hidden": false
+                        },
+                        "_RDA_Id": {
+                            "title": "RDA ID",
+                            "key": true,
+                            "visible": "false",
+                            "hidden": true
+                        }
+                    },
+                    "actions": [
+                        {
+                            "permission": "rda:mobility:update",
+                            "title": "Upload to Workflow",
+                            "type": "POPUP_FORM",
+                            "selectionType": "NONE",
+                            "identifier": "saas-service-action:userdashboard-add-yaml",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.dynamic.form",
+                                        "formActionList": {
+                                            "formActions": [
+                                                {
+                                                    "identifier": "Submit",
+                                                    "actionLabel": "Upload"
+                                                }
+                                            ]
+                                        },
+                                        "formDefinition": {
+                                            "id": "rda.saas.dynamic.form",
+                                            "refreshRequired": true,
+                                            "formFieldList": [
+                                                {
+                                                    "help": "Do you want to Upload?",
+                                                    "dataType": "string",
+                                                    "controlType": "LABEL",
+                                                    "required": false,
+                                                    "editable": false,
+                                                    "label": "Do you want to Upload?",
+                                                    "hidden": false
+                                                }
+                                            ]
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "RUN_PIPELINE",
+                                                "pipelineName": "BPA_add_asset_with_Apikey_template",
+                                                "isSync": false,
+                                                "workerGroup": "rda-site-01"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "permission": "rda:mobility:update",
+                            "title": "Execute Command",
+                            "type": "POPUP_FORM",
+                            "selectionType": "SINGLE",
+                            "identifier": "saas-service-action:userdashboard-add-yaml",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.dynamic.form",
+                                        "formActionList": {
+                                            "formActions": [
+                                                {
+                                                    "identifier": "Submit",
+                                                    "actionLabel": "Run"
+                                                }
+                                            ]
+                                        },
+                                        "formDefinition": {
+                                            "id": "rda.saas.dynamic.form",
+                                            "refreshRequired": true,
+                                            "formFieldList": [
+                                                {
+                                                    "fieldId": "command",
+                                                    "label": "Please enter the command",
+                                                    "help": "Please enter the command",
+                                                    "dataType": "string",
+                                                    "controlType": "TEXT_FIELD",
+                                                    "hidden": false,
+                                                    "editable": true,
+                                                    "required": true
+                                                }
+                                            ]
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "RUN_PIPELINE",
+                                                "pipelineName": "show_version",
+                                                "isSync": false,
+                                                "workerGroup": "rda-site-01"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "permission0": "rda:user_dashboard:view",
+                            "appName": "user-dashboard/nso_execute_command",
+                            "drillDownLinkField": "ip_address",
+                            "selectionType": "SINGLE",
+                            "title": "Command History",
+                            "identifier": "launch.dashboard.device_view_app",
+                            "type": "GO_TO_APP_STATE"
+                        },
+                        {
+                            "permission1": "rda:user_dashboard:view",
+                            "appName": "user-dashboard/node_details_app",
+                            "drillDownLinkField": "device",
+                            "selectionType": "SINGLE",
+                            "title": "Device details",
+                            "contextParamList": {
+                                "contextParams": [
+                                    {
+                                        "paramKey": "device",
+                                        "paramId": "a_asset_name"
+                                    },
+                                    {
+                                        "paramKey": "ip_address",
+                                        "paramId": "a_asset_ip_address"
+                                    }
+                                ]
+                            },
+                            "identifier": "launch.dashboard.node_details_app",
+                            "type": "GO_TO_APP_STATE"
+                        },
+                        {
+                            "permission": "rda:mobility:update",
+                            "title": "Import Devices",
+                            "type": "POPUP_FORM",
+                            "selectionType": "NONE",
+                            "identifier": "saas-service-action:userdashboard-add-yaml",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.dynamic.form",
+                                        "formDefinition": {
+                                            "id": "rda.saas.dynamic.form",
+                                            "refreshRequired": true,
+                                            "formFieldList": [
+                                                {
+                                                    "help": "Choose file to upload",
+                                                    "dataType": "string",
+                                                    "required": true,
+                                                    "editable": true,
+                                                    "label": "Choose file to upload",
+                                                    "controlType": "FILE_UPLOAD",
+                                                    "hidden": false,
+                                                    "fieldId": "fileUpload"
+                                                },
+                                                {
+                                                    "help": "Overwrite existing onboarded data",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Replace Data",
+                                                    "hidden": false,
+                                                    "fieldId": "replace",
+                                                    "dataType": "boolean",
+                                                    "controlType": "BOOLEAN_FIELD",
+                                                    "defaultValue": false,
+                                                    "controlPropertyList": [
+                                                        {
+                                                            "attribute": "layout-group-id",
+                                                            "value": "Features"
+                                                        },
+                                                        {
+                                                            "attribute": "layout-percent",
+                                                            "value": "25"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "RUN_PIPELINE",
+                                                "pipelineName": "import-customer-devices",
+                                                "isSync": true,
+                                                "workerGroup": "rda-site-01"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "permission": "rda:mobility:update",
+                            "title": "Run Discovery",
+                            "type": "POPUP_FORM",
+                            "selectionType": "NONE",
+                            "identifier": "saas-service-action:userdashboard-add-yaml",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.dynamic.form",
+                                        "formActionList": {
+                                            "formActions": [
+                                                {
+                                                    "identifier": "Submit",
+                                                    "actionLabel": "Run"
+                                                }
+                                            ]
+                                        },
+                                        "formDefinition": {
+                                            "id": "rda.saas.dynamic.form",
+                                            "refreshRequired": true,
+                                            "formFieldList": [
+                                                {
+                                                    "help": "Make sure access Verification is run for the devices you want to run discovery on",
+                                                    "dataType": "string",
+                                                    "required": true,
+                                                    "editable": true,
+                                                    "label": "NOTE: Make sure that access verification is completed for  devices for which discovery needs to be run.",
+                                                    "controlType": "LABEL",
+                                                    "hidden": false,
+                                                    "fieldId": "note_field"
+                                                },
+                                                {
+                                                    "help": "Select network devices for which you want to run discovery",
+                                                    "dataType": "string",
+                                                    "required": true,
+                                                    "editable": true,
+                                                    "label": "Network Devices",
+                                                    "hidden": false,
+                                                    "fieldId": "Others",
+                                                    "controlType": "SELECTOR_TABLE",
+                                                    "controlPropertyList": [
+                                                        {
+                                                            "attribute": "column-key",
+                                                            "value": "ip_address"
+                                                        },
+                                                        {
+                                                            "attribute": "selection",
+                                                            "value": "MULTIPLE"
+                                                        }
+                                                    ],
+                                                    "widget": {
+                                                        "title": "Device Details",
+                                                        "timebased": false,
+                                                        "max_width": 12,
+                                                        "height": 8,
+                                                        "min_width": 12,
+                                                        "extra_filter0": "type contains 'windows'",
+                                                        "extra_filter": "customer_tag is '{{CUST_TAG}}' or customer_tag is empty",
+                                                        "stream": "onboard_devices",
+                                                        "ts_column": "timestamp",
+                                                        "sorting": [],
+                                                        "columns": {
+                                                            "ip_address": {
+                                                                "title": "IP Address",
+                                                                "key": true
+                                                            },
+                                                            "discovery_scope": {
+                                                                "title": "discovery Scope",
+                                                                "key": true,
+                                                                "visible": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "RUN_PIPELINE",
+                                                "pipelineName": "ondemand_discovery_main",
+                                                "isSync": false,
+                                                "workerGroup": "rda-site-01"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "permission0": "rda:github:view",
+                            "title": "Execute:Show Version",
+                            "type": "POPUP_FORM",
+                            "selectionType": "SINGLE",
+                            "identifier": "saas-service-action:userdashboard-add-yaml",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.dynamic.form",
+                                        "formActionList": {
+                                            "formActions": [
+                                                {
+                                                    "identifier": "Submit",
+                                                    "actionLabel": "Show Version"
+                                                }
+                                            ]
+                                        },
+                                        "formDefinition": {
+                                            "id": "rda.saas.dynamic.form",
+                                            "refreshRequired": true,
+                                            "formFieldList": [
+                                                {
+                                                    "help": "Do you want to run - show Version?",
+                                                    "dataType": "string",
+                                                    "controlType": "LABEL",
+                                                    "required": false,
+                                                    "editable": false,
+                                                    "label": "Do you want to run - show Version?",
+                                                    "hidden": false
+                                                }
+                                            ]
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "RUN_PIPELINE",
+                                                "pipelineName": "show_version",
+                                                "isSync": false,
+                                                "workerGroup": "rda-site-01"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "appName": "user-dashboard/customer_view_config",
+                            "permission": "aia:page:view",
+                            "selectionType": "SINGLE",
+                            "stateName": "app.featureapp",
+                            "title": "View Config Details",
+                            "type": "GO_TO_APP_STATE",
+                            "contextParamList": {
+                                "contextParams": [
+                                    {
+                                        "paramKey": "device",
+                                        "paramId": "filename"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "permission": "rda:mobility:update",
+                            "title": "Execute Command",
+                            "type": "POPUP_FORM",
+                            "selectionType": "SINGLE",
+                            "identifier": "saas-service-action:userdashboard-add-yaml",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.dynamic.form",
+                                        "formActionList": {
+                                            "formActions": [
+                                                {
+                                                    "identifier": "Submit",
+                                                    "actionLabel": "Run"
+                                                }
+                                            ]
+                                        },
+                                        "formDefinition": {
+                                            "id": "rda.saas.dynamic.form",
+                                            "refreshRequired": true,
+                                            "formFieldList": [
+                                                {
+                                                    "fieldId": "command",
+                                                    "label": "Please enter the command",
+                                                    "help": "Please enter the command",
+                                                    "dataType": "string",
+                                                    "controlType": "TEXT_FIELD",
+                                                    "hidden": false,
+                                                    "editable": true,
+                                                    "required": true
+                                                }
+                                            ]
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "RUN_PIPELINE",
+                                                "pipelineName": "show_version",
+                                                "isSync": false,
+                                                "workerGroup": "rda-site-01"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "widget_id": "e60dc7c6"
+                },
+                {
+                    "title": "Command History",
+                    "widget_type": "tabular",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "stream": "NSO_executed_commands",
+                    "ts_column": "timestamp",
+                    "columns": {
+                        "device_name": {
+                            "title": "Device Name",
+                            "type": "TEXT",
+                            "key": true,
+                            "hidden": false
+                        },
+                        "ip_address": {
+                            "title": "Device IP",
+                            "type": "TEXT",
+                            "key": true,
+                            "hidden": false
+                        },
+                        "command": {
+                            "title": "Command",
+                            "type": "TEXT",
+                            "key": true,
+                            "hidden": false
+                        },
+                        "status": {
+                            "title": "Status",
+                            "type": "TEXT",
+                            "key": true,
+                            "hidden": false
+                        },
+                        "execute-any-command:output_devices_0_command-response": {
+                            "title": "Response",
+                            "type": "TEXT",
+                            "key": true,
+                            "formatter0": "truncate",
+                            "hidden": false
+                        },
+                        "timestamp": {
+                            "title": "Timestamp",
+                            "type": "DATETIME",
+                            "key": true,
+                            "hidden": false
+                        }
+                    },
+                    "actions": [
+                        {
+                            "permission": "rda:mobility:update",
+                            "title": "Execute Command",
+                            "type": "POPUP_FORM",
+                            "selectionType": "NONE",
+                            "identifier": "saas-service-action:userdashboard-add-yaml",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.dynamic.form",
+                                        "formActionList": {
+                                            "formActions": [
+                                                {
+                                                    "identifier": "Submit",
+                                                    "actionLabel": "Run"
+                                                }
+                                            ]
+                                        },
+                                        "formDefinition": {
+                                            "id": "rda.saas.dynamic.form",
+                                            "refreshRequired": true,
+                                            "formFieldList": [
+                                                {
+                                                    "help": "Please enter the IP",
+                                                    "dataType": "string",
+                                                    "controlType": "TEXT",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Please enter the IP",
+                                                    "hidden": false,
+                                                    "fieldId": "ip_address"
+                                                },
+                                                {
+                                                    "help": "Please enter the command",
+                                                    "dataType": "string",
+                                                    "controlType": "TEXT",
+                                                    "required": false,
+                                                    "editable": true,
+                                                    "label": "Please enter the command",
+                                                    "hidden": false,
+                                                    "fieldId": "command"
+                                                }
+                                            ]
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "RUN_PIPELINE",
+                                                "pipelineName": "execute_command",
+                                                "isSync": false,
+                                                "workerGroup": "rda-site-01"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "widget_id": "9159e5f0"
+                },
+                {
+                    "title": "Access Stats",
+                    "widget_type": "tabular",
+                    "stream": "network_access_verification",
+                    "duration_hours": 1080,
+                    "showRowSummary": true,
+                    "min_width": 12,
+                    "height": 6,
+                    "max_width": 12,
+                    "sorting": [
+                        {
+                            "auth_state": "desc"
+                        }
+                    ],
+                    "paginated": true,
+                    "remote_searchable": true,
+                    "remote_searchable_cols": [
+                        "ip_address",
+                        "protocol",
+                        "used_cred",
+                        "auth_state"
+                    ],
+                    "max_rows": 50,
+                    "columns": {
+                        "ip_address": {
+                            "title": "Device IP",
+                            "defaultWidth": 150,
+                            "key": true
+                        },
+                        "ingestion_id": {
+                            "title": "Ingestion ID",
+                            "defaultWidth": 150,
+                            "key": true,
+                            "hidden": true,
+                            "visible": false
+                        },
+                        "protocol": {
+                            "title": "Protocol",
+                            "defaultWidth": 150
+                        },
+                        "used_cred": {
+                            "title": "Credential Name",
+                            "defaultWidth": 200
+                        },
+                        "auth_state": {
+                            "title": "Authentication State",
+                            "defaultWidth": 150,
+                            "htmlTemplateForRow": "{% raw %}<span class='badge' style='background-color: {{ row.auth_state_color}}' > {{ row.auth_state }} </span>{% endraw %}"
+                        },
+                        "auth_state_color": {
+                            "type": "COLOR-MAP",
+                            "source-column": "auth_state",
+                            "color-map": {
+                                "Success": "#008000",
+                                "Failed": "#FF0000",
+                                "success": "#008000",
+                                "failed": "#FF0000"
+                            }
+                        },
+                        "comment": "Information",
+                        "timestamp": "Last Access Check Time"
+                    },
+                    "actions": [
+                        {
+                            "permission1": "rda:user_dashboard:view",
+                            "appName": "user-dashboard/customer_access_status_failed_devices",
+                            "drillDownLinkField": "ip_address",
+                            "identifier": "launch.dashboard.device_view_app",
+                            "selectionType": "SINGLE",
+                            "actionCondition": {
+                                "actionControl": "SHOW_IF",
+                                "conditionalField": [
+                                    {
+                                        "conditionType": "EQUAL",
+                                        "fieldId": "auth_state",
+                                        "conditionValue": "Failed"
+                                    }
+                                ]
+                            },
+                            "title": "Details",
+                            "type": "GO_TO_APP_STATE"
+                        },
+                        {
+                            "permission": "rda:user_dashboard:view",
+                            "appName": "user-dashboard/access_logs",
+                            "identifier": "launch.dashboard.device_view_app",
+                            "selectionType0": "SINGLE",
+                            "title": "View Logs",
+                            "type": "GO_TO_APP_STATE"
+                        },
+                        {
+                            "permission": "rda:mobility:update",
+                            "title": "Run Access Verification",
+                            "type": "POPUP_FORM",
+                            "selectionType": "NONE",
+                            "identifier": "saas-service-action:userdashboard-add-yaml",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.dynamic.form",
+                                        "formActionList": {
+                                            "formActions": [
+                                                {
+                                                    "identifier": "Submit",
+                                                    "actionLabel": "Run"
+                                                }
+                                            ]
+                                        },
+                                        "formDefinition": {
+                                            "id": "rda.saas.dynamic.form",
+                                            "refreshRequired": true,
+                                            "formFieldList": [
+                                                {
+                                                    "help": "Do you want to Run the Access Check?",
+                                                    "dataType": "string",
+                                                    "controlType": "LABEL",
+                                                    "required": false,
+                                                    "editable": false,
+                                                    "label": "Do you want to Run the Access Check?",
+                                                    "hidden": false,
+                                                    "fieldId": "note"
+                                                },
+                                                {
+                                                    "help": "Select network devices for which you want to run discovery",
+                                                    "dataType": "string",
+                                                    "required": true,
+                                                    "editable": true,
+                                                    "label": "Network Devices",
+                                                    "hidden": false,
+                                                    "fieldId": "Others",
+                                                    "controlType": "SELECTOR_TABLE",
+                                                    "controlPropertyList": [
+                                                        {
+                                                            "attribute": "column-key",
+                                                            "value": "ip_address"
+                                                        },
+                                                        {
+                                                            "attribute": "selection",
+                                                            "value": "MULTIPLE"
+                                                        }
+                                                    ],
+                                                    "widget": {
+                                                        "title": "Device Details",
+                                                        "timebased": false,
+                                                        "max_width": 12,
+                                                        "height": 8,
+                                                        "min_width": 12,
+                                                        "extra_filter": "customer_tag contains '{{CUST_TAG}}' or customer_tag is empty",
+                                                        "stream": "onboard_devices",
+                                                        "ts_column": "timestamp",
+                                                        "sorting": [],
+                                                        "columns": {
+                                                            "ip_address": {
+                                                                "title": "IP Address",
+                                                                "key": true
+                                                            },
+                                                            "discovery_scope": {
+                                                                "title": "discovery Scope",
+                                                                "key": true,
+                                                                "visible": false
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "actions": [
+                                            {
+                                                "type": "RUN_PIPELINE",
+                                                "pipelineName": "access_verification_main_pipeline",
+                                                "isSync": false,
+                                                "workerGroup": "rda-site-01"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "widget_id": "4c2cfdd7"
+                }
+            ]
+        }
+    ],
+    "saved_time": "2025-07-14T04:35:41.343596"
+}

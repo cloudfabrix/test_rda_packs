@@ -1,0 +1,9 @@
+%% stream = no and limit = 0
+
+@dm:empty
+    --> @dm:addrow name="mobility_kpi_metrics_data"
+    --> #dm:query-persistent-stream
+    --> @dm:selectcolumns include="device|city|network_type|ip_address"
+    --> @dm:dedup columns="ip_address"
+    --> @dm:save name="device_mappings_new"
+

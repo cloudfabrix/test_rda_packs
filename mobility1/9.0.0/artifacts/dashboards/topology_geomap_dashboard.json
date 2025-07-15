@@ -1,0 +1,147 @@
+{
+  "name": "topology_geomap_dashboard",
+  "label": "Topology",
+  "description": "Topology",
+  "dashboard_folder": "Default",
+  "enabled": true,
+  "dashboard_type": "template",
+  "dashboard_style": "auto",
+  "dashboard_filters": {
+    "time_filter": true,
+    "default_time_filter_non_removable": true,
+    "show_default_time_filter": true
+  },
+  "dashboard_sections": [
+    {
+      "title": "GeoMap",
+      "widgets": [
+        {
+          "title": "Geomap",
+          "widget_type": "topology_geomap",
+          "widget_template": "common/geo-map",
+          "reportId": "myreportId",
+          "mapProperties": {
+            "initialMapZoom": 5,
+            "mapTableWidth": 250
+          },
+          "edge_colors": [
+            "#455a64",
+            "#f57c00",
+            "#fbc02d",
+            "#388e3c",
+            "#0097a7",
+            "#1976d2",
+            "#8e24aa",
+            "#d81b60",
+            "#d32f2f"
+          ],
+          "node_display_attrs": [
+            "node_id",
+            "node_type",
+            "node_label"
+          ],
+          "has_more_data_flag": false,
+          "expand_all": false,
+          "auto_group": true,
+          "stack_type": "dynamic",
+          "stack_definition": {
+            "name": "Telco Stack",
+            "description": "",
+            "saved_time": "2023-09-12T21:08:31.418255",
+            "is_dynamic": true,
+            "hierarchical": true,
+            "dynamic_nodes": {
+              "stream": "cisco_devices_inventory",
+              "query": "device_equip_type contains 'chassis' and node_id is not Empty",
+              "limit": 0,
+              "sorting": null
+            },
+            "dynamic_relationships": {
+              "stream": "cisco_devices_inventory",
+              "limit": 0,
+              "sorting": null
+            }
+          },
+          "nodes_report": {
+            "reportMetaData": {
+              "sorting": true,
+              "filtering": true,
+              "title": "Nodes",
+              "remote_searchable": true,
+              "remote_searchable_cols": [
+                "device",
+                "node_label"
+              ],
+              "color_columns": [],
+              "color_map": {},
+              "actions": [
+                {
+                  "permission": "rda:user_dashboard:view",
+                  "appName": "user-dashboard/node_details_app",
+                  "drillDownLinkField": "node_label",
+                  "identifier": "launch.dashboard.node_details_app",
+                  "selectionType": "SINGLE",
+                  "title": "Device Details",
+                  "contextParamList": {
+                    "contextParams": [
+                      {
+                        "paramKey": "node_label",
+                        "paramId": "node_label"
+                      },
+                      {
+                        "paramKey": "node_type",
+                        "paramId": "node_type"
+                      },
+                      {
+                        "paramKey": "node_id",
+                        "paramId": "a_asset_ip_address"
+                      }
+                    ]
+                  },
+                  "type": "GO_TO_APP_STATE"
+                }
+              ],
+              "reportColumnDefinitionList": [
+                {
+                  "identifier": "node_id",
+                  "title": "Node Id",
+                  "key": true,
+                  "hidden": true
+                },
+                {
+                  "identifier": "device_ip",
+                  "title": "Device Ip"
+                },
+                {
+                  "identifier": "device_hostname",
+                  "title": "Hostname"
+                },
+                {
+                  "identifier": "device_vendor",
+                  "title": "Vendor"
+                },
+                {
+                  "identifier": "device_model",
+                  "title": "Model"
+                },
+                {
+                  "identifier": "device_serial_number",
+                  "title": "Serial Number"
+                },
+                {
+                  "identifier": "node_label",
+                  "title": "Name",
+                  "key": true,
+                  "hidden": true
+                }
+              ]
+            }
+          },
+          "height": 8,
+          "max_width": 12,
+          "widget_id": "182657d8"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+%% stream = no and limit = 0
+
+@dm:empty
+    --> @dm:addrow name='ml-bulkstats-metrics-regression-train-output' and limit=0
+    --> #dm:query-persistent-stream anomalies_type is 1 and KPI_Name is 'Gx_CCA_Numberof_3XXX_Errors' and timestamp is during 'August 28, 2024' to 'August 29, 2024'
+    --> @dm:eval anomaly='round(anomalies,2)' and upperBound='round(upperBound,2)'
+    --> @dm:eval message="'KPI ' + KPI_Name + ' for device ' + device + ' and instanceKey ' + instanceKey + ' with value ' + str(anomaly) + ' crossed dynamic threshold of ' + str(upperBound) + ' at time ' + timestamp"
+    --> @dm:eval severity="'MAJOR'" and raisedAt='timestamp'
+    --> @dm:change-time-format columns='raisedAt' and from_format='datetimestr' and to_format='ms'
+    --> @dm:apply-template-by-row template_name = 'raise_alerts_from_anomalies' &
+            output_col = 'payload'
+    --> @dm:save name='ml-metrics-alerts'
+    --> @restclient:write url = "https://10.122.62.210:443/webhooks/hookid/a1485203-d77c-40e0-bd55-55e5dea6e610" &
+            envelope="{{ '{{ payload }}' }}" &
+            batch_size = 1
+

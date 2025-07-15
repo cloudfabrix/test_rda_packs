@@ -1,0 +1,4478 @@
+{
+  "name": "auto-x-3-per-device-egtpc",
+  "label": "Schema egtpc",
+  "description": "mobility_kpi_metrics_data: Insights",
+  "dashboard_folder": "mobility-auto-x-3",
+  "version": "1.0.1",
+  "enabled": false,
+  "live_edit": true,
+  "stream": "mobility_kpi_metrics_data",
+  "dashboard_type": "template",
+  "section_as_dashboard": true,
+  "template_variables": {
+    "DEVICE": {
+      "contextId": [
+        "device"
+      ],
+      "defaultValue": "CNCRCANZ31G",
+      "default": "CNCRCANZ31G"
+    }
+  },
+  "dashboard_filters": {
+    "time_filter": true,
+    "default_time_filter_labels": [
+      "Last 12 months"
+    ],
+    "columns_filter": [
+      {
+        "id": "timestamp",
+        "label": "Timestamp",
+        "type": "DATETIME"
+      },
+      {
+        "id": "instance_key",
+        "label": "Instance Key",
+        "type": "TEXT"
+      },
+      {
+        "id": "vpnname",
+        "label": "VPN Name",
+        "type": "TEXT"
+      },
+      {
+        "id": "vpnid",
+        "label": "VPN ID",
+        "type": "TEXT"
+      },
+      {
+        "id": "servname",
+        "label": "Serv Name",
+        "type": "TEXT"
+      },
+      {
+        "id": "servid",
+        "label": "Serv ID",
+        "type": "TEXT"
+      }
+    ],
+    "group_filters": [
+      {
+        "stream": "mobility_kpi_metrics_data",
+        "title": "Instance Key",
+        "group_by": [
+          "instance_key"
+        ],
+        "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+        "ts_column": "timestamp",
+        "agg": "sum",
+        "column": "count_",
+        "type": "int",
+        "show_counts": false
+      },
+      {
+        "stream": "mobility_kpi_metrics_data",
+        "title": "VPN Name",
+        "group_by": [
+          "vpnname"
+        ],
+        "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+        "ts_column": "timestamp",
+        "agg": "sum",
+        "column": "count_",
+        "type": "int",
+        "show_counts": false
+      },
+      {
+        "stream": "mobility_kpi_metrics_data",
+        "title": "VPN ID",
+        "group_by": [
+          "vpnid"
+        ],
+        "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+        "ts_column": "timestamp",
+        "agg": "sum",
+        "column": "count_",
+        "type": "int",
+        "show_counts": false
+      },
+      {
+        "stream": "mobility_kpi_metrics_data",
+        "title": "Serv Name",
+        "group_by": [
+          "servname"
+        ],
+        "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+        "ts_column": "timestamp",
+        "agg": "sum",
+        "column": "count_",
+        "type": "int",
+        "show_counts": false
+      },
+      {
+        "stream": "mobility_kpi_metrics_data",
+        "title": "Serv ID",
+        "group_by": [
+          "servid"
+        ],
+        "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+        "ts_column": "timestamp",
+        "agg": "sum",
+        "column": "count_",
+        "type": "int",
+        "show_counts": false
+      }
+    ]
+  },
+  "dashboard_sections": [
+    {
+      "title": "trend_1d_max",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "d25cb6bf"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "35459ef6"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "6dab6b14"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "09c93e11"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "2d867c45"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "a498c71e"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1a19ed8e"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1a19ed8e"
+        }
+      ]
+    },
+    {
+      "title": "trend_1h_max",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "51142fb1"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "d711b27e"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "8bb2038e"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "43559fdc"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "cd359542"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "b126a50f"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "e9395f6a"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "e9395f6a"
+        }
+      ]
+    },
+    {
+      "title": "trend_15m_max",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "77bfb358"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "a2c5fb66"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "017af7f1"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "93088297"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "c3798c9c"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "5ddb4310"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "cf10ec9f"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "cf10ec9f"
+        }
+      ]
+    },
+    {
+      "title": "trend_5m_max",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "f49b3a41"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "167fb693"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1ede7c57"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "17855ba5"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "a58eb04e"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "f13f4c92"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "70423625"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "70423625"
+        }
+      ]
+    },
+    {
+      "title": "trend_1d_avg",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "6f53a767"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "0999f485"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "d084be38"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "47f86e6a"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "aa8fe71d"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "573396a4"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "96f0bc6a"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "96f0bc6a"
+        }
+      ]
+    },
+    {
+      "title": "trend_1h_avg",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "5b8327e9"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "0dfa7d42"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "d9dd858b"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "f3901c3d"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "ab5bf36c"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "21fb5547"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "2149be91"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "2149be91"
+        }
+      ]
+    },
+    {
+      "title": "trend_15m_avg",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "c91e02d5"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "332edf5a"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "6b2f860c"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "22d43ec1"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "abbee974"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "554c965c"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "94771d70"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "94771d70"
+        }
+      ]
+    },
+    {
+      "title": "trend_5m_avg",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "ef64fda6"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "595fb3e5"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "47f3a6e9"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "373da04f"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "80cba3e9"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "bc42c801"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "4d11de0e"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "4d11de0e"
+        }
+      ]
+    },
+    {
+      "title": "trend_1d_min",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "ff4696f5"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "995d3402"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "f037cf6c"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "7346c7b2"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "5b905203"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "d97124d8"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1968b598"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1968b598"
+        }
+      ]
+    },
+    {
+      "title": "trend_1h_min",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "81b3617a"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "0ee56cac"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "00f8b8e9"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "b133f08d"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "76a8dfac"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "52b302b0"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "55adbb6c"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "55adbb6c"
+        }
+      ]
+    },
+    {
+      "title": "trend_15m_min",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "d33fd8ba"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "462329e3"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1c4b0880"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "0e6c3a8d"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "17f8769e"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "a1c2716d"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "99420943"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "99420943"
+        }
+      ]
+    },
+    {
+      "title": "trend_5m_min",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "a541f407"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1c3d707f"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "0b585d1b"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1ff77ade"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "afd753fb"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "b1308bc8"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "57e1bfb8"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "57e1bfb8"
+        }
+      ]
+    },
+    {
+      "title": "trend_1d_sum",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "e2125b40"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "05872f31"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "6262e91d"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1b80e3bd"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "6c46fe21"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1cad04a3"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "9f872256"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "9f872256"
+        }
+      ]
+    },
+    {
+      "title": "trend_1h_sum",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "659c68dc"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "5bd94f3d"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "9e01da14"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "645c23e6"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "6695f6c2"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "7db28360"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "4717a9bc"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "4717a9bc"
+        }
+      ]
+    },
+    {
+      "title": "trend_15m_sum",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "1a012efd"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "61c7ccc0"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "9d42a99c"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "982e2983"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "35a9b861"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "97f5355a"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "bf000aa6"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "bf000aa6"
+        }
+      ]
+    },
+    {
+      "title": "trend_5m_sum",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "81025eea"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "9bf9635c"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1b6cfcde"
+        },
+        {
+          "title": "PGW_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "PGW_Modify_Bearer_Request_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "73758df2"
+        },
+        {
+          "title": "Create_Session_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Create_Session_Request_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "6ac7ccd1"
+        },
+        {
+          "title": "EGTPC_Bearer_Update_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "EGTPC_Bearer_Update_Success_Rate",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "b3ad9d4e"
+        },
+        {
+          "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "a5416671"
+        },
+        {
+          "title": "test_update_bearer_CondIEMissing",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-updbearrespdeniedCondIEMissing%",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "test_update_bearer_CondIEMissing",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "a5416671"
+        }
+      ]
+    },
+    {
+      "title": "kpi_defs",
+      "show_filter": false,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "762764a9"
+        },
+        {
+          "widget_type": "label",
+          "label": "<div style='padding: 10px;height: 100%;overflow: auto;'><br/><details><summary>Create_Session_Request_Success_Rate</summary><table cellspacing=10 cellpadding=2 border=0><tr><td align='right'><b>Description</td><td align='left'>Create Session Request Success Rate</td></tr><tr><td align='right'><b>Formula</td><td align='left'><code>((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)</code></td></tr><tr><td align='right'><b>Variables</td><td align='left'><ol><li>%tun-sent-cresessrespaccept% (Int32 / Counter)</li><li>%tun-recv-cresess% (Int32 / Counter)</li></ol></td></tr></table></details><br/><details><summary>EGTPC_Bearer_Update_Success_Rate</summary><table cellspacing=10 cellpadding=2 border=0><tr><td align='right'><b>Description</td><td align='left'>Bearer Update Success Rate</td></tr><tr><td align='right'><b>Formula</td><td align='left'><code>((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)</code></td></tr><tr><td align='right'><b>Variables</td><td align='left'><ol><li>%tun-recv-updbearrespaccept% (Int32 / Counter)</li><li>%tun-sent-updbearreq% (Int32 / Counter)</li></ol></td></tr></table></details><br/><details><summary>PGW_Modify_Bearer_Request_Success_Rate</summary><table cellspacing=10 cellpadding=2 border=0><tr><td align='right'><b>Description</td><td align='left'>Modify Bearer Request Success Rate</td></tr><tr><td align='right'><b>Formula</td><td align='left'><code>((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)</code></td></tr><tr><td align='right'><b>Variables</td><td align='left'><ol><li>%tun-sent-modbearrespaccept% (Int32 / Counter)</li><li>%tun-recv-modbearreq% (Int32 / Counter)</li></ol></td></tr></table></details><br/><details><summary>Create_Session_Request_Success_Rate</summary><table cellspacing=10 cellpadding=2 border=0><tr><td align='right'><b>Description</td><td align='left'>Create Session Request Success Rate</td></tr><tr><td align='right'><b>Formula</td><td align='left'><code>((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)</code></td></tr><tr><td align='right'><b>Variables</td><td align='left'><ol><li>%tun-sent-cresessrespaccept% (Int32 / Counter)</li><li>%tun-recv-cresess% (Int32 / Counter)</li></ol></td></tr></table></details><br/><details><summary>EGTPC_Bearer_Update_Success_Rate</summary><table cellspacing=10 cellpadding=2 border=0><tr><td align='right'><b>Description</td><td align='left'>Bearer Update Success Rate</td></tr><tr><td align='right'><b>Formula</td><td align='left'><code>((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)</code></td></tr><tr><td align='right'><b>Variables</td><td align='left'><ol><li>%tun-recv-updbearrespaccept% (Int32 / Counter)</li><li>%tun-sent-updbearreq% (Int32 / Counter)</li></ol></td></tr></table></details><br/><details><summary>EGTPC_Modify_Bearer_Request_Success_Rate</summary><table cellspacing=10 cellpadding=2 border=0><tr><td align='right'><b>Description</td><td align='left'>EGTPC Modify Bearer Request Success Rate</td></tr><tr><td align='right'><b>Formula</td><td align='left'><code>((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)</code></td></tr><tr><td align='right'><b>Variables</td><td align='left'><ol><li>%tun-sent-modbearrespaccept% (Int32 / Counter)</li><li>%tun-recv-modbearreq% (Int32 / Counter)</li></ol></td></tr></table></details></div>",
+          "min_width": 12,
+          "max_width": 12,
+          "height": 14,
+          "widget_id": "5a4d88a5"
+        }
+      ]
+    },
+    {
+      "title": "data_report",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "tabular",
+          "title": "Device {{DEVICE}} egtpc Data",
+          "extra_filter": "schema = 'egtpc' and device = '{{DEVICE}}'",
+          "stream": "mobility_kpi_metrics_data",
+          "ts_column": "timestamp",
+          "min_width": 12,
+          "max_width": 12,
+          "height": 12,
+          "virtual_scrolling": true,
+          "showRowSummary": true,
+          "remote_searchable": true,
+          "remote_searchable_cols": [
+            "network_type",
+            "region",
+            "city",
+            "clli_code",
+            "device",
+            "instance_key",
+            "vpnname",
+            "vpnid",
+            "servname",
+            "servid"
+          ],
+          "columns": {
+            "network_type": "network_type",
+            "region": "region",
+            "city": "city",
+            "clli_code": "clli_code",
+            "device": "device",
+            "instance_key": "instance_key",
+            "timestamp": "timestamp",
+            "Create_Session_Request_Success_Rate": "Create_Session_Request_Success_Rate",
+            "EGTPC_Bearer_Update_Success_Rate": "EGTPC_Bearer_Update_Success_Rate",
+            "PGW_Modify_Bearer_Request_Success_Rate": "PGW_Modify_Bearer_Request_Success_Rate",
+            "EGTPC_Modify_Bearer_Request_Success_Rate": "EGTPC_Modify_Bearer_Request_Success_Rate"
+          },
+          "sorting": [
+            {
+              "timestamp": "desc"
+            }
+          ],
+          "widget_id": "c15ab667"
+        }
+      ]
+    },
+    {
+      "title": "pivot_report",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "tabular",
+          "title": "Device {{DEVICE}} egtpc Pivot Report",
+          "extra_filter": "schema = 'egtpc' and device = '{{DEVICE}}'",
+          "stream": "mobility_kpi_metrics_data",
+          "ts_column": "timestamp",
+          "min_width": 12,
+          "max_width": 12,
+          "height": 12,
+          "remote_searchable": true,
+          "showRowSummary": true,
+          "remote_searchable_cols": [
+            "device",
+            "instance_key"
+          ],
+          "columns": {
+            "device": "Device",
+            "instance_key": "Row Instance"
+          },
+          "pivot": {
+            "pivot_type": "advanced",
+            "group_by": [
+              "device",
+              "instance_key"
+            ],
+            "series": [
+              {
+                "column": "timestamp",
+                "agg": "min",
+                "type": "str",
+                "label": "Timestamp Begin"
+              },
+              {
+                "column": "timestamp",
+                "agg": "max",
+                "type": "str",
+                "label": "Timestamp End"
+              },
+              {
+                "column": "Create_Session_Request_Success_Rate",
+                "agg": "min",
+                "type": "int",
+                "label": "min_Create_Session_Request_Success_Rate"
+              },
+              {
+                "column": "Create_Session_Request_Success_Rate",
+                "agg": "avg",
+                "type": "int",
+                "label": "avg_Create_Session_Request_Success_Rate"
+              },
+              {
+                "column": "Create_Session_Request_Success_Rate",
+                "agg": "max",
+                "type": "int",
+                "label": "max_Create_Session_Request_Success_Rate"
+              },
+              {
+                "column": "EGTPC_Bearer_Update_Success_Rate",
+                "agg": "min",
+                "type": "int",
+                "label": "min_EGTPC_Bearer_Update_Success_Rate"
+              },
+              {
+                "column": "EGTPC_Bearer_Update_Success_Rate",
+                "agg": "avg",
+                "type": "int",
+                "label": "avg_EGTPC_Bearer_Update_Success_Rate"
+              },
+              {
+                "column": "EGTPC_Bearer_Update_Success_Rate",
+                "agg": "max",
+                "type": "int",
+                "label": "max_EGTPC_Bearer_Update_Success_Rate"
+              },
+              {
+                "column": "PGW_Modify_Bearer_Request_Success_Rate",
+                "agg": "min",
+                "type": "int",
+                "label": "min_PGW_Modify_Bearer_Request_Success_Rate"
+              },
+              {
+                "column": "PGW_Modify_Bearer_Request_Success_Rate",
+                "agg": "avg",
+                "type": "int",
+                "label": "avg_PGW_Modify_Bearer_Request_Success_Rate"
+              },
+              {
+                "column": "PGW_Modify_Bearer_Request_Success_Rate",
+                "agg": "max",
+                "type": "int",
+                "label": "max_PGW_Modify_Bearer_Request_Success_Rate"
+              },
+              {
+                "column": "Create_Session_Request_Success_Rate",
+                "agg": "min",
+                "type": "int",
+                "label": "min_Create_Session_Request_Success_Rate"
+              },
+              {
+                "column": "Create_Session_Request_Success_Rate",
+                "agg": "avg",
+                "type": "int",
+                "label": "avg_Create_Session_Request_Success_Rate"
+              },
+              {
+                "column": "Create_Session_Request_Success_Rate",
+                "agg": "max",
+                "type": "int",
+                "label": "max_Create_Session_Request_Success_Rate"
+              },
+              {
+                "column": "EGTPC_Bearer_Update_Success_Rate",
+                "agg": "min",
+                "type": "int",
+                "label": "min_EGTPC_Bearer_Update_Success_Rate"
+              },
+              {
+                "column": "EGTPC_Bearer_Update_Success_Rate",
+                "agg": "avg",
+                "type": "int",
+                "label": "avg_EGTPC_Bearer_Update_Success_Rate"
+              },
+              {
+                "column": "EGTPC_Bearer_Update_Success_Rate",
+                "agg": "max",
+                "type": "int",
+                "label": "max_EGTPC_Bearer_Update_Success_Rate"
+              },
+              {
+                "column": "EGTPC_Modify_Bearer_Request_Success_Rate",
+                "agg": "min",
+                "type": "int",
+                "label": "min_EGTPC_Modify_Bearer_Request_Success_Rate"
+              },
+              {
+                "column": "EGTPC_Modify_Bearer_Request_Success_Rate",
+                "agg": "avg",
+                "type": "int",
+                "label": "avg_EGTPC_Modify_Bearer_Request_Success_Rate"
+              },
+              {
+                "column": "EGTPC_Modify_Bearer_Request_Success_Rate",
+                "agg": "max",
+                "type": "int",
+                "label": "max_EGTPC_Modify_Bearer_Request_Success_Rate"
+              }
+            ]
+          },
+          "widget_id": "ce92b457"
+        }
+      ]
+    }
+  ],
+  "navigation_dashboards": {
+    "Agg: Max": [
+      {
+        "section": "trend_1d_max",
+        "label": "1 Day Interval Trend"
+      },
+      {
+        "section": "trend_1h_max",
+        "label": "1 Hour Interval Trend"
+      },
+      {
+        "section": "trend_15m_max",
+        "label": "15Min Interval Trend"
+      },
+      {
+        "section": "trend_5m_max",
+        "label": "5Min Interval Trend"
+      }
+    ],
+    "Agg: Avg": [
+      {
+        "section": "trend_1d_avg",
+        "label": "1 Day Interval Trend"
+      },
+      {
+        "section": "trend_1h_avg",
+        "label": "1 Hour Interval Trend"
+      },
+      {
+        "section": "trend_15m_avg",
+        "label": "15Min Interval Trend"
+      },
+      {
+        "section": "trend_5m_avg",
+        "label": "5Min Interval Trend"
+      }
+    ],
+    "Agg: Min": [
+      {
+        "section": "trend_1d_min",
+        "label": "1 Day Interval Trend"
+      },
+      {
+        "section": "trend_1h_min",
+        "label": "1 Hour Interval Trend"
+      },
+      {
+        "section": "trend_15m_min",
+        "label": "15Min Interval Trend"
+      },
+      {
+        "section": "trend_5m_min",
+        "label": "5Min Interval Trend"
+      }
+    ],
+    "Agg: Sum": [
+      {
+        "section": "trend_1d_sum",
+        "label": "1 Day Interval Trend"
+      },
+      {
+        "section": "trend_1h_sum",
+        "label": "1 Hour Interval Trend"
+      },
+      {
+        "section": "trend_15m_min",
+        "label": "15Min Interval Trend"
+      },
+      {
+        "section": "trend_5m_sum",
+        "label": "5Min Interval Trend"
+      }
+    ],
+    "Data Model": [
+      {
+        "section": "kpi_defs",
+        "label": "KPI Definitions"
+      }
+    ],
+    "Data": [
+      {
+        "section": "data_report",
+        "label": "Data"
+      },
+      {
+        "section": "pivot_report",
+        "label": "Pivot Table"
+      }
+    ]
+  }
+}

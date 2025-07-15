@@ -1,0 +1,526 @@
+{
+    "name": "GeoDR-Status",
+    "label": "Geo DR Replication status",
+    "description": "GeoDR status dashboard",
+    "version": "2025.6.26.1",
+    "live_edit": true,
+    "enabled": true,
+    "dashboard_style": "auto",
+    "dashboard_type": "dashboard",
+    "dashboard_filters": {
+        "time_filter": true
+    },
+    "dashboard_sections": [
+        {
+            "title": "GeoDR Replication Status",
+            "widgets": [
+                {
+                    "widget_type": "label",
+                    "title": "setup_status",
+                    "label": "{% if is_node_primary is iterable and is_node_primary|length > 0 and is_node_primary[0] is mapping %}{% set raw_value = is_node_primary[0].get('value') %}{% set label = 'Primary' if raw_value == true or raw_value == 'true' else 'Secondary' %}{% else %}{% set label  = 'Unknown' %}{% endif %}<div style='text-align: center; margin: 30px 40px; border: 1px solid #ddd; border-radius: 10px; padding: 20px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);'><h2 style='color: #007BFF; margin-bottom: 20px;'>Geo DR {{ label }} Setup</h2><p style='font-size: 16px; color:#333; line-height: 1;'>",
+                    "min_width": 12,
+                    "max_width": 12,
+                    "height": 3,
+                    "style": {
+                        "backgroundColor": "#FFFFFF",
+                        "color": "#000000"
+                    },
+                    "segments": [
+                        {
+                            "variable": "is_node_primary",
+                            "agg": "first",
+                            "stream": "geodr_peer_status_stream",
+                            "ts_column": "timestamp",
+                            "extra_filter": "timestamp is after -15 minutes",
+                            "column": "is_node_primary",
+                            "group_by": [
+                                "is_node_primary"
+                            ]
+                        }
+                    ],
+                    "widget_id": "e3b2dfeb"
+                },
+                {
+                    "widget_type": "counter",
+                    "title": "Infra Health Status",
+                    "stream": "geodr_health_status_stream",
+                    "extra_filter": "status_type is 'infra_healthcheck'",
+                    "ts_column": "timestamp",
+                    "min_width": 3,
+                    "height": 4,
+                    "max_width": 3,
+                    "duration_hours": "1",
+                    "style": {
+                        "color-map": {
+                            "Success": "#00BB00",
+                            "Failed": "#BB0000"
+                        }
+                    },
+                    "group_by": [
+                        "status"
+                    ],
+                    "column": "pod_id",
+                    "agg": "cardinality",
+                    "type": "str",
+                    "widget_id": "74f6c74a"
+                },
+                {
+                    "title": "MariaDB Status",
+                    "widget_type": "counter",
+                    "stream": "geodr_health_status_stream",
+                    "extra_filter": "status_type is 'MariaDB_replication'",
+                    "ts_column": "timestamp",
+                    "group_by": [
+                        "status"
+                    ],
+                    "column": "table",
+                    "agg": "value_count",
+                    "type": "TEXT",
+                    "widget_id": "5f900d0d"
+                },
+                {
+                    "title": "Minio Status",
+                    "widget_type": "counter",
+                    "stream": "geodr_health_status_stream",
+                    "extra_filter": "status_type is 'Minio_replication'",
+                    "ts_column": "timestamp",
+                    "group_by": [
+                        "status"
+                    ],
+                    "column": "object_name",
+                    "agg": "value_count",
+                    "type": "TEXT",
+                    "widget_id": "b58d745a"
+                },
+                {
+                    "title": "Open Search Status",
+                    "widget_type": "counter",
+                    "stream": "geodr_health_status_stream",
+                    "extra_filter": "status_type is 'OS_replication'",
+                    "ts_column": "timestamp",
+                    "group_by": [
+                        "status"
+                    ],
+                    "column": "os_index",
+                    "agg": "value_count",
+                    "type": "TEXT",
+                    "widget_id": "3a5edcde"
+                },
+                {
+                    "title": "Self Infra Status",
+                    "widget_type": "tabular",
+                    "max_width": 8,
+                    "height": 6,
+                    "min_width": 8,
+                    "stream": "geodr_health_status_stream",
+                    "ts_column": "timestamp",
+                    "timebased": true,
+                    "extra_filter": "status_type is 'infra_healthcheck' and host is 'self'",
+                    "columns": {
+                        "pod_category": {
+                            "title": "Pod Category",
+                            "type": "TEXT"
+                        },
+                        "pod_type": {
+                            "title": "Pod Type",
+                            "type": "TEXT",
+                            "visible": true
+                        },
+                        "hostname": {
+                            "title": "Hostname",
+                            "type": "TEXT",
+                            "visible": false
+                        },
+                        "pod_id": {
+                            "title": "Pod Id",
+                            "type": "TEXT",
+                            "visible": true
+                        },
+                        "site": {
+                            "title": "Site",
+                            "type": "TEXT",
+                            "visible": false
+                        },
+                        "param": {
+                            "title": "Param",
+                            "type": "TEXT",
+                            "visible": true
+                        },
+                        "status": {
+                            "title": "Status",
+                            "type": "TEXT",
+                            "visible": true
+                        },
+                        "timestamp": {
+                            "title": "When",
+                            "type": "HUMANIZE_TIME_DELTA",
+                            "source-column": "timestamp",
+                            "sortable": false
+                        },
+                        "rowStyle": {
+                            "title": "Row Style",
+                            "type": "TEXT",
+                            "hidden": true,
+                            "visible": false
+                        }
+                    },
+                    "custom_columns": [
+                        {
+                            "id": "rowStyle",
+                            "label": "Row Style",
+                            "expr": "\"{'background-color':'#ef9a9a'}\" if status  in[\"failed\"] else  None",
+                            "visible": false,
+                            "default": null
+                        }
+                    ],
+                    "widget_id": "pIvpwiNe"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Self Infra Status",
+                    "stream": "geodr_health_status_stream",
+                    "extra_filter": "status_type is 'infra_healthcheck' and host is 'self'",
+                    "ts_column": "timestamp",
+                    "column": "pod_category",
+                    "timebased": true,
+                    "agg": "value_count",
+                    "style": {
+                        "color-map": {
+                            "ok": "#50C878",
+                            "failed": "#FF0000"
+                        }
+                    },
+                    "group_by": [
+                        "status"
+                    ],
+                    "min_width": 4,
+                    "height": 6,
+                    "max_width": 4,
+                    "widget_id": "a93ea7cb"
+                },
+                {
+                    "title": "Peer Infra Status",
+                    "widget_type": "tabular",
+                    "max_width": 8,
+                    "height": 6,
+                    "min_width": 8,
+                    "stream": "geodr_health_status_stream",
+                    "ts_column": "timestamp",
+                    "timebased": true,
+                    "extra_filter": "status_type is 'infra_healthcheck' and host is 'peer'",
+                    "columns": {
+                        "pod_category": {
+                            "title": "Pod Category",
+                            "type": "TEXT"
+                        },
+                        "pod_type": {
+                            "title": "Pod Type",
+                            "type": "TEXT",
+                            "visible": true
+                        },
+                        "hostname": {
+                            "title": "Hostname",
+                            "type": "TEXT",
+                            "visible": false
+                        },
+                        "pod_id": {
+                            "title": "Pod Id",
+                            "type": "TEXT",
+                            "visible": true
+                        },
+                        "site": {
+                            "title": "Site",
+                            "type": "TEXT",
+                            "visible": false
+                        },
+                        "param": {
+                            "title": "Param",
+                            "type": "TEXT",
+                            "visible": true
+                        },
+                        "status": {
+                            "title": "Status",
+                            "type": "TEXT",
+                            "visible": true
+                        },
+                        "timestamp": {
+                            "title": "When",
+                            "type": "HUMANIZE_TIME_DELTA",
+                            "source-column": "timestamp",
+                            "sortable": false
+                        },
+                        "rowStyle": {
+                            "title": "Row Style",
+                            "type": "TEXT",
+                            "hidden": true,
+                            "visible": false
+                        }
+                    },
+                    "custom_columns": [
+                        {
+                            "id": "rowStyle",
+                            "label": "Row Style",
+                            "expr": "\"{'background-color':'#ef9a9a'}\" if status  in[\"failed\"] else  None",
+                            "visible": false,
+                            "default": null
+                        }
+                    ],
+                    "widget_id": "4b68ff73"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Peer Infra Status",
+                    "stream": "geodr_health_status_stream",
+                    "extra_filter": "status_type is 'infra_healthcheck' and host is 'peer'",
+                    "ts_column": "timestamp",
+                    "timebased": true,
+                    "column": "pod_category",
+                    "agg": "value_count",
+                    "style": {
+                        "color-map": {
+                            "ok": "#50C878",
+                            "failed": "#FF0000"
+                        }
+                    },
+                    "group_by": [
+                        "status"
+                    ],
+                    "min_width": 4,
+                    "height": 6,
+                    "max_width": 4,
+                    "widget_id": "179ce47e"
+                },
+                {
+                    "title": "MariaDB Replication Status",
+                    "widget_type": "tabular",
+                    "max_width": 8,
+                    "height": 6,
+                    "min_width": 8,
+                    "timebased": true,
+                    "stream": "geodr_health_status_stream",
+                    "ts_column": "timestamp",
+                    "extra_filter": "status_type is 'MariaDB_replication'",
+                    "columns": {
+                        "schema": {
+                            "title": "Schema",
+                            "type": "TEXT"
+                        },
+                        "table": {
+                            "title": "Table",
+                            "type": "TEXT"
+                        },
+                        "master_count": {
+                            "title": "Master Count",
+                            "type": "TEXT"
+                        },
+                        "replica_count": {
+                            "title": "Replica Count",
+                            "type": "TEXT"
+                        },
+                        "db_table_in_sync": {
+                            "title": "In Sync",
+                            "type": "TEXT"
+                        },
+                        "reason": {
+                            "title": "Reason",
+                            "type": "TEXT"
+                        },
+                        "status": {
+                            "title": "Status",
+                            "type": "TEXT",
+                            "visible": false
+                        },
+                        "timestamp": {
+                            "title": "When",
+                            "type": "HUMANIZE_TIME_DELTA",
+                            "source-column": "timestamp",
+                            "sortable": false
+                        },
+                        "rowStyle": {
+                            "title": "Row Style",
+                            "type": "TEXT",
+                            "hidden": true,
+                            "visible": false
+                        }
+                    },
+                    "custom_columns": [
+                        {
+                            "id": "rowStyle",
+                            "label": "Row Style",
+                            "expr": "\"{'background-color':'#ef9a9a'}\" if status  in[\"failed\"] else  None",
+                            "visible": false,
+                            "default": null
+                        }
+                    ],
+                    "widget_id": "5c25d5ce"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "MariaDB Replication Status",
+                    "stream": "geodr_health_status_stream",
+                    "extra_filter": "status_type is 'MariaDB_replication'",
+                    "ts_column": "timestamp",
+                    "column": "table",
+                    "agg": "value_count",
+                    "style": {
+                        "color-map": {
+                            "ok": "#50C878",
+                            "failed": "#FF0000"
+                        }
+                    },
+                    "group_by": [
+                        "status"
+                    ],
+                    "min_width": 4,
+                    "height": 6,
+                    "max_width": 4,
+                    "widget_id": "9dee5d5b"
+                },
+                {
+                    "title": "Minio Replication Status",
+                    "widget_type": "tabular",
+                    "max_width": 8,
+                    "height": 6,
+                    "min_width": 8,
+                    "timebased": true,
+                    "stream": "geodr_health_status_stream",
+                    "ts_column": "timestamp",
+                    "extra_filter": "status_type is 'Minio_replication' and object_name is not empty",
+                    "columns": {
+                        "object_name": {
+                            "title": "Object Name",
+                            "type": "TEXT"
+                        },
+                        "replication_status": {
+                            "title": "Replication Status",
+                            "type": "TEXT"
+                        },
+                        "status": {
+                            "title": "Status",
+                            "type": "TEXT",
+                            "visible": false
+                        },
+                        "timestamp": {
+                            "title": "When",
+                            "type": "HUMANIZE_TIME_DELTA",
+                            "source-column": "timestamp",
+                            "sortable": false
+                        },
+                        "rowStyle": {
+                            "title": "Row Style",
+                            "type": "TEXT",
+                            "hidden": true,
+                            "visible": false
+                        }
+                    },
+                    "custom_columns": [
+                        {
+                            "id": "rowStyle",
+                            "label": "Row Style",
+                            "expr": "\"{'background-color':'#ef9a9a'}\" if replication_status  in[\"FAILED\"] else  None",
+                            "visible": false,
+                            "default": null
+                        }
+                    ],
+                    "widget_id": "7a17e1e4"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Minio Replication Status",
+                    "stream": "geodr_health_status_stream",
+                    "extra_filter": "status_type is 'Minio_replication' and object_name is not empty",
+                    "ts_column": "timestamp",
+                    "column": "object_name",
+                    "agg": "value_count",
+                    "style": {
+                        "color-map": {
+                            "ok": "#50C878",
+                            "failed": "#FF0000"
+                        }
+                    },
+                    "group_by": [
+                        "status"
+                    ],
+                    "min_width": 4,
+                    "height": 6,
+                    "max_width": 4,
+                    "widget_id": "a5182943"
+                },
+                {
+                    "title": "Opensearch Replication Status",
+                    "widget_type": "tabular",
+                    "max_width": 8,
+                    "height": 6,
+                    "min_width": 8,
+                    "timebased": true,
+                    "stream": "geodr_health_status_stream",
+                    "ts_column": "timestamp",
+                    "extra_filter": "status_type is 'OS_replication'",
+                    "columns": {
+                        "os_index": {
+                            "title": "Open Search Index",
+                            "type": "TEXT"
+                        },
+                        "index_replication_status": {
+                            "title": "Index Replication Status",
+                            "type": "TEXT"
+                        },
+                        "status": {
+                            "title": "Status",
+                            "type": "TEXT",
+                            "visible": false
+                        },
+                        "reason": {
+                            "title": "Reason",
+                            "type": "TEXT"
+                        },
+                        "timestamp": {
+                            "title": "When",
+                            "type": "HUMANIZE_TIME_DELTA",
+                            "source-column": "timestamp",
+                            "sortable": false
+                        },
+                        "rowStyle": {
+                            "title": "Row Style",
+                            "type": "TEXT",
+                            "hidden": true,
+                            "visible": false
+                        }
+                    },
+                    "custom_columns": [
+                        {
+                            "id": "rowStyle",
+                            "label": "Row Style",
+                            "expr": "\"{'background-color':'#ef9a9a'}\" if index_replication_status  in[\"REPLICATION NOT IN PROGRESS\"] else  None",
+                            "visible": false,
+                            "default": null
+                        }
+                    ],
+                    "widget_id": "5a3f5e2b"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Opensearch Replication Status",
+                    "stream": "geodr_health_status_stream",
+                    "extra_filter": "status_type is 'OS_replication'",
+                    "ts_column": "timestamp",
+                    "column": "os_index",
+                    "agg": "value_count",
+                    "style": {
+                        "color-map": {
+                            "ok": "#50C878",
+                            "failed": "#FF0000"
+                        }
+                    },
+                    "group_by": [
+                        "status"
+                    ],
+                    "min_width": 4,
+                    "height": 6,
+                    "max_width": 4,
+                    "widget_id": "38385255"
+                }
+            ]
+        }
+    ]
+}
