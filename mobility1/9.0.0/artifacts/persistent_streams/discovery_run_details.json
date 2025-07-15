@@ -1,0 +1,24 @@
+{
+  "name": "discovery_run_details",
+  "datastore_type": "OS",
+  "read_only": false,
+  "attrs": {
+    "retention_days": 1,
+    "unique_keys": [
+      "unique_id"
+    ],
+    "_mappings": {
+      "properties": {
+        "discovery_end_time": {
+          "type": "date"
+        },
+        "discovery_time": {
+          "type": "date"
+        }
+      }
+    },
+    "os_external": true
+  },
+  "status": "Running",
+  "index_name": "os-external-3f89175ce8104956a289bfef8427d152-stream-3909798f-discovery_run_details"
+}

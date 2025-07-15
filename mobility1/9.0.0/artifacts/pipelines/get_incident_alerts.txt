@@ -1,0 +1,17 @@
+%% stream = no and limit = 0
+
+@c:new-block
+    --> @exec:get-input
+    --> @dm:save name="temp-incident-input"
+
+--> @c:data-loop dataset="temp-incident-input" & columns="project_id,incident_id"
+    --> @dm:empty
+    --> @dm:addrow name="oia-alerts-stream" and retry_attempts_on_no_data=3
+    --> #dm:query-persistent-stream a_incident_id in ['$incident_id'] and project_id in ['$project_id'] and a_source_systemname is not in ['Alert Group'] and a_correlation_status not in ['AGGREGATE']
+    --> @dm:eval project_id ="'$project_id'"
+    --> @dm:eval incident_id ="'$incident_id'"
+    --> @dm:save name="temp-incident-alerts" & append="yes"
+
+--> @c:new-block
+    --> @dm:recall name="temp-incident-alerts" and return_empty= "yes"
+

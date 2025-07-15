@@ -1,0 +1,326 @@
+{
+    "name": "auto-x-3-per-pgw-egtpc-s5s8-new",
+    "label": "pgw-egtpc-s5s8",
+    "description": "mobility_kpi_metrics_data: Insights",
+    "dashboard_folder": "mobility-auto-x-3",
+    "version": "1.0.1",
+    "enabled": false,
+    "live_edit": true,
+    "stream": "mobility_kpi_metrics_data",
+    "dashboard_type": "template",
+    "section_as_dashboard": true,
+    "template_variables": {
+        "DEVICE": {
+            "contextId": [
+                "device"
+            ],
+            "defaultValue": "AKRNOHNE11G",
+            "default": "AKRNOHNE11G"
+        },
+        "FUNCTION": {
+            "contextId": "function",
+            "default": "max"
+        },
+        "INTERVAL": {
+            "contextId": "interval",
+            "default": "1H"
+        }
+    },
+    "dashboard_filters": {
+        "time_filter": true,
+        "default_time_filter_labels": [
+            "All Time"
+        ],
+        "columns_filter": [
+            {
+                "id": "timestamp",
+                "label": "Timestamp",
+                "type": "DATETIME"
+            },
+            {
+                "id": "instance_key",
+                "label": "Instance Key",
+                "type": "TEXT"
+            },
+            {
+                "id": "vpnname",
+                "label": "VPN Name",
+                "type": "TEXT"
+            },
+            {
+                "id": "vpnid",
+                "label": "VPN ID",
+                "type": "TEXT"
+            },
+            {
+                "id": "servname",
+                "label": "Serv Name",
+                "type": "TEXT"
+            },
+            {
+                "id": "servid",
+                "label": "Serv ID",
+                "type": "TEXT"
+            }
+        ]
+    },
+    "dashboard_sections": [
+        {
+            "title": "pgw-egtpc-s5s8",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "widget_type": "label",
+                    "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+                    "height": 0.5,
+                    "min_width": 12,
+                    "max_width": 12,
+                    "widget_id": "353db440"
+                },
+                {
+                    "title": "Total_Create_Bearer_Request_WPS_s5s8",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+                    "ts_column": "timestamp",
+                    "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "chartProperties": {
+                        "yAxisLabel": "",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "mode": "selection",
+                        "column-id": "timestamp"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation": "compact"
+                    },
+                    "interval": "{{INTERVAL}}",
+                    "group_by": [
+                        "instance_key"
+                    ],
+                    "series_spec": [
+                        {
+                            "column": "Total_Create_Bearer_Request_WPS_s5s8",
+                            "agg": "{{FUNCTION}}",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "45cfebe5"
+                },
+                {
+                    "title": "Total_Create_Session_Request_WPS_s5s8",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+                    "ts_column": "timestamp",
+                    "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "chartProperties": {
+                        "yAxisLabel": "",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "mode": "selection",
+                        "column-id": "timestamp"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation": "compact"
+                    },
+                    "interval": "{{INTERVAL}}",
+                    "group_by": [
+                        "instance_key"
+                    ],
+                    "series_spec": [
+                        {
+                            "column": "Total_Create_Session_Request_WPS_s5s8",
+                            "agg": "{{FUNCTION}}",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "ba5e01a7"
+                }
+            ]
+        }
+    ],
+    "dynamic_form": {
+        "formData": {},
+        "controlPanelFormDefinition": {
+            "id": "kpi.benchmark.json",
+            "refreshRequired": true,
+            "formFieldList": [
+                {
+                    "fieldId": "function",
+                    "label": "Function",
+                    "help": "Function",
+                    "dataType": "string",
+                    "hidden": false,
+                    "editable": true,
+                    "required": true,
+                    "controlType": "COMBO_BOX",
+                    "defaultValue": "max",
+                    "lovValues": [
+                        {
+                            "identifier": "max",
+                            "displayName": "Maximum"
+                        },
+                        {
+                            "identifier": "min",
+                            "displayName": "Minimum"
+                        },
+                        {
+                            "identifier": "avg",
+                            "displayName": "Average"
+                        },
+                        {
+                            "identifier": "sum",
+                            "displayName": "Sum"
+                        }
+                    ]
+                },
+                {
+                    "fieldId": "interval",
+                    "label": "Interval",
+                    "help": "Interval",
+                    "dataType": "string",
+                    "hidden": false,
+                    "editable": true,
+                    "required": true,
+                    "controlType": "COMBO_BOX",
+                    "defaultValue": "1H",
+                    "lovValues": [
+                        {
+                            "identifier": "5Min",
+                            "displayName": "5 Minutes"
+                        },
+                        {
+                            "identifier": "15Min",
+                            "displayName": "15 Minutes"
+                        },
+                        {
+                            "identifier": "1H",
+                            "displayName": "1 Hour"
+                        },
+                        {
+                            "identifier": "24H",
+                            "displayName": "1 Day"
+                        }
+                    ]
+                },
+                {
+                    "fieldId": "device",
+                    "label": "Device",
+                    "help": "Device",
+                    "hidden": false,
+                    "editable": true,
+                    "required": true,
+                    "controlType": "COMBO_BOX",
+                    "defaultValue": "AKRNOHNE11G",
+                    "lovSourceType": "pstream",
+                    "lovSourceParams": {
+                        "name": "mobility_kpi_metrics_data",
+                        "valueColumn": "device",
+                        "labelColumn": "device"
+                    },
+                    "lovValues": [
+                        {
+                            "identifier": "AKRNOHNF11G",
+                            "displayName": "AKRNOHNF11G"
+                        },
+                        {
+                            "identifier": "ARTNVANE11G",
+                            "displayName": "ARTNVANE11G"
+                        },
+                        {
+                            "identifier": "AKRNOHNE11G",
+                            "displayName": "AKRNOHNE11G"
+                        },
+                        {
+                            "identifier": "AKRNOHNZ32G",
+                            "displayName": "AKRNOHNZ32G"
+                        },
+                        {
+                            "identifier": "AKRNOHNF12G",
+                            "displayName": "AKRNOHNF12G"
+                        },
+                        {
+                            "identifier": "AKRNOHNZ51G",
+                            "displayName": "AKRNOHNZ51G"
+                        },
+                        {
+                            "identifier": "AKRNOHNZ12G",
+                            "displayName": "AKRNOHNZ12G"
+                        },
+                        {
+                            "identifier": "AKRNOHNZ11G",
+                            "displayName": "AKRNOHNZ11G"
+                        },
+                        {
+                            "identifier": "ALPSGANF12G",
+                            "displayName": "ALPSGANF12G"
+                        },
+                        {
+                            "identifier": "AKRNOHNE12G",
+                            "displayName": "AKRNOHNE12G"
+                        },
+                        {
+                            "identifier": "ALPSGANZ42G",
+                            "displayName": "ALPSGANZ42G"
+                        },
+                        {
+                            "identifier": "ALPSGANZ51G",
+                            "displayName": "ALPSGANZ51G"
+                        },
+                        {
+                            "identifier": "ALLNTXNE12G",
+                            "displayName": "ALLNTXNE12G"
+                        },
+                        {
+                            "identifier": "CHCGILNE12G",
+                            "displayName": "CHCGILNE12G"
+                        },
+                        {
+                            "identifier": "ASR5500-2",
+                            "displayName": "ASR5500-2"
+                        },
+                        {
+                            "identifier": "NYCMNYNZ32G",
+                            "displayName": "NYCMNYNZ32G"
+                        }
+                    ]
+                }
+            ],
+            "formActionList": {
+                "formActions": [
+                    {
+                        "api-endpoint": {
+                            "methodName": "submitForm",
+                            "parse-output": false,
+                            "params": [
+                                {
+                                    "formData": {},
+                                    "formId": "kpi.benchmark.json"
+                                }
+                            ],
+                            "service-name": "saas-reports",
+                            "stringified-params": true
+                        },
+                        "actionLabel": "Save",
+                        "type": "SUBMIT",
+                        "identifier": "Submit"
+                    },
+                    {
+                        "actionLabel": "Cancel",
+                        "type": "CANCEL",
+                        "identifier": "Cancel"
+                    }
+                ]
+            }
+        }
+    }
+}

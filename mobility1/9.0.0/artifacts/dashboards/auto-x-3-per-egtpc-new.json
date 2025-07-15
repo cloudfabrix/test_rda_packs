@@ -1,0 +1,529 @@
+{
+    "name": "auto-x-3-per-egtpc-new",
+    "label": "egtpc",
+    "description": "mobility_kpi_metrics_data: Insights",
+    "dashboard_folder": "mobility-auto-x-3",
+    "version": "1.0.1",
+    "enabled": false,
+    "live_edit": true,
+    "stream": "mobility_kpi_metrics_data",
+    "dashboard_type": "template",
+    "section_as_dashboard": true,
+    "template_variables": {
+        "DEVICE": {
+            "contextId": [
+                "device"
+            ],
+            "defaultValue": "AKRNOHNE11G",
+            "default": "AKRNOHNE11G"
+        },
+        "FUNCTION": {
+            "contextId": "function",
+            "default": "max"
+        },
+        "INTERVAL": {
+            "contextId": "interval",
+            "default": "1H"
+        }
+    },
+    "dashboard_filters": {
+        "time_filter": true,
+        "default_time_filter_labels": [
+            "All Time"
+        ],
+        "columns_filter": [
+            {
+                "id": "timestamp",
+                "label": "Timestamp",
+                "type": "DATETIME"
+            },
+            {
+                "id": "instance_key",
+                "label": "Instance Key",
+                "type": "TEXT"
+            },
+            {
+                "id": "vpnname",
+                "label": "VPN Name",
+                "type": "TEXT"
+            },
+            {
+                "id": "vpnid",
+                "label": "VPN ID",
+                "type": "TEXT"
+            },
+            {
+                "id": "servname",
+                "label": "Serv Name",
+                "type": "TEXT"
+            },
+            {
+                "id": "servid",
+                "label": "Serv ID",
+                "type": "TEXT"
+            }
+        ],
+        "group_filters": [
+            {
+                "stream": "mobility_kpi_metrics_data",
+                "title": "Instance Key",
+                "group_by": [
+                    "instance_key"
+                ],
+                "extra_filter": "schema_key is 'egtpc'",
+                "ts_column": "timestamp",
+                "agg": "sum",
+                "column": "count_",
+                "type": "int",
+                "show_counts": false
+            },
+            {
+                "stream": "mobility_kpi_metrics_data",
+                "title": "VPN Name",
+                "group_by": [
+                    "vpnname"
+                ],
+                "extra_filter": "schema_key is 'egtpc'",
+                "ts_column": "timestamp",
+                "agg": "sum",
+                "column": "count_",
+                "type": "int",
+                "show_counts": false
+            },
+            {
+                "stream": "mobility_kpi_metrics_data",
+                "title": "VPN ID",
+                "group_by": [
+                    "vpnid"
+                ],
+                "extra_filter": "schema_key is 'egtpc'",
+                "ts_column": "timestamp",
+                "agg": "sum",
+                "column": "count_",
+                "type": "int",
+                "show_counts": false
+            },
+            {
+                "stream": "mobility_kpi_metrics_data",
+                "title": "Serv Name",
+                "group_by": [
+                    "servname"
+                ],
+                "extra_filter": "schema_key is 'egtpc'",
+                "ts_column": "timestamp",
+                "agg": "sum",
+                "column": "count_",
+                "type": "int",
+                "show_counts": false
+            },
+            {
+                "stream": "mobility_kpi_metrics_data",
+                "title": "Serv ID",
+                "group_by": [
+                    "servid"
+                ],
+                "extra_filter": "schema_key is 'egtpc'",
+                "ts_column": "timestamp",
+                "agg": "sum",
+                "column": "count_",
+                "type": "int",
+                "show_counts": false
+            }
+        ]
+    },
+    "dashboard_sections": [
+        {
+            "title": "egtpc",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "widget_type": "label",
+                    "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+                    "height": 0.5,
+                    "min_width": 12,
+                    "max_width": 12,
+                    "widget_id": "d25cb6bf"
+                },
+                {
+                    "title": "Create_Session_Request_Success_Rate",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+                    "ts_column": "timestamp",
+                    "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "chartProperties": {
+                        "yAxisLabel": "",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "mode": "selection",
+                        "column-id": "timestamp"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation": "compact"
+                    },
+                    "interval": "{{INTERVAL}}",
+                    "group_by": [
+                        "instance_key"
+                    ],
+                    "series_spec": [
+                        {
+                            "column": "Create_Session_Request_Success_Rate",
+                            "agg": "{{FUNCTION}}",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "35459ef6"
+                },
+                {
+                    "title": "EGTPC_Bearer_Update_Success_Rate",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+                    "ts_column": "timestamp",
+                    "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "chartProperties": {
+                        "yAxisLabel": "",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "mode": "selection",
+                        "column-id": "timestamp"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation": "compact"
+                    },
+                    "interval": "{{INTERVAL}}",
+                    "group_by": [
+                        "instance_key"
+                    ],
+                    "series_spec": [
+                        {
+                            "column": "EGTPC_Bearer_Update_Success_Rate",
+                            "agg": "{{FUNCTION}}",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "6dab6b14"
+                },
+                {
+                    "title": "PGW_Modify_Bearer_Request_Success_Rate",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: Modify Bearer Request Success Rate",
+                    "ts_column": "timestamp",
+                    "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "chartProperties": {
+                        "yAxisLabel": "",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "mode": "selection",
+                        "column-id": "timestamp"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation": "compact"
+                    },
+                    "interval": "{{INTERVAL}}",
+                    "group_by": [
+                        "instance_key"
+                    ],
+                    "series_spec": [
+                        {
+                            "column": "PGW_Modify_Bearer_Request_Success_Rate",
+                            "agg": "{{FUNCTION}}",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "09c93e11"
+                },
+                {
+                    "title": "Create_Session_Request_Success_Rate",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "Formula: ((%tun-sent-cresessrespaccept%/%tun-recv-cresess%)*100)\nDescription: Create Session Request Success Rate",
+                    "ts_column": "timestamp",
+                    "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "chartProperties": {
+                        "yAxisLabel": "",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "mode": "selection",
+                        "column-id": "timestamp"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation": "compact"
+                    },
+                    "interval": "{{INTERVAL}}",
+                    "group_by": [
+                        "instance_key"
+                    ],
+                    "series_spec": [
+                        {
+                            "column": "Create_Session_Request_Success_Rate",
+                            "agg": "{{FUNCTION}}",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "2d867c45"
+                },
+                {
+                    "title": "EGTPC_Bearer_Update_Success_Rate",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "Formula: ((%tun-recv-updbearrespaccept%/%tun-sent-updbearreq%)*100)\nDescription: Bearer Update Success Rate",
+                    "ts_column": "timestamp",
+                    "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "chartProperties": {
+                        "yAxisLabel": "",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "mode": "selection",
+                        "column-id": "timestamp"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation": "compact"
+                    },
+                    "interval": "{{INTERVAL}}",
+                    "group_by": [
+                        "instance_key"
+                    ],
+                    "series_spec": [
+                        {
+                            "column": "EGTPC_Bearer_Update_Success_Rate",
+                            "agg": "{{FUNCTION}}",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "a498c71e"
+                },
+                {
+                    "title": "EGTPC_Modify_Bearer_Request_Success_Rate",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "Formula: ((%tun-sent-modbearrespaccept%/%tun-recv-modbearreq%)*100)\nDescription: EGTPC Modify Bearer Request Success Rate",
+                    "ts_column": "timestamp",
+                    "extra_filter": "device = '{{DEVICE}}' and schema_key is 'egtpc'",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "chartProperties": {
+                        "yAxisLabel": "",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "mode": "selection",
+                        "column-id": "timestamp"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation": "compact"
+                    },
+                    "interval": "{{INTERVAL}}",
+                    "group_by": [
+                        "instance_key"
+                    ],
+                    "series_spec": [
+                        {
+                            "column": "EGTPC_Modify_Bearer_Request_Success_Rate",
+                            "agg": "{{FUNCTION}}",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "1a19ed8e"
+                }
+            ]
+        }
+    ],
+    "dynamic_form": {
+        "formData": {},
+        "controlPanelFormDefinition": {
+            "id": "kpi.benchmark.json",
+            "refreshRequired": true,
+            "formFieldList": [
+                {
+                    "fieldId": "function",
+                    "label": "Function",
+                    "help": "Function",
+                    "dataType": "string",
+                    "hidden": false,
+                    "editable": true,
+                    "required": true,
+                    "controlType": "COMBO_BOX",
+                    "defaultValue": "max",
+                    "lovValues": [
+                        {
+                            "identifier": "max",
+                            "displayName": "Maximum"
+                        },
+                        {
+                            "identifier": "min",
+                            "displayName": "Minimum"
+                        },
+                        {
+                            "identifier": "avg",
+                            "displayName": "Average"
+                        },
+                        {
+                            "identifier": "sum",
+                            "displayName": "Sum"
+                        }
+                    ]
+                },
+                {
+                    "fieldId": "interval",
+                    "label": "Interval",
+                    "help": "Interval",
+                    "dataType": "string",
+                    "hidden": false,
+                    "editable": true,
+                    "required": true,
+                    "controlType": "COMBO_BOX",
+                    "defaultValue": "1H",
+                    "lovValues": [
+                        {
+                            "identifier": "5Min",
+                            "displayName": "5 Minutes"
+                        },
+                        {
+                            "identifier": "15Min",
+                            "displayName": "15 Minutes"
+                        },
+                        {
+                            "identifier": "1H",
+                            "displayName": "1 Hour"
+                        },
+                        {
+                            "identifier": "24H",
+                            "displayName": "1 Day"
+                        }
+                    ]
+                },
+                {
+                    "fieldId": "device",
+                    "label": "Device",
+                    "help": "Device",
+                    "hidden": false,
+                    "editable": true,
+                    "required": true,
+                    "controlType": "COMBO_BOX",
+                    "defaultValue": "AKRNOHNE11G",
+                    "lovSourceType": "pstream",
+                    "lovSourceParams": {
+                        "name": "mobility_kpi_metrics_data",
+                        "valueColumn": "device",
+                        "labelColumn": "device"
+                    },
+                    "lovValues": [
+                        {
+                            "identifier": "AKRNOHNF11G",
+                            "displayName": "AKRNOHNF11G"
+                        },
+                        {
+                            "identifier": "ARTNVANE11G",
+                            "displayName": "ARTNVANE11G"
+                        },
+                        {
+                            "identifier": "AKRNOHNE11G",
+                            "displayName": "AKRNOHNE11G"
+                        },
+                        {
+                            "identifier": "AKRNOHNZ32G",
+                            "displayName": "AKRNOHNZ32G"
+                        },
+                        {
+                            "identifier": "AKRNOHNF12G",
+                            "displayName": "AKRNOHNF12G"
+                        },
+                        {
+                            "identifier": "AKRNOHNZ51G",
+                            "displayName": "AKRNOHNZ51G"
+                        },
+                        {
+                            "identifier": "AKRNOHNZ12G",
+                            "displayName": "AKRNOHNZ12G"
+                        },
+                        {
+                            "identifier": "AKRNOHNZ11G",
+                            "displayName": "AKRNOHNZ11G"
+                        },
+                        {
+                            "identifier": "ALPSGANF12G",
+                            "displayName": "ALPSGANF12G"
+                        },
+                        {
+                            "identifier": "AKRNOHNE12G",
+                            "displayName": "AKRNOHNE12G"
+                        },
+                        {
+                            "identifier": "ALPSGANZ42G",
+                            "displayName": "ALPSGANZ42G"
+                        },
+                        {
+                            "identifier": "ALPSGANZ51G",
+                            "displayName": "ALPSGANZ51G"
+                        },
+                        {
+                            "identifier": "ALLNTXNE12G",
+                            "displayName": "ALLNTXNE12G"
+                        },
+                        {
+                            "identifier": "CHCGILNE12G",
+                            "displayName": "CHCGILNE12G"
+                        },
+                        {
+                            "identifier": "ASR5500-2",
+                            "displayName": "ASR5500-2"
+                        },
+                        {
+                            "identifier": "NYCMNYNZ32G",
+                            "displayName": "NYCMNYNZ32G"
+                        }
+                    ]
+                }
+            ],
+            "formActionList": {
+                "formActions": [
+                    {
+                        "api-endpoint": {
+                            "methodName": "submitForm",
+                            "parse-output": false,
+                            "params": [
+                                {
+                                    "formData": {},
+                                    "formId": "kpi.benchmark.json"
+                                }
+                            ],
+                            "service-name": "saas-reports",
+                            "stringified-params": true
+                        },
+                        "actionLabel": "Save",
+                        "type": "SUBMIT",
+                        "identifier": "Submit"
+                    },
+                    {
+                        "actionLabel": "Cancel",
+                        "type": "CANCEL",
+                        "identifier": "Cancel"
+                    }
+                ]
+            }
+        }
+    }
+}

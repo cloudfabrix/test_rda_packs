@@ -1,0 +1,45 @@
+%% stream = no and limit = 0
+
+@exec:get-input
+    --> @dm:save name="temp-input"
+    --> @dm:save name="check_output_from_execution"
+
+--> @c:new-block
+    --> @dm:recall name="temp-input"
+    --> @dm:to-type columns="schedule" and type="str"
+    --> @dm:eval updated_time ='int(time_now_as_ms())'
+    --> @dm:replace-data columns="schedule" and expr = "None" and replace = 'null'
+    --> @dm:replace-data columns="schedule" and expr = "True" and replace = 'true'
+    --> @dm:replace-data columns="schedule" and expr = "False" and replace = 'false'
+    --> @dm:to-type columns="schedule" and type="str"
+    --> @dm:replace-data columns="schedule" and expr = "'" and replace = '"'
+    --> @dm:explode-json column="schedule"
+    --> @dm:explode-json column="scheduleTime"
+    --> @dm:eval paramv1="apn if script_name=='Auto-x-clear-session' else devicename if script_name=='Auto-x-Health-Check' else interfaceNum if script_name=='Auto-x-show-interface' else None"
+    --> @dm:eval param1="'apn' if script_name=='Auto-x-clear-session' else 'devicename' if script_name=='Auto-x-Health-Check' else 'interfaceNum' if script_name=='Auto-x-show-interface' else  None "
+    --> @dm:eval paramv2="instance if script_name=='Auto-x-clear-session' else description if script_name=='Auto-x-Health-Check' else suffix if script_name=='Auto-x-show-interface' else  None"
+    --> @dm:eval param2="'instance' if script_name=='Auto-x-clear-session' else 'description' if script_name=='Auto-x-Health-Check' else 'suffix' if script_name=='Auto-x-show-interface' else  None"
+    --> @dm:save name="checking_json"
+    --> @dm:save name="temp-input"
+
+--> @c:data-loop columns="updated_time,USER_ID,script_name,startTime,startDate,endDate,scheduleType,timeZone,device,paramv1,paramv2,param1,param2" and dataset ="temp-input"
+    --> @dm:recall name="script_schedule" and return_empty ="yes"
+    --> @dm:addrow script_name ="$script_name" and startDate=$startDate and scheduleType="$scheduleType" and timeZone="$timeZone" and device="$device" and paramv1 ="$paramv1" and paramv2="$paramv2" and param1="$param1" and param2="$param2" and apn="$apn" and devicename="$devicename" and interfaceNum="$interfaceNum" and suffix="$suffix" and description="$description" and instance="$instance" and startTime=$startTime and updated_time=$updated_time and USER_ID="$USER_ID" and inputs='{"$param1:$paramv1","$param2:$paramv2"}'
+    --> @dm:to-type columns="updated_time" and type="int"
+    --> @dm:save name="script_schedule"
+    --> @dm:save name="temp-input"
+
+--> @c:data-loop dataset="temp-input" and columns="device,param1,param2,paramv1,paramv2,script_name"
+    --> @restclient:read url="https://10.122.127.195/bpa/api/v1.0/service-catalog/service-orders" and payload='{"formData":{"value":{"create":[{"command-builder-form":[{"devices":["$device"],"script-params":["$param1:$paramv1","$param2:$paramv2"],"script-name":"$script_name"}]}],"delete":[]}},"item":"command-builder"}' and method="POST" and `Accept` = "*/*" and `Content-Type`="application/json" and apiKey="82e7f4aa8e2b39dc8bcc331d1bc426fe
+    --> @dm:to-json output_column="_response"
+    --> @dm:eval device_name="'$device'"
+    --> @dm:eval ip_address="'$ip_address'"
+    --> @dm:eval command="'$command'"
+    --> @dm:eval status="'Successful'"
+    --> @dm:manipulate-string from="ip_address,command" and func="concat_columns" and to="reports_key"
+    --> @dm:eval value  = "'$device.txt'"
+    --> @files:save-content-to-file filename_column = 'value' &
+            content_column = "_response" &
+            encoding_column = "text" and minio_location="bulkstats"
+    --> @dm:save name="script_details_new"
+

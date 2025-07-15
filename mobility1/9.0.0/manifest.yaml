@@ -1,0 +1,668 @@
+name: Mobility
+version: 9.0.0
+folder: /collection/network/mobility
+published_date: 2025-07-14
+publisher: CloudFabrix
+label: Mobility
+scope: system
+description: 
+  value: ""
+  ##md: "./description.md"
+
+type: collection
+launch_dashboard: auto-x-3-app
+
+artifacts:
+  credentials:
+    - name: apscheduler
+      type: apscheduler
+    ##- name: diagnostictools
+      ##type: diagnostictools
+    - name: restclient
+      type: restclient
+    - name: agent
+      type: rda_agents
+    - name: snmptrap
+      type: snmptrap
+    - name: cfxml 
+      type: cfxai_regression
+    - name: cfxaia
+      type: cfxaia
+    - name: asset-discovery
+      type: asset-discovery
+    
+    - name: graph
+      type: graphdb
+
+ 
+  ##datasets: 
+  ##  - name: ifTypeLabel_dict
+  ##    data_file: ./data/ifTypeLabel_dict.csv
+  ##    folder: NetworkDevicePack
+  pstreams:
+    
+    - name: network_device_interfaces
+      attributes:
+        unique_keys: [ "unique_id"]
+      autocreate: true
+    - name: network_device_inventory
+      attributes:
+        unique_keys: [ "unique_id"]
+      autocreate: true
+    - name: network_devices_cdp
+      attributes:
+        unique_keys: [ "unique_id"]
+      autocreate: true
+    - name: network_access_verification
+      attributes:
+        unique_keys: [ "ip_address","protocol"]
+      autocreate: true
+    - name: discovery_logs
+      attributes:
+        unique_keys: [ "unique_id"]
+      autocreate: true
+    - name: onboarded_devices
+      attributes:
+        unique_keys: ["device_ip"]
+        retention_days: 60
+        search_case_insensitive: true
+        _settings: 
+          "number_of_shards": 3
+          "number_of_replicas": 1
+          "refresh_interval": "30s"
+    
+    - name: asset_inventory_collection_status_stream
+
+    - name: ml-bulkstats-metrics-regression-live-output
+      attributes:
+        unique_keys: ["live_timestamp","job_name"]
+        retention_days: 30
+        os_external: true
+
+
+    - name: ml-bulkstats-metrics-regression-train-output
+      attributes:
+        unique_keys: ["timestamp","job_name"]
+        retention_days: 30
+        os_external: true
+    
+    - name: ml-bulkstats-correlated-devices-per-group
+      attributes:
+        unique_keys: ["device","KPI_Name","instance_key","schema","group"]
+        retention_days: 30
+        os_external: true
+    
+    - name: ml-bulkstats-correlated-devices
+      attributes:
+        unique_keys: ["device","KPI_Name","instance_key","schema","group"]
+        retention_days: 30
+        os_external: true
+    
+    - name: ml-bulkstats-metrics-variance
+      attributes:
+        unique_keys: ["device","KPI_Name","instance_key","schema"]
+        retention_days: 30
+        os_external: true
+    
+    - name: ml-bulkstats-resampled-metrics
+      attributes:
+        unique_keys: ["timestamp","device","instance_key","schema"]
+        retention_days: 30
+        os_external: true
+
+  pipelines:
+    - name: access_verification_main_pipeline
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/access_verification_main_pipeline.txt
+      skip_validation: true
+    - name: add_device
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/add_device.txt
+      skip_validation: true
+    - name: add_kpi
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/add_kpi.txt
+      skip_validation: true
+    - name: add_script
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/add_script.txt
+      skip_validation: true
+    - name: auto_resolve_incident
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/auto_resolve_incident.txt
+      skip_validation: true
+    - name: BPA_add_asset_with_Apikey_template
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/BPA_add_asset_with_Apikey_template.txt
+      skip_validation: true
+    - name: bulkstats_execute_command_pipeline
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/bulkstats_execute_command_pipeline.txt
+      skip_validation: true
+    - name: cisco_discovery_pipeline
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/cisco_discovery_pipeline.txt
+      skip_validation: true
+    - name: cisco_discovery_main_pipeline
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/cisco_discovery_main_pipeline.txt
+      skip_validation: true
+    - name: create_commad_builder_service_order
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/create_commad_builder_service_order.txt
+      skip_validation: true
+    - name: create_ticket_response_processor
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/create_ticket_response_processor.txt
+      skip_validation: true
+    - name: delete_device
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/delete_device.txt
+      skip_validation: true
+    - name: delete_kpi
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/delete_kpi.txt
+      skip_validation: true
+    - name: delete_script_schedule
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/delete_script_schedule.txt
+      skip_validation: true
+    - name: device_editing
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/device_editing.txt
+      skip_validation: true
+    - name: discovery_execute_command
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/discovery_execute_command.txt
+      skip_validation: true
+    - name: discovery_main_pipeline
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/discovery_main_pipeline.txt
+      skip_validation: true
+    - name: execute_command_pipeline
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/execute_command_pipeline.txt
+      skip_validation: true
+    - name: execute_command
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/execute_command.txt
+      skip_validation: true
+    - name: fsm_collab_notifier
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/fsm_collab_notifier.txt
+      skip_validation: true
+    - name: get_config_files_with_apikey
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/get_config_files_with_apikey.txt
+      skip_validation: true
+    - name: get_correlated_alerts
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/get_correlated_alerts.txt
+      skip_validation: true
+    - name: Get_device_config_from_BPA
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/Get_device_config_from_BPA.txt
+      skip_validation: true
+    - name: get_incident_alerts
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/get_incident_alerts.txt
+      skip_validation: true
+    - name: get_incidents
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/get_incidents.txt
+      skip_validation: true
+    - name: import-customer-devices
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/import-customer-devices.txt
+      skip_validation: true
+    - name: incident_create_notifier
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/incident_create_notifier.txt
+      skip_validation: true
+    - name: irm_ml_metrics
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/irm_ml_metrics.txt
+      skip_validation: true
+    - name: irm-stream-missing-columns-update
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/irm-stream-missing-columns-update.txt
+      skip_validation: true
+    - name: kpi_editing
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/kpi_editing.txt
+      skip_validation: true
+    - name: ml-bulkstats-anomalies-alerts
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/ml-bulkstats-anomalies-alerts.txt
+      skip_validation: true
+    - name: ml-bulkstats-available-metrics
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/ml-bulkstats-available-metrics.txt
+      skip_validation: true
+    - name: ml-bulkstats-email-incidents
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/ml-bulkstats-email-incidents.txt
+      skip_validation: true
+    ##- name: ml-bulkstats-metrics-correlation
+    ##  folder: MobilityPack
+    ##  version: 2025.07.14.1
+    ##  file: ./artifacts/pipelines/ml-bulkstats-metrics-correlation.txt
+    - name: ml-bulkstats-metrics-periodic-resampling
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/ml-bulkstats-metrics-periodic-resampling.txt
+      skip_validation: true
+    - name: ml-bulkstats-metrics-prediction-child
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/ml-bulkstats-metrics-prediction-child.txt
+      skip_validation: true
+    - name: ml-bulkstats-metrics-prediction-parent
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/ml-bulkstats-metrics-prediction-parent.txt
+      skip_validation: true
+    - name: ml-bulkstats-metrics-regression
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/ml-bulkstats-metrics-regression.txt
+      skip_validation: true
+    - name: ml-bulkstats-metrics-resampling
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/ml-bulkstats-metrics-resampling.txt
+      skip_validation: true
+    
+    - name: ml-bulkstats-variance-analysis
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/ml-bulkstats-variance-analysis.txt
+      skip_validation: true
+    - name: ml-metric-test
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/ml-metric-test.txt
+      skip_validation: true
+    - name: ml-metrics-live-prediction-child
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/ml-metrics-live-prediction-child.txt
+      skip_validation: true
+    - name: mobility_device_mappings
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/mobility_device_mappings.txt
+      skip_validation: true
+    - name: netcool_snmp_trap_sender_pipeline
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/netcool_snmp_trap_sender_pipeline.txt
+      skip_validation: true
+    - name: notify_on_incident_create_email
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/notify_on_incident_create_email.txt
+      skip_validation: true
+    - name: notify_on_incident_create
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/notify_on_incident_create.txt
+      skip_validation: true
+    - name: oia_fsm_ticketing_functions
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/oia_fsm_ticketing_functions.txt
+      skip_validation: true
+    - name: ondemand_discovery_main
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/ondemand_discovery_main.txt
+      skip_validation: true
+    - name: Pipeline_to_poll_service_order_API
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/Pipeline_to_poll_service_order_API.txt
+      skip_validation: true
+    - name: pstream_monitoring
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/pstream_monitoring.txt
+      skip_validation: true
+    - name: resolve_ticket_response_processor
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/resolve_ticket_response_processor.txt
+      skip_validation: true
+    - name: schedule_script
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/schedule_script.txt
+      skip_validation: true
+    - name: send_email_on_incident_create
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/send_email_on_incident_create.txt
+      skip_validation: true
+    - name: show_version
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/show_version.txt
+      skip_validation: true
+    - name: snmp_trap_genaric_raise_alerts
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/snmp_trap_genaric_raise_alerts.txt
+      skip_validation: true
+    - name: syslog_enriched_events_pipeline
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/syslog_enriched_events_pipeline.txt
+      skip_validation: true
+    - name: team_details_processor
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/team_details_processor.txt
+      skip_validation: true
+    - name: test_123
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/test_123.txt
+      skip_validation: true
+    - name: update_ticket_response_processor
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/update_ticket_response_processor.txt
+      skip_validation: true
+    - name: upload_device
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/upload_device.txt
+      skip_validation: true
+    - name: upload_kpi
+      folder: MobilityPack
+      version: 2025.07.14.1
+      file: ./artifacts/pipelines/upload_kpi.txt
+      skip_validation: true
+    
+
+  dashboards:
+    - name: alert_device_app
+      file: ./artifacts/dashboards/alert_device_app.json
+    - name: auto-x-3-apn-metrics-workbench
+      file: ./artifacts/dashboards/auto-x-3-apn-metrics-workbench.json
+    - name: auto-x-3-app
+      file: ./artifacts/dashboards/auto-x-3-app.json
+    - name: auto-x-3-by-device
+      file: ./artifacts/dashboards/auto-x-3-by-device.json
+    - name: auto-x-3-card-metrics-workbench
+      file: ./artifacts/dashboards/auto-x-3-card-metrics-workbench.json
+    - name: auto-x-3-card_clone_card-new
+      file: ./artifacts/dashboards/auto-x-3-card_clone_card-new.json
+    - name: auto-x-3-card_clone_rv-apn-new
+      file: ./artifacts/dashboards/auto-x-3-card_clone_rv-apn-new.json
+    - name: auto-x-3-card_clone_rv-dcca-group-new
+      file: ./artifacts/dashboards/auto-x-3-card_clone_rv-dcca-group-new.json
+    - name: auto-x-3-card_clone_rv-egtpc-new
+      file: ./artifacts/dashboards/auto-x-3-card_clone_rv-egtpc-new.json
+    - name: auto-x-3-card_clone_rv-imsa-new
+      file: ./artifacts/dashboards/auto-x-3-card_clone_rv-imsa-new.json
+    - name: auto-x-3-card_clone_rv-ippool-new
+      file: ./artifacts/dashboards/auto-x-3-card_clone_rv-ippool-new.json
+    - name: auto-x-3-card_clone_rv-port-new
+      file: ./artifacts/dashboards/auto-x-3-card_clone_rv-port-new.json
+    - name: auto-x-3-card_clone_rv-saegw-new
+      file: ./artifacts/dashboards/auto-x-3-card_clone_rv-saegw-new.json
+    - name: auto-x-3-card_clone_rv-system-new
+      file: ./artifacts/dashboards/auto-x-3-card_clone_rv-system-new.json
+    - name: auto-x-3-dcca-group-metrics-workbench
+      file: ./artifacts/dashboards/auto-x-3-dcca-group-metrics-workbench.json
+    - name: auto-x-3-egtpc-metrics-workbench
+      file: ./artifacts/dashboards/auto-x-3-egtpc-metrics-workbench.json
+    - name: auto-x-3-imsa-metrics-workbench
+      file: ./artifacts/dashboards/auto-x-3-imsa-metrics-workbench.json
+    - name: auto-x-3-ippool-metrics-workbench
+      file: ./artifacts/dashboards/auto-x-3-ippool-metrics-workbench.json
+    - name: auto-x-3-per-apn-new
+      file: ./artifacts/dashboards/auto-x-3-per-apn-new.json
+    - name: auto-x-3-per-card-new
+      file: ./artifacts/dashboards/auto-x-3-per-card-new.json
+    - name: auto-x-3-per-dcca-group-new
+      file: ./artifacts/dashboards/auto-x-3-per-dcca-group-new.json
+    - name: auto-x-3-per-device-apn
+      file: ./artifacts/dashboards/auto-x-3-per-device-apn.json
+    - name: auto-x-3-per-device-app
+      file: ./artifacts/dashboards/auto-x-3-per-device-app.json
+    - name: auto-x-3-per-device-card
+      file: ./artifacts/dashboards/auto-x-3-per-device-card.json
+    - name: auto-x-3-per-device-dcca-group
+      file: ./artifacts/dashboards/auto-x-3-per-device-dcca-group.json
+    - name: auto-x-3-per-device-egtpc
+      file: ./artifacts/dashboards/auto-x-3-per-device-egtpc.json
+    - name: auto-x-3-per-device-imsa
+      file: ./artifacts/dashboards/auto-x-3-per-device-imsa.json
+    - name: auto-x-3-per-device-ippool
+      file: ./artifacts/dashboards/auto-x-3-per-device-ippool.json
+    - name: auto-x-3-per-device-pgw-egtpc-s5s8
+      file: ./artifacts/dashboards/auto-x-3-per-device-pgw-egtpc-s5s8.json
+    - name: auto-x-3-per-device-port
+      file: ./artifacts/dashboards/auto-x-3-per-device-port.json
+    - name: auto-x-3-per-device-saegw
+      file: ./artifacts/dashboards/auto-x-3-per-device-saegw.json
+    - name: auto-x-3-per-device-sgw
+      file: ./artifacts/dashboards/auto-x-3-per-device-sgw.json
+    - name: auto-x-3-per-device-system
+      file: ./artifacts/dashboards/auto-x-3-per-device-system.json
+    - name: auto-x-3-per-egtpc-new
+      file: ./artifacts/dashboards/auto-x-3-per-egtpc-new.json
+    - name: auto-x-3-per-imsa-new
+      file: ./artifacts/dashboards/auto-x-3-per-imsa-new.json
+    - name: auto-x-3-per-ippool-new
+      file: ./artifacts/dashboards/auto-x-3-per-ippool-new.json
+    - name: auto-x-3-per-key_new
+      file: ./artifacts/dashboards/auto-x-3-per-key_new.json
+    - name: auto-x-3-per-pgw-egtpc-s5s8-new
+      file: ./artifacts/dashboards/auto-x-3-per-pgw-egtpc-s5s8-new.json
+    - name: auto-x-3-per-port-new
+      file: ./artifacts/dashboards/auto-x-3-per-port-new.json
+    - name: auto-x-3-per-saegw-new
+      file: ./artifacts/dashboards/auto-x-3-per-saegw-new.json
+    - name: auto-x-3-per-sgw-new
+      file: ./artifacts/dashboards/auto-x-3-per-sgw-new.json
+    - name: auto-x-3-per-system-new
+      file: ./artifacts/dashboards/auto-x-3-per-system-new.json
+    - name: auto-x-3-pgw-egtpc-s5s8-metrics-workbench
+      file: ./artifacts/dashboards/auto-x-3-pgw-egtpc-s5s8-metrics-workbench.json
+    - name: auto-x-3-port-metrics-workbench
+      file: ./artifacts/dashboards/auto-x-3-port-metrics-workbench.json
+    - name: auto-x-3-saegw-metrics-workbench
+      file: ./artifacts/dashboards/auto-x-3-saegw-metrics-workbench.json
+    - name: auto-x-3-sgw-metrics-workbench
+      file: ./artifacts/dashboards/auto-x-3-sgw-metrics-workbench.json
+    - name: auto-x-3-system-metrics-workbench
+      file: ./artifacts/dashboards/auto-x-3-system-metrics-workbench.json
+    - name: auto-x_details_clone
+      file: ./artifacts/dashboards/auto-x_details_clone.json
+    - name: autox_consolidated_results_clone
+      file: ./artifacts/dashboards/autox_consolidated_results_clone.json
+    - name: autox_results
+      file: ./artifacts/dashboards/autox_results.json
+    - name: autox_results_clone
+      file: ./artifacts/dashboards/autox_results_clone.json
+    - name: autox_results_run_details
+      file: ./artifacts/dashboards/autox_results_run_details.json
+    - name: bulkstats_metrics_ml_config
+      file: ./artifacts/dashboards/bulkstats_metrics_ml_config.json
+    - name: bulkstats_metrics_ml_insights
+      file: ./artifacts/dashboards/bulkstats_metrics_ml_insights.json
+    - name: bulkstats_ml_metrics_insights_app
+      file: ./artifacts/dashboards/bulkstats_ml_metrics_insights_app.json
+    - name: bulkstats_regression_dashboard
+      file: ./artifacts/dashboards/bulkstats_regression_dashboard.json
+    - name: bulkstats_schemas
+      file: ./artifacts/dashboards/bulkstats_schemas.json
+    - name: bulkstats_variables
+      file: ./artifacts/dashboards/bulkstats_variables.json
+    - name: customer_access_status
+      file: ./artifacts/dashboards/customer_access_status.json
+    - name: customer_discovery
+      file: ./artifacts/dashboards/customer_discovery.json
+    - name: customer_discovery_runs
+      file: ./artifacts/dashboards/customer_discovery_runs.json
+    - name: customer_discovery_runs_details_duplicates
+      file: ./artifacts/dashboards/customer_discovery_runs_details_duplicates.json
+    - name: customer_discovery_runs_details_failed
+      file: ./artifacts/dashboards/customer_discovery_runs_details_failed.json
+    - name: customer_discovery_runs_details_success
+      file: ./artifacts/dashboards/customer_discovery_runs_details_success.json
+    - name: customer_discovery_runs_details_total_devices
+      file: ./artifacts/dashboards/customer_discovery_runs_details_total_devices.json
+    - name: customer_network_devices_inventory
+      file: ./artifacts/dashboards/customer_network_devices_inventory.json
+    - name: customer_oia_alerts
+      file: ./artifacts/dashboards/customer_oia_alerts.json
+    - name: customer_oia_incidents
+      file: ./artifacts/dashboards/customer_oia_incidents.json
+    - name: customer_overview
+      file: ./artifacts/dashboards/customer_overview.json
+    - name: customer_SNMP_Traps
+      file: ./artifacts/dashboards/customer_SNMP_Traps.json
+    - name: customer_syslogs
+      file: ./artifacts/dashboards/customer_syslogs.json
+    - name: customer_view_config
+      file: ./artifacts/dashboards/customer_view_config.json
+    - name: device_alerts_from_alert
+      file: ./artifacts/dashboards/device_alerts_from_alert.json
+    - name: device_inventory_from_alert
+      file: ./artifacts/dashboards/device_inventory_from_alert.json
+    - name: device_monitoring_stream
+      file: ./artifacts/dashboards/device_monitoring_stream.json
+    - name: device_SNMP_Traps_from_alerts
+      file: ./artifacts/dashboards/device_SNMP_Traps_from_alerts.json
+    - name: device_syslog_from_alert
+      file: ./artifacts/dashboards/device_syslog_from_alert.json
+    - name: GeoDR-Status
+      file: ./artifacts/dashboards/GeoDR-Status.json
+    - name: incident-details-activities
+      file: ./artifacts/dashboards/incident-details-activities.json
+    - name: incident-details-alerts
+      file: ./artifacts/dashboards/incident-details-alerts.json
+    - name: incident-details-app
+      file: ./artifacts/dashboards/incident-details-app.json
+    - name: incident-details-collaboration
+      file: ./artifacts/dashboards/incident-details-collaboration.json
+    - name: incident-details-diagnostics
+      file: ./artifacts/dashboards/incident-details-diagnostics.json
+    - name: incident-details-insights
+      file: ./artifacts/dashboards/incident-details-insights.json
+    - name: incident-details-metrics
+      file: ./artifacts/dashboards/incident-details-metrics.json
+    - name: incident-details-remediation
+      file: ./artifacts/dashboards/incident-details-remediation.json
+    - name: incident-details-topology
+      file: ./artifacts/dashboards/incident-details-topology.json
+    - name: logs
+      file: ./artifacts/dashboards/logs.json
+    - name: mobility_device_mapping_admin
+      file: ./artifacts/dashboards/mobility_device_mapping_admin.json
+    - name: mobility_ingestion_tracker
+      file: ./artifacts/dashboards/mobility_ingestion_tracker.json
+    - name: mobility_kpi_computation_jobs
+      file: ./artifacts/dashboards/mobility_kpi_computation_jobs.json
+    - name: mobility_kpi_list_validation
+      file: ./artifacts/dashboards/mobility_kpi_list_validation.json
+    - name: mobility_raw_data
+      file: ./artifacts/dashboards/mobility_raw_data.json
+    - name: node_details_app
+      file: ./artifacts/dashboards/node_details_app.json
+    - name: nso_execute_command
+      file: ./artifacts/dashboards/nso_execute_command.json
+    - name: preview_auto-x-3-apn_metrics_dashboard
+      file: ./artifacts/dashboards/preview_auto-x-3-apn_metrics_dashboard.json
+    - name: preview_auto-x-3-card_metrics_dashboard-generated
+      file: ./artifacts/dashboards/preview_auto-x-3-card_metrics_dashboard-generated.json
+    - name: preview_auto-x-3-card_metrics_dashboard
+      file: ./artifacts/dashboards/preview_auto-x-3-card_metrics_dashboard.json
+    - name: preview_auto-x-3-dcca-group_metrics_dashboard
+      file: ./artifacts/dashboards/preview_auto-x-3-dcca-group_metrics_dashboard.json
+    - name: preview_auto-x-3-egtpc_metrics_dashboard
+      file: ./artifacts/dashboards/preview_auto-x-3-egtpc_metrics_dashboard.json
+    - name: preview_auto-x-3-imsa_metrics_dashboard
+      file: ./artifacts/dashboards/preview_auto-x-3-imsa_metrics_dashboard.json
+    - name: preview_auto-x-3-ippool_metrics_dashboard
+      file: ./artifacts/dashboards/preview_auto-x-3-ippool_metrics_dashboard.json
+    - name: preview_auto-x-3-pgw-egtpc-s5s8_metrics_dashboard
+      file: ./artifacts/dashboards/preview_auto-x-3-pgw-egtpc-s5s8_metrics_dashboard.json
+    - name: preview_auto-x-3-port_metrics_dashboard
+      file: ./artifacts/dashboards/preview_auto-x-3-port_metrics_dashboard.json
+    - name: preview_auto-x-3-saegw_metrics_dashboard
+      file: ./artifacts/dashboards/preview_auto-x-3-saegw_metrics_dashboard.json
+    - name: preview_auto-x-3-sgw_metrics_dashboard
+      file: ./artifacts/dashboards/preview_auto-x-3-sgw_metrics_dashboard.json
+    - name: preview_auto-x-3-system_metrics_dashboard
+      file: ./artifacts/dashboards/preview_auto-x-3-system_metrics_dashboard.json
+    - name: self_monitoring
+      file: ./artifacts/dashboards/self_monitoring.json
+    - name: Storyboard-auto-x-mobility
+      file: ./artifacts/dashboards/Storyboard-auto-x-mobility.json
+    - name: topology_geomap_dashboard
+      file: ./artifacts/dashboards/topology_geomap_dashboard.json
+    - name: URL_Link_Template
+      file: ./artifacts/dashboards/URL_Link_Template.json
+    
+
+    
+  blueprints:
+    - name: syslog_enriched_events_pipeline
+      file: ./artifacts/blueprints/syslog_enriched_events_pipeline.yaml
+    - name: snmp_trap_enriched_events_pipeline
+      file: ./artifacts/blueprints/snmp_trap_enriched_events_pipeline.yaml
+    - name: notify_send_email_on_incident_create
+      file: ./artifacts/blueprints/notify_send_email_on_incident_create.yaml
+    - name: Bulkstats_Metrics_Correlation_and_Regression
+      file: ./artifacts/blueprints/Bulkstats_Metrics_Correlation_and_Regression.yaml
+  
+  datasets: 
+    - name: device_mapping
+      data_file: ./data/device_mapping.csv
+      folder: MobilityPack
+    - name: device_mappings_with_latlongv1
+      data_file: ./data/device_mappings_with_latlongv1.csv
+      folder: MobilityPack
+    - name: onboard_devices
+      data_file: ./data/onboard_devices.csv
+      folder: MobilityPack
+     
+        

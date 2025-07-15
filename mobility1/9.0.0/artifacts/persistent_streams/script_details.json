@@ -1,0 +1,10 @@
+{
+  "name": "script_details",
+  "datastore_type": "OS",
+  "read_only": true,
+  "attrs": {
+    "source_dataset": "script_details"
+  },
+  "status": "Read Only",
+  "index_name": "3f89175ce8104956a289bfef8427d152-stream-98e7e0d6-script_details"
+}

@@ -1,0 +1,28 @@
+{
+  "name": "oia-alerts-stream",
+  "datastore_type": "OS",
+  "read_only": false,
+  "attrs": {
+    "unique_keys": [
+      "a_id"
+    ],
+    "drop_columns": [
+      "iscorrelationparent"
+    ],
+    "default_values": {
+      "a_source_systemname": "Not Available",
+      "a_status": "Not Available",
+      "a_severity": "Not Available",
+      "a_cluster_label": "Not Available",
+      "a_alert_type": "Not Available",
+      "a_rule_name": "Not Available",
+      "a_incident_id": "Not Available",
+      "a_ticket_id": "Not Available"
+    },
+    "retention_days": 30,
+    "retention_purge_extra_filter": "a_status == 'CLEARED'",
+    "case_insensitive": true
+  },
+  "status": "Running",
+  "index_name": "3f89175ce8104956a289bfef8427d152-stream-dd24924f-oia-alerts-stream"
+}

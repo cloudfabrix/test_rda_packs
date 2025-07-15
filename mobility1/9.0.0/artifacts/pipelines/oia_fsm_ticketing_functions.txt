@@ -1,0 +1,87 @@
+%% stream = no and limit = 0
+%%template_type="jinja"
+## Func: get_incidents
+@c:flex-block
+    --> @dm:empty
+    ## Get OIA Incidents: Inputs to the function are project_id and incident_id
+    --> @exec:define-function name = "get_incidents"
+       --> @dm:copy-columns from = 'project_id' & to = 'projectid'
+       --> @dm:implode key_columns = 'projectid' & merge_columns = 'incident_id,project_id'
+       --> @dm:selectcolumns exclude = '^projectid$'
+       --> @dm:eval incident_id = 'incident_id.split(",")'
+       --> *exec:if-shape num_rows > 0
+          --> @dm:save name="temp-incident-input"
+          ## Query Incident Inserts Stream for Incident Public URL
+          --> #dm:query-persistent-stream incident_id in {{row.incident_id}} and project_id='{{row.project_id}}' with-input name="oia-incident-inserts-stream" and retry_attempts_on_no_data=3
+          --> @dm:add-missing-columns columns = 'attrs_public_url' & value = ''
+          --> @dm:save name = 'temp-incidents_inserts_data'
+          ## Query Incident Stream
+          --> @dm:recall name = 'temp-incident-input' & return_empty = 'yes'
+          --> #dm:query-persistent-stream incident_id in {{row.incident_id}} and project_id='{{row.project_id}}' with-input name="oia-incidents-stream" and retry_attempts_on_no_data=3
+          --> @dm:selectcolumns exclude="attrs_public_url"
+          --> @dm:enrich dict = 'temp-incidents_inserts_data' & src_key_cols = 'incident_id,project_id' & dict_key_cols = 'incident_id,project_id' & enrich_cols = 'attrs_public_url'
+          --> @exec:return-function
+       --> @exec:end-if
+       --> @dm:empty
+    --> @exec:end-function
+
+## Func: get_base_alert
+--> @c:flex-block
+    --> @dm:empty
+    ## Query Base Incident Alert: Inputs to the function are project_id and incident_id
+    --> @exec:define-function name = "get_base_alert"
+       --> @dm:copy-columns from = 'project_id' & to = 'projectid'
+       --> @dm:implode key_columns = 'projectid' & merge_columns = 'incident_id,project_id'
+       --> @dm:selectcolumns exclude = '^projectid$'
+       --> @dm:eval incident_id = 'incident_id.split(",")'
+       --> *exec:if-shape num_rows > 0
+          --> #dm:query-persistent-stream a_incident_id in {{row.incident_id}} and project_id="{{row.project_id}}" with-input name="oia-alerts-stream" and a_source_systemname is not in ['Alert Group'] and a_correlation_status not in ['AGGREGATE'] and retry_attempts_on_no_data=3 and limit = 0
+          --> @dm:rename-columns incident_id='a_incident_id'
+          --> @dm:eval _sev_num='1 if a_severity == "SEVERE" else 2 if a_severity == "CRITICAL" else 3 if a_severity == "MAJOR" else 4 if a_severity == "MINOR" else 5 if a_severity == "WARNING" else 5'
+          --> *dm:safe-filter a_status="ACTIVE"
+          --> @dm:sort columns = "incident_id,_sev_num,a_created_ts"
+          --> @dm:dedup columns = "incident_id,_sev_num"
+          --> @dm:dedup columns = "incident_id"
+          --> @exec:return-function
+       --> @exec:end-if
+       --> @dm:empty
+    --> @exec:end-function
+
+## Func: get_incident_alerts
+--> @c:flex-block
+    --> @dm:empty
+    --> @exec:define-function name = "get_incident_alerts"
+       --> @dm:copy-columns from = 'project_id' & to = 'projectid'
+       --> @dm:implode key_columns = 'projectid' & merge_columns = 'incident_id,project_id'
+       --> @dm:selectcolumns exclude = '^projectid$'
+       --> @dm:eval incident_id = 'incident_id.split(",")'
+       --> *exec:if-shape num_rows > 0
+          --> #dm:query-persistent-stream a_incident_id in {{row.incident_id}} and project_id='{{row.project_id}}' with-input name="oia-alerts-stream" and a_source_systemname is not in ['Alert Group'] and a_correlation_status not in ['AGGREGATE'] and retry_attempts_on_no_data=3 and limit = 0
+          --> @dm:rename-columns incident_id='a_incident_id'
+          --> @exec:return-function
+       --> @exec:end-if
+       --> @dm:empty
+    --> @exec:end-function
+
+## Func: notify_collab
+--> @c:flex-block
+    --> @dm:empty
+    ## Inputs : notification_message, team_name, notification_subject, customer_id, project_id, incident_id
+    --> @exec:define-function name = "notify_collab"
+       --> @dm:eval creator="team_name"
+       --> @dm:rename-columns customerid="customer_id" and
+               projectId="project_id" and
+               incidentid="incident_id"
+       --> @dm:copy-columns to="summary,roomid" & from="notification_message,projectId"
+       --> @dm:selectcolumns include="notification_message|customerid|roomid|projectId|incidentid|summary|creator|notification_subject"
+       --> @rn:write-stream compression="auto" & name="oia-incident-collab-message-stream"
+    --> @exec:end-function
+
+## Func: recall_onboarded_devices
+--> @c:flex-block
+    --> @dm:empty
+    ## Inputs : notification_message, team_name, notification_subject, customer_id, project_id, incident_id
+    --> @exec:define-function name = "recall_onboarded_devices"
+       --> @dm:recall name="att_onboarded_device" and return_empty= "yes" and cache="yes" and cache_refresh_seconds="10"
+    --> @exec:end-function
+

@@ -1,0 +1,693 @@
+{
+    "name": "customer_overview",
+    "label": "Customer Overview Dashboard",
+    "description": "Customer Health Overview Dashboard",
+    "version": "24.1.14.1",
+    "enabled": false,
+    "live_edit": true,
+    "dashboard_style": "auto",
+    "dashboard_type": "dashboard",
+    "dashboard_folder": "MSP",
+    "dashboard_filters": {
+        "time_filter": true,
+        "default_time_filter_labels": [
+            "All Time"
+        ]
+    },
+    "dashboard_sections": [
+        {
+            "title": "Ingestion Stat",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "widget_type": "label",
+                    "max_width": 12,
+                    "height": 0.5,
+                    "min_width": 12,
+                    "label": "<div style='text-align:center;width:100%;'><h1><a style='text-decoration:none;color:#0066ff;' target='_blank'>  4G Evolved Packet Core",
+                    "widget_id": "a2e0ffb4"
+                },
+                {
+                    "title": "Network Devices",
+                    "widget_type": "counter",
+                    "min_width": 12,
+                    "max_width": 12,
+                    "extra_filter": "network_type in ['Consumer','FirstNet','Enterprise']",
+                    "stream": "mobility_device_mappings",
+                    "ts_column": "device",
+                    "style": {
+                        "color-map": {
+                            "Consumer": "#388e3c",
+                            "FirstNet": "#8e24aa",
+                            "Enterprise": "#d32f2f"
+                        }
+                    },
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "total_counter": {
+                        "show": true,
+                        "label": "Total",
+                        "location": "right",
+                        "color": "#0096FF"
+                    },
+                    "column": "count_",
+                    "agg": "sum",
+                    "type": "int",
+                    "widget_id": "2cdc076a"
+                },
+                {
+                    "widget_type": "label",
+                    "max_width": 12,
+                    "height": 0.5,
+                    "min_width": 12,
+                    "label": "<div style='text-align:center;width:100%;'><h1><a style='text-decoration:none;color:#0066ff;' target='_blank'>  Top N KPI's",
+                    "widget_id": "2806a318"
+                },
+                {
+                    "title": "System Active Sessions",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "System_Calls_Active(%sess-total-sessions%)",
+                    "ts_column": "timestamp",
+                    "extra_filter": "",
+                    "gap_interval": "join",
+                    "max_width": 6,
+                    "height": 6,
+                    "min_width": 6,
+                    "chartProperties": {
+                        "yAxisLabel": "Count",
+                        "xAxisLabel": null,
+                        "legendLocation": "bottom"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation": "compact"
+                    },
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "interval": "1h",
+                    "series_spec": [
+                        {
+                            "column": "System_Calls_Active",
+                            "agg": "avg",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "382077da"
+                },
+                {
+                    "title": "Aggregate Number of VoLTE Sessions",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "SAEGW_VoLTE_Active_Sessions(%pgw-subqosstat-bearact-qci5%)",
+                    "ts_column": "timestamp",
+                    "extra_filter": "network_type is not 'Enterprise'",
+                    "gap_interval": "join",
+                    "max_width": 6,
+                    "height": 6,
+                    "min_width": 6,
+                    "chartProperties": {
+                        "yAxisLabel": "Count",
+                        "xAxisLabel": null,
+                        "legendLocation": "bottom"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation": "compact"
+                    },
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "interval": "1h",
+                    "series_spec": [
+                        {
+                            "column": "SAEGW_VoLTE_Active_Sessions",
+                            "agg": "avg",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "4b0f7e3e"
+                },
+                {
+                    "title": "Aggregate Number of Sessions",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "System_Calls_Active(%sess-curactcall%)",
+                    "ts_column": "timestamp",
+                    "extra_filter": "",
+                    "gap_interval": "join",
+                    "max_width": 6,
+                    "height": 6,
+                    "min_width": 6,
+                    "chartProperties": {
+                        "yAxisLabel": "Count",
+                        "xAxisLabel": null,
+                        "legendLocation": "bottom"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation": "compact"
+                    },
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "interval": "1h",
+                    "series_spec": [
+                        {
+                            "column": "System_Calls_Active",
+                            "agg": "avg",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "20db822a"
+                },
+                {
+                    "title": "Credit Control Initial Success Rate",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "(100 * (%dpca-msg-ccainitacc% / %dpca-msg-ccrinit%))",
+                    "ts_column": "timestamp",
+                    "extra_filter": "IMSA_Credit_Control_Initial_Success_Rate > 50",
+                    "gap_interval": "join",
+                    "max_width": 6,
+                    "height": 8,
+                    "min_width": 6,
+                    "chartProperties": {
+                        "yAxisLabel": "Count",
+                        "xAxisLabel": null,
+                        "legendLocation": "bottom"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 0,
+                        "notation": "compact"
+                    },
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "interval": "1h",
+                    "series_spec": [
+                        {
+                            "column": "IMSA_Credit_Control_Initial_Success_Rate",
+                            "agg": "avg",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "fce0f2e8"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Top 5 Highest VoLTE  Sessions",
+                    "description": "SAEGW_VoLTE_Active_Sessions(%pgw-subqosstat-bearact-qci5%)",
+                    "duration_hours0": 24,
+                    "stream": "mobility_kpi_metrics_data",
+                    "ts_column": "timestamp",
+                    "extra_filter": null,
+                    "column": "SAEGW_VoLTE_Active_Sessions",
+                    "agg": "max",
+                    "group_by": [
+                        "device"
+                    ],
+                    "formatting": {
+                        "maximumFractionDigits": 0,
+                        "notation": "compact"
+                    },
+                    "top_n": 5,
+                    "type": "int",
+                    "min_width": 6,
+                    "height": 6,
+                    "max_width": 6,
+                    "widget_id": "29c372c5"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Top 5 Highest Sessions",
+                    "description": "System_Calls_Active(%sess-curactcall%)",
+                    "duration_hours0": 24,
+                    "stream": "mobility_kpi_metrics_data",
+                    "ts_column": "timestamp",
+                    "extra_filter": null,
+                    "column": "System_Calls_Active",
+                    "agg": "max",
+                    "group_by": [
+                        "device"
+                    ],
+                    "formatting": {
+                        "maximumFractionDigits": 0,
+                        "notation": "compact"
+                    },
+                    "top_n": 5,
+                    "type": "int",
+                    "min_width": 6,
+                    "height": 6,
+                    "max_width": 6,
+                    "widget_id": "f4fdf6f8"
+                },
+                {
+                    "title": "Aggregate Throughput",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "SYSTEM_Throughput_Mbps((8*(%sess-txbytes%+%sess-rxbytes%))/(INTERVAL*60)/1000/1000)",
+                    "ts_column": "timestamp",
+                    "extra_filter": "",
+                    "gap_interval": "join",
+                    "max_width": 6,
+                    "height": 6,
+                    "min_width": 6,
+                    "chartProperties": {
+                        "yAxisLabel": "Mbps",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "mode_0": "selection",
+                        "column-id": "timestamp"
+                    },
+                    "group_by0": [
+                        "network_type"
+                    ],
+                    "formatting": {
+                        "maximumFractionDigits": 2,
+                        "notation0": "compact"
+                    },
+                    "interval": "1h",
+                    "series_spec": [
+                        {
+                            "column": "SYSTEM_Throughput_Mbps",
+                            "agg": "avg",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "44f9ca1d"
+                },
+                {
+                    "widget_type": "bar_chart",
+                    "title": "Top 5 Highest Throughput",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "SYSTEM_Throughput_Mbps((8*(%sess-txbytes%+%sess-rxbytes%))/(INTERVAL*60)/1000/1000)",
+                    "extra_filter": "device is not 'BOTHWANZ12G'",
+                    "chartProperties": {
+                        "orientation": "vertical"
+                    },
+                    "formatting0": {
+                        "notation": "compact"
+                    },
+                    "group_by": [
+                        "device"
+                    ],
+                    "ts_column": "timestamp",
+                    "top_n": 5,
+                    "column": "SYSTEM_Throughput_Mbps",
+                    "agg": "avg",
+                    "type": "int",
+                    "widget_id": "786ae9c3"
+                },
+                {
+                    "title": "Top 5 Session Memory Utilization",
+                    "widget_type": "timeseries",
+                    "stream": "mobility_kpi_metrics_data",
+                    "description": "Session_Manager_Average_Memory_Utilization(%task-sessmgr-avgmem%)",
+                    "ts_column": "timestamp",
+                    "gap_interval": "join",
+                    "max_width": 6,
+                    "height": 6,
+                    "min_width": 6,
+                    "chartProperties": {
+                        "yAxisLabel": "Count",
+                        "xAxisLabel": null,
+                        "legendLocation": "right"
+                    },
+                    "formatting": {
+                        "maximumFractionDigits": 0,
+                        "notation": "compact"
+                    },
+                    "group_by": [
+                        "device"
+                    ],
+                    "group_selection": {
+                        "column": "Session_Manager_Average_Memory_Utilization",
+                        "agg": "avg",
+                        "limit": 5,
+                        "orderby": "desc"
+                    },
+                    "interval": "1h",
+                    "series_spec": [
+                        {
+                            "column": "Session_Manager_Average_Memory_Utilization",
+                            "agg": "avg",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "85a9e32b"
+                },
+                {
+                    "title": "Top 5 Lowest IMS Gx CCR-U Success Rate",
+                    "widget_type": "tabular",
+                    "description": "(100 * ((%dpca-msg-ccaupd% - %dpca-msg-ccaupderror%) / %dpca-msg-ccrupd%) )",
+                    "stream": "mobility_kpi_metrics_data",
+                    "ts_column": "timestamp",
+                    "interval_type": "day",
+                    "extra_filter": "IMSA_Credit_control_Update_Success_Rate >= 90 and schema is 'imsa' and servname is 'Gx'",
+                    "min_width": 6,
+                    "height": 8,
+                    "max_width": 6,
+                    "limit": 5,
+                    "agg_size0": 3,
+                    "resizableColumns": true,
+                    "paginated": true,
+                    "pivot": {
+                        "pivot_type": "advanced",
+                        "group_by": [
+                            "device",
+                            "ip_address"
+                        ],
+                        "series": [
+                            {
+                                "column": "IMSA_Credit_control_Update_Success_Rate",
+                                "agg": "min",
+                                "type": "int",
+                                "label": "Success Rate"
+                            }
+                        ],
+                        "agg_sort_order": "asc"
+                    },
+                    "formatting": {
+                        "notation": "compact"
+                    },
+                    "columns": {
+                        "device": "Device",
+                        "ip_address": "IPAddress"
+                    },
+                    "widget_id": "faad0c11"
+                },
+                {
+                    "title": "Top 5 Lowest IMS Gx CCR-I Success Rate",
+                    "widget_type": "tabular",
+                    "description": "(100 * (%dpca-msg-ccainitacc% / %dpca-msg-ccrinit%))",
+                    "stream": "mobility_kpi_metrics_data",
+                    "ts_column": "timestamp",
+                    "interval_type": "day",
+                    "extra_filter": " IMSA_Credit_Control_Initial_Success_Rate >= 90 and schema is 'imsa' and servname is 'Gx'",
+                    "min_width": 6,
+                    "height": 8,
+                    "max_width": 6,
+                    "top_n": 10,
+                    "max_rows": 10,
+                    "resizableColumns": true,
+                    "paginated": true,
+                    "pivot": {
+                        "pivot_type": "advanced",
+                        "group_by": [
+                            "device",
+                            "ip_address"
+                        ],
+                        "series": [
+                            {
+                                "column": "IMSA_Credit_Control_Initial_Success_Rate",
+                                "agg": "min",
+                                "type": "int",
+                                "label": "Success Rate"
+                            }
+                        ],
+                        "agg_sort_order": "asc"
+                    },
+                    "formatting": {
+                        "notation": "compact"
+                    },
+                    "columns": {
+                        "device": "Device",
+                        "ip_address": "IPAddress"
+                    },
+                    "widget_id": "7346b5b4"
+                },
+                {
+                    "title": "Top 5 Lowest IMS Gx RAR Success Rate",
+                    "widget_type": "tabular",
+                    "description": "((%dpca-imsa-raa-msg-success%/%dpca-msg-rar%)*100)",
+                    "stream": "mobility_kpi_metrics_data",
+                    "ts_column": "timestamp",
+                    "interval_type": "day",
+                    "extra_filter": "Gx_RAR_Success_Rate >= 90  and schema is 'imsa' and servname is 'Gx'",
+                    "min_width": 6,
+                    "height": 8,
+                    "max_width": 6,
+                    "max_rows": 10,
+                    "resizableColumns": true,
+                    "paginated": true,
+                    "pivot": {
+                        "pivot_type": "advanced",
+                        "group_by": [
+                            "device",
+                            "ip_address"
+                        ],
+                        "series": [
+                            {
+                                "column": "Gx_RAR_Success_Rate",
+                                "agg": "min",
+                                "type": "int",
+                                "label": "Success Rate"
+                            }
+                        ],
+                        "agg_sort_order": "asc"
+                    },
+                    "formatting": {
+                        "notation": "compact"
+                    },
+                    "columns": {
+                        "device": "Device",
+                        "ip_address": "IPAddress"
+                    },
+                    "widget_id": "b5cbf7c2"
+                },
+                {
+                    "widget_type": "label",
+                    "max_width": 12,
+                    "height": 0.5,
+                    "min_width": 12,
+                    "label": "<div style='text-align:center;width:100%;'><h1><a style='text-decoration:none;color:#0066ff;' target='_blank'>  Incidents",
+                    "widget_id": "7a269a2d"
+                },
+                {
+                    "widget_type": "counter",
+                    "title": "By State",
+                    "stream": "oia-incidents-stream",
+                    "limit": 10,
+                    "ts_column": "i_updated_ts",
+                    "column": "count_",
+                    "max_width": 6,
+                    "extra_filter": "i_state does not contains 'cancelled' AND attrs_network_type in ['FirstNet','Consumer','Enterprise']",
+                    "height": 4,
+                    "min_width": 4,
+                    "agg": "sum",
+                    "group_by": [
+                        "i_state"
+                    ],
+                    "style": {
+                        "color-map": {
+                            "Resolved": [
+                                "#4CAF50",
+                                "#ffffff"
+                            ],
+                            "Assigned": [
+                                "#FFA726",
+                                "#ffffff"
+                            ],
+                            "Open": [
+                                "#B71C1C",
+                                "#ffffff"
+                            ]
+                        }
+                    },
+                    "total_counter": {
+                        "show": true,
+                        "label": "Count",
+                        "location": "right",
+                        "color": "#0096FF"
+                    },
+                    "type": "int",
+                    "widget_id": "c9ac6704"
+                },
+                {
+                    "title": "By State",
+                    "widget_type1": "counter",
+                    "max_width": 8,
+                    "height": 4,
+                    "limit": 10,
+                    "min_width": 3,
+                    "stream": "oia-incidents-stream",
+                    "extra_filter": "i_state does not contains 'cancelled'  AND attrs_network_type in ['FirstNet','Consumer','Enterprise']",
+                    "ts_column": "i_up",
+                    "style": {
+                        "color-map": {
+                            "Resolved": "#4CAF50",
+                            "Assigned": "#FFA726",
+                            "Open": "#B71C1C",
+                            "On Hold": "#FFA726",
+                            "Cancelled": "#4CAF50",
+                            "Closed": "#4CAF50"
+                        }
+                    },
+                    "group_by": [
+                        "i_state"
+                    ],
+                    "total_counter": {
+                        "show": true,
+                        "label": "Count",
+                        "location": "right",
+                        "color": "#0096FF"
+                    },
+                    "column": "count_",
+                    "agg": "sum",
+                    "type": "int",
+                    "widget_id": "e2746f40"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "By Network",
+                    "duration_hours": 1080,
+                    "stream": "oia-incidents-stream",
+                    "ts_column": "timestamp",
+                    "extra_filter": "i_state does not contains 'cancelled'  AND attrs_network_type in ['FirstNet','Consumer','Enterprise']",
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "attrs_network_type"
+                    ],
+                    "type": "int",
+                    "max_width": 8,
+                    "height": 4,
+                    "min_width": 3,
+                    "widget_id": "567ba2bd"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "FirstNet",
+                    "duration_hours": 1080,
+                    "stream": "oia-incidents-stream",
+                    "ts_column": "timestamp",
+                    "extra_filter": "attrs_network_type is 'FirstNet' and i_state does not contains 'cancelled'",
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "i_state"
+                    ],
+                    "type": "int",
+                    "max_width": 6,
+                    "height": 4,
+                    "min_width": 3,
+                    "widget_id": "6edaa7c4"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Consumer",
+                    "duration_hours": 1080,
+                    "stream": "oia-incidents-stream",
+                    "ts_column": "timestamp",
+                    "extra_filter": "attrs_network_type is 'Consumer' and i_state does not contains 'cancelled'",
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "i_state"
+                    ],
+                    "type": "int",
+                    "max_width": 6,
+                    "height": 4,
+                    "min_width": 3,
+                    "widget_id": "87794d59"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Enterprise",
+                    "duration_hours": 1080,
+                    "stream": "oia-incidents-stream",
+                    "ts_column": "timestamp",
+                    "extra_filter": "attrs_network_type is 'Enterprise' and i_state does not contains 'cancelled'",
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "i_state"
+                    ],
+                    "type": "int",
+                    "max_width": 6,
+                    "height": 4,
+                    "min_width": 3,
+                    "widget_id": "4d66f3ca"
+                },
+                {
+                    "widget_type": "label",
+                    "max_width": 12,
+                    "height": 0.5,
+                    "min_width": 12,
+                    "label": "<div style='text-align:center;width:100%;'><h1><a style='text-decoration:none;color:#0066ff;' target='_blank'>  Ingestion Stats",
+                    "widget_id": "64e3254a"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Bulkstats",
+                    "duration_hours": 1080,
+                    "stream": "mobility_file_system_tracker",
+                    "ts_column": "timestamp",
+                    "extra_filter": null,
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "type": "int",
+                    "min_width": 3,
+                    "height": 4,
+                    "max_width": 6,
+                    "widget_id": "bad16b8f"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Syslogs",
+                    "duration_hours": 1080,
+                    "stream": "syslog_enriched_events",
+                    "ts_column": "rda_gw_timestamp",
+                    "extra_filter": null,
+                    "column": "count_",
+                    "agg": "sum",
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "type": "int",
+                    "min_width": 3,
+                    "height": 4,
+                    "max_width": 6,
+                    "widget_id": "fa65de3c"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "SNMP Traps",
+                    "duration_hours": 1080,
+                    "stream": "snmp_trap_enriched_events_stream",
+                    "ts_column": "rda_gw_timestamp",
+                    "extra_filter": null,
+                    "column": "count_",
+                    "style": {
+                        "color-map": {
+                            "ERROR": "#EF5350",
+                            "NOTICE": "#4DD0E1",
+                            "EMERGENCY": "#B71C1C",
+                            "INFORMATIONAL": "#03A9F4",
+                            "WARNING": "#FFD54F",
+                            "ALERT": "#FFA726",
+                            "CRITICAL": "#E53935",
+                            "DEBUG": "#BCAAA4"
+                        }
+                    },
+                    "agg": "sum",
+                    "group_by": [
+                        "network_type"
+                    ],
+                    "type": "int",
+                    "min_width": 3,
+                    "height": 4,
+                    "max_width": 6,
+                    "widget_id": "73436249"
+                }
+            ]
+        }
+    ],
+    "saved_time": "2025-06-17T18:48:23.464024"
+}

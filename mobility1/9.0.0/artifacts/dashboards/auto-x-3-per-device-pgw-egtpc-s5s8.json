@@ -1,0 +1,1684 @@
+{
+  "name": "auto-x-3-per-device-pgw-egtpc-s5s8",
+  "label": "Schema pgw-egtpc-s5s8",
+  "description": "mobility_kpi_metrics_data: Insights",
+  "dashboard_folder": "mobility-auto-x-3",
+  "version": "1.0.1",
+  "enabled": false,
+  "live_edit": true,
+  "stream": "mobility_kpi_metrics_data",
+  "dashboard_type": "template",
+  "section_as_dashboard": true,
+  "template_variables": {
+    "DEVICE": {
+      "contextId": [
+        "device"
+      ],
+      "defaultValue": "CNCRCANZ31G",
+      "default": "CNCRCANZ31G"
+    }
+  },
+  "dashboard_filters": {
+    "time_filter": true,
+    "default_time_filter_labels": [
+      "Last 12 months"
+    ],
+    "columns_filter": [
+      {
+        "id": "timestamp",
+        "label": "Timestamp",
+        "type": "DATETIME"
+      },
+      {
+        "id": "instance_key",
+        "label": "Instance Key",
+        "type": "TEXT"
+      },
+      {
+        "id": "vpnname",
+        "label": "VPN Name",
+        "type": "TEXT"
+      },
+      {
+        "id": "vpnid",
+        "label": "VPN ID",
+        "type": "TEXT"
+      },
+      {
+        "id": "servname",
+        "label": "Serv Name",
+        "type": "TEXT"
+      },
+      {
+        "id": "servid",
+        "label": "Serv ID",
+        "type": "TEXT"
+      }
+    ],
+    "group_filters": [
+      {
+        "stream": "mobility_kpi_metrics_data",
+        "title": "Instance Key",
+        "group_by": [
+          "instance_key"
+        ],
+        "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+        "ts_column": "timestamp",
+        "agg": "sum",
+        "column": "count_",
+        "type": "int",
+        "show_counts": false
+      },
+      {
+        "stream": "mobility_kpi_metrics_data",
+        "title": "VPN Name",
+        "group_by": [
+          "vpnname"
+        ],
+        "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+        "ts_column": "timestamp",
+        "agg": "sum",
+        "column": "count_",
+        "type": "int",
+        "show_counts": false
+      },
+      {
+        "stream": "mobility_kpi_metrics_data",
+        "title": "VPN ID",
+        "group_by": [
+          "vpnid"
+        ],
+        "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+        "ts_column": "timestamp",
+        "agg": "sum",
+        "column": "count_",
+        "type": "int",
+        "show_counts": false
+      },
+      {
+        "stream": "mobility_kpi_metrics_data",
+        "title": "Serv Name",
+        "group_by": [
+          "servname"
+        ],
+        "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+        "ts_column": "timestamp",
+        "agg": "sum",
+        "column": "count_",
+        "type": "int",
+        "show_counts": false
+      },
+      {
+        "stream": "mobility_kpi_metrics_data",
+        "title": "Serv ID",
+        "group_by": [
+          "servid"
+        ],
+        "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+        "ts_column": "timestamp",
+        "agg": "sum",
+        "column": "count_",
+        "type": "int",
+        "show_counts": false
+      }
+    ]
+  },
+  "dashboard_sections": [
+    {
+      "title": "trend_1d_max",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "353db440"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "45cfebe5"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "ba5e01a7"
+        }
+      ]
+    },
+    {
+      "title": "trend_1h_max",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "8bea8e9c"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "76ea5f15"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "a8fa14aa"
+        }
+      ]
+    },
+    {
+      "title": "trend_15m_max",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "51cb3f09"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "e7fefa84"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "a821ea06"
+        }
+      ]
+    },
+    {
+      "title": "trend_5m_max",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "5094dade"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "0d20c093"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "max",
+              "type": "int"
+            }
+          ],
+          "widget_id": "9ae52323"
+        }
+      ]
+    },
+    {
+      "title": "trend_1d_avg",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "339ae097"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "fa4c56e7"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "6ee63c49"
+        }
+      ]
+    },
+    {
+      "title": "trend_1h_avg",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "9e733bb5"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "44a49f5a"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "c5ea189d"
+        }
+      ]
+    },
+    {
+      "title": "trend_15m_avg",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "2ff06c03"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "dc49ffad"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "613d8c09"
+        }
+      ]
+    },
+    {
+      "title": "trend_5m_avg",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "a9c8aade"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "c2dcf19b"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "avg",
+              "type": "int"
+            }
+          ],
+          "widget_id": "63d3d0b1"
+        }
+      ]
+    },
+    {
+      "title": "trend_1d_min",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "1e403e86"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "0f03b4ae"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "a0a79773"
+        }
+      ]
+    },
+    {
+      "title": "trend_1h_min",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "b6091071"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "34555e23"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "7e9181b7"
+        }
+      ]
+    },
+    {
+      "title": "trend_15m_min",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "fe03808c"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "36826e1d"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "2e160e36"
+        }
+      ]
+    },
+    {
+      "title": "trend_5m_min",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "cb50e0d3"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "7168940e"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "min",
+              "type": "int"
+            }
+          ],
+          "widget_id": "78a33bac"
+        }
+      ]
+    },
+    {
+      "title": "trend_1d_sum",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "811b77af"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "73681063"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "1d",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "1fa85593"
+        }
+      ]
+    },
+    {
+      "title": "trend_1h_sum",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "b72792ee"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "3bc47ebf"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "60Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "fedaf47d"
+        }
+      ]
+    },
+    {
+      "title": "trend_15m_sum",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "2e4fecad"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "3c2d8b1e"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "15Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "c03ad26a"
+        }
+      ]
+    },
+    {
+      "title": "trend_5m_sum",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "9c265194"
+        },
+        {
+          "title": "Total_Create_Bearer_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-sent-crebearerreq-wps%\nDescription: Total Create Bearer Request - WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Bearer_Request_WPS_s5s8",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "3cff8802"
+        },
+        {
+          "title": "Total_Create_Session_Request_WPS_s5s8",
+          "widget_type": "timeseries",
+          "stream": "mobility_kpi_metrics_data",
+          "description": "Formula: %tun-recv-cresessreq-wps%\nDescription: Total Create Session Request -WPS_s5s8",
+          "ts_column": "timestamp",
+          "extra_filter": "device = '{{DEVICE}}' and schema_key is 'pgw-egtpc-s5s8'",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "chartProperties": {
+            "yAxisLabel": "",
+            "xAxisLabel": null,
+            "legendLocation": "right",
+            "mode": "selection",
+            "column-id": "timestamp"
+          },
+          "formatting": {
+            "maximumFractionDigits": 2,
+            "notation": "compact"
+          },
+          "interval": "5Min",
+          "group_by": [
+            "instance_key"
+          ],
+          "series_spec": [
+            {
+              "column": "Total_Create_Session_Request_WPS_s5s8",
+              "agg": "sum",
+              "type": "int"
+            }
+          ],
+          "widget_id": "361cd1d3"
+        }
+      ]
+    },
+    {
+      "title": "kpi_defs",
+      "show_filter": false,
+      "widgets": [
+        {
+          "widget_type": "label",
+          "label": "<div><center><h3>Device: {{DEVICE}}</h3></center></div>",
+          "height": 0.5,
+          "min_width": 12,
+          "max_width": 12,
+          "widget_id": "dd418373"
+        },
+        {
+          "widget_type": "label",
+          "label": "<div style='padding: 10px;height: 100%;overflow: auto;'><br/><details><summary>Total_Create_Bearer_Request_WPS_s5s8</summary><table cellspacing=10 cellpadding=2 border=0><tr><td align='right'><b>Description</td><td align='left'>Total Create Bearer Request - WPS_s5s8</td></tr><tr><td align='right'><b>Formula</td><td align='left'><code>%tun-sent-crebearerreq-wps%</code></td></tr><tr><td align='right'><b>Variables</td><td align='left'><ol><li>%tun-sent-crebearerreq-wps% (Int32 / Counter)</li></ol></td></tr></table></details><br/><details><summary>Total_Create_Session_Request_WPS_s5s8</summary><table cellspacing=10 cellpadding=2 border=0><tr><td align='right'><b>Description</td><td align='left'>Total Create Session Request -WPS_s5s8</td></tr><tr><td align='right'><b>Formula</td><td align='left'><code>%tun-recv-cresessreq-wps%</code></td></tr><tr><td align='right'><b>Variables</td><td align='left'><ol><li>%tun-recv-cresessreq-wps% (Int32 / Counter)</li></ol></td></tr></table></details></div>",
+          "min_width": 12,
+          "max_width": 12,
+          "height": 14,
+          "widget_id": "0d585ac9"
+        }
+      ]
+    },
+    {
+      "title": "data_report",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "tabular",
+          "title": "Device {{DEVICE}} pgw-egtpc-s5s8 Data",
+          "extra_filter": "schema = 'pgw-egtpc-s5s8' and device = '{{DEVICE}}'",
+          "stream": "mobility_kpi_metrics_data",
+          "ts_column": "timestamp",
+          "min_width": 12,
+          "max_width": 12,
+          "height": 12,
+          "virtual_scrolling": true,
+          "showRowSummary": true,
+          "remote_searchable": true,
+          "remote_searchable_cols": [
+            "network_type",
+            "region",
+            "city",
+            "clli_code",
+            "device",
+            "instance_key",
+            "vpnname",
+            "vpnid",
+            "servname",
+            "servid"
+          ],
+          "columns": {
+            "network_type": "network_type",
+            "region": "region",
+            "city": "city",
+            "clli_code": "clli_code",
+            "device": "device",
+            "instance_key": "instance_key",
+            "timestamp": "timestamp",
+            "Total_Create_Bearer_Request_WPS_s5s8": "Total_Create_Bearer_Request_WPS_s5s8",
+            "Total_Create_Session_Request_WPS_s5s8": "Total_Create_Session_Request_WPS_s5s8"
+          },
+          "sorting": [
+            {
+              "timestamp": "desc"
+            }
+          ],
+          "widget_id": "4ae84d00"
+        }
+      ]
+    },
+    {
+      "title": "pivot_report",
+      "show_filter": true,
+      "widgets": [
+        {
+          "widget_type": "tabular",
+          "title": "Device {{DEVICE}} pgw-egtpc-s5s8 Pivot Report",
+          "extra_filter": "schema = 'pgw-egtpc-s5s8' and device = '{{DEVICE}}'",
+          "stream": "mobility_kpi_metrics_data",
+          "ts_column": "timestamp",
+          "min_width": 12,
+          "max_width": 12,
+          "height": 12,
+          "remote_searchable": true,
+          "showRowSummary": true,
+          "remote_searchable_cols": [
+            "device",
+            "instance_key"
+          ],
+          "columns": {
+            "device": "Device",
+            "instance_key": "Row Instance"
+          },
+          "pivot": {
+            "pivot_type": "advanced",
+            "group_by": [
+              "device",
+              "instance_key"
+            ],
+            "series": [
+              {
+                "column": "timestamp",
+                "agg": "min",
+                "type": "str",
+                "label": "Timestamp Begin"
+              },
+              {
+                "column": "timestamp",
+                "agg": "max",
+                "type": "str",
+                "label": "Timestamp End"
+              },
+              {
+                "column": "Total_Create_Bearer_Request_WPS_s5s8",
+                "agg": "min",
+                "type": "int",
+                "label": "min_Total_Create_Bearer_Request_WPS_s5s8"
+              },
+              {
+                "column": "Total_Create_Bearer_Request_WPS_s5s8",
+                "agg": "avg",
+                "type": "int",
+                "label": "avg_Total_Create_Bearer_Request_WPS_s5s8"
+              },
+              {
+                "column": "Total_Create_Bearer_Request_WPS_s5s8",
+                "agg": "max",
+                "type": "int",
+                "label": "max_Total_Create_Bearer_Request_WPS_s5s8"
+              },
+              {
+                "column": "Total_Create_Session_Request_WPS_s5s8",
+                "agg": "min",
+                "type": "int",
+                "label": "min_Total_Create_Session_Request_WPS_s5s8"
+              },
+              {
+                "column": "Total_Create_Session_Request_WPS_s5s8",
+                "agg": "avg",
+                "type": "int",
+                "label": "avg_Total_Create_Session_Request_WPS_s5s8"
+              },
+              {
+                "column": "Total_Create_Session_Request_WPS_s5s8",
+                "agg": "max",
+                "type": "int",
+                "label": "max_Total_Create_Session_Request_WPS_s5s8"
+              }
+            ]
+          },
+          "widget_id": "593aa492"
+        }
+      ]
+    }
+  ],
+  "navigation_dashboards": {
+    "Agg: Max": [
+      {
+        "section": "trend_1d_max",
+        "label": "1 Day Interval Trend"
+      },
+      {
+        "section": "trend_1h_max",
+        "label": "1 Hour Interval Trend"
+      },
+      {
+        "section": "trend_15m_max",
+        "label": "15Min Interval Trend"
+      },
+      {
+        "section": "trend_5m_max",
+        "label": "5Min Interval Trend"
+      }
+    ],
+    "Agg: Avg": [
+      {
+        "section": "trend_1d_avg",
+        "label": "1 Day Interval Trend"
+      },
+      {
+        "section": "trend_1h_avg",
+        "label": "1 Hour Interval Trend"
+      },
+      {
+        "section": "trend_15m_avg",
+        "label": "15Min Interval Trend"
+      },
+      {
+        "section": "trend_5m_avg",
+        "label": "5Min Interval Trend"
+      }
+    ],
+    "Agg: Min": [
+      {
+        "section": "trend_1d_min",
+        "label": "1 Day Interval Trend"
+      },
+      {
+        "section": "trend_1h_min",
+        "label": "1 Hour Interval Trend"
+      },
+      {
+        "section": "trend_15m_min",
+        "label": "15Min Interval Trend"
+      },
+      {
+        "section": "trend_5m_min",
+        "label": "5Min Interval Trend"
+      }
+    ],
+    "Agg: Sum": [
+      {
+        "section": "trend_1d_sum",
+        "label": "1 Day Interval Trend"
+      },
+      {
+        "section": "trend_1h_sum",
+        "label": "1 Hour Interval Trend"
+      },
+      {
+        "section": "trend_15m_min",
+        "label": "15Min Interval Trend"
+      },
+      {
+        "section": "trend_5m_sum",
+        "label": "5Min Interval Trend"
+      }
+    ],
+    "Data Model": [
+      {
+        "section": "kpi_defs",
+        "label": "KPI Definitions"
+      }
+    ],
+    "Data": [
+      {
+        "section": "data_report",
+        "label": "Data"
+      },
+      {
+        "section": "pivot_report",
+        "label": "Pivot Table"
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+%% stream = no and limit = 0
+
+@dm:empty
+    --> @dm:addrow name='oia-incident-inserts-stream' and limit=0
+    --> #dm:query-persistent-stream i_alert_sources is 'Bulkstats'
+    --> @dm:change-time-format from_format='ms' and to_format='%Y-%m-%dT%H:%M:%S' and columns='i_created_ts'
+    --> @dm:apply-template-by-row template_name = 'notify-email-body' & output_col = 'email_body'
+    --> @dm:apply-template-by-row template_name = 'notify-email-subject' & output_col = 'email_subject'
+    --> @dm:map to="message_mime_type" & func="fixed" & value="html"
+    --> @dm:save name="temp-email"
+
+--> @c:data-loop dataset="pipeline_inputs" and columns="ml_email_address"
+    --> @dm:recall name="temp-email"
+    --> @dm:eval email_recipients="'$ml_email_address'"
+    --> *exec:if-condition email_recipients is not null
+       --> @dm:explode column='email_recipients'
+       --> @email:sendmail-bulk recipient_col="email_recipients" & subject_col="email_subject" & message_col="email_body" & message_mime_type_col="message_mime_type"
+       --> @dm:save name='incident-email-updates' and append='yes'
+    --> @exec:end-if
+

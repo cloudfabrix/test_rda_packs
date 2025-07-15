@@ -1,0 +1,15 @@
+{
+  "name": "device_monitoring_stream",
+  "datastore_type": "OS",
+  "read_only": false,
+  "attrs": {
+    "case_insensitive": true,
+    "unique_keys": [
+      "device_ip",
+      "category"
+    ],
+    "os_external": true
+  },
+  "status": "Running",
+  "index_name": "os-external-3f89175ce8104956a289bfef8427d152-stream-a1ebe3e0-device_monitoring_stream"
+}

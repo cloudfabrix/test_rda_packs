@@ -1,0 +1,249 @@
+%% stream = no and limit = 0
+
+%% import_src_type = "email_sender,cisco-bpa,restclient,apscheduler"
+
+## dummy call
+@c:flex-block
+    --> @dm:empty
+    --> @exec:define-function name="apscheduler"
+       --> @apscheduler:next-run job_id="111"
+       --> @email:sendmail-bulk recipient_col ="emailId" and subject_col="emailSubject" and message_col ="emailBody"
+    --> @exec:end-function
+
+## without Schedule inputs gets from parent pipeline
+--> @c:new-block
+    --> @exec:get-input
+    --> @dm:save name="temp-cmd_input"
+    --> @dm:save name="temp-without_schedule"
+    --> @dm:save name="temp-schedule"
+    --> @dm:add-missing-columns columns="job_id" and value="111"
+    --> @dm:save name="temp-script-details"
+
+## dummy call
+--> @c:flex-block
+    --> @dm:empty
+    --> @exec:define-function name="rest_client"
+       --> @restclient:read url="http://postman-echo.com/get"
+    --> @exec:end-function
+
+## dummy call
+--> @c:flex-block
+    --> @dm:empty
+    --> @exec:define-function name="rest_client"
+       --> @cisco-bpa:service-orders method="Get" and orderId ="$orderId" and api_version="v1.0"
+    --> @exec:end-function
+
+## dummy call
+--> @c:flex-block
+    --> @dm:empty
+    --> @exec:define-function name="apscheduler"
+       --> @apscheduler:next-run job_id="111"
+    --> @exec:end-function
+
+## calculate next_run_time for scheduled jobs
+--> @c:new-block
+    --> @dm:recall name="temp-cmd_input"
+    --> @dm:skip-block-if-shape row_count>0
+    --> @dm:empty
+    --> @dm:addrow name="script_schedule" and limit=0
+    --> #dm:query-persistent-stream job_id=="{{job_id}}"
+    --> @dm:save name="temp-script-details"
+
+--> @c:data-loop dataset="temp-script-details" and columns="job_id"
+    --> @apscheduler:next-run job_id="$job_id"
+    --> @dm:skip-block-if-shape row_count=0
+    --> @dm:save name="temp-next-run"
+    --> @dm:recall name="temp-cmd_input"
+    --> @dm:skip-block-if-shape row_count>0
+    --> @dm:recall name="temp-script-details"
+    --> @dm:selectcolumns exclude="^next_run_time$"
+    --> @dm:enrich dict="temp-next-run" and src_key_cols="job_id" and dict_key_cols="job_id" and enrich_cols="next_run_time"
+    --> @dm:save name="temp-script_schedule"
+    --> @rn:write-stream name="script_schedule"
+
+## with schedule create inputs
+--> @c:new-block
+    --> @dm:recall name="temp-cmd_input"
+    --> @dm:skip-block-if-shape row_count>0
+    --> @dm:get-from-location path="cmd_builder_schedules/{{job_id}}.csv"
+    --> @dm:selectcolumns exclude="Unnamed|ingestion_id"
+    --> @dm:save name="temp-with_schedule"
+    --> @dm:save name="temp-cmd_input"
+    --> @dm:save name="temp-schedule"
+
+## Update Times
+--> @c:new-block
+    --> @dm:recall name="temp-cmd_input"
+    --> @dm:eval executed_time ='int(time_now_as_ms())'
+    --> @dm:copy-columns from="executed_time" and to ="current_time"
+    --> @dm:change-time-format columns="current_time" and from_format = "ms" and to_format ="%mM%dD%YY_%Hh%Mm"
+    --> @dm:eval filename= "script_name +'_'+str(current_time)+'.json'"
+    --> @dm:copy-columns from="script_params" and to ="ingestion_id"
+    --> @dm:to-type columns="ingestion_id" and type="str"
+    --> @dm:manipulate-string from="current_time,script_name,ingestion_id" and func="concat_columns" and to="ingestion_id"
+    --> @dm:map from = 'ingestion_id' & to = 'ingestion_id' & func = 'md5'
+    --> @dm:eval script_suffix ="script_name + '_'"
+    --> @dm:save name="temp-cmd_input"
+
+## ###################################################################
+## create list of params that needs to provide as input to the scripts
+## if the number of columns == 0, param will be empty list else it will create [{key}:{value}] pairs
+--> @c:data-loop columns="script_name,script_suffix" and dataset ="temp-cmd_input"
+    --> @dm:recall name="temp-cmd_input" and return_empty= "yes"
+    --> @dm:skip-block-if-shape row_count=0
+    --> @dm:selectcolumns exclude="script_name|script_type|schedule|USER_ID|custom_context|reportInitialFilterItems|executed_time|key|network_type|devices|current_time|filename|emailId|name|minio_location|retryInterval|retryCount|configureRetries|ingestion_id|script_params|MSP_ID" and include="$script_suffix"
+    --> @dm:drop-null-columns empty_is_null='yes'
+    --> *exec:if-shape num_cols > 0
+       --> @dm:to-json output_column ="param"
+       --> @dm:eval param="json_loads(param) if param else {}"
+       --> @dm:eval param='",".join([f"{key.split("_")[-1]}:{value}" if "$script_name"+"_" in key else f"{key}:{value}" for key, value in param.items()])'
+       --> @dm:eval key="'key'"
+       --> @dm:implode key_columns="key" and merge_columns ="param"
+       --> @dm:eval param = "param.split(',') if param else []"
+       --> @dm:save name="temp-params_list"
+    --> @exec:end-if
+    --> *exec:if-shape num_cols = 0
+       --> @dm:empty
+       --> @dm:addrow key="key"
+       --> @dm:eval param = "[]"
+       --> @dm:save name="temp-params_list"
+    --> @exec:end-if
+
+## Enrich params list to the processed input dataset and create ingestion_id using script_name,current_time and script_params
+--> @c:new-block
+    --> @dm:recall name="temp-cmd_input"
+    --> @dm:eval key="'key'"
+    --> @dm:selectcolumns exclude="script_params"
+    --> @dm:enrich dict="temp-params_list" and src_key_cols="key" and dict_key_cols="key" and enrich_cols="param" and enrich_cols_as ="script_params"
+    --> @dm:copy-columns from="script_params" and to ="ingestion_id"
+    --> @dm:to-type columns="ingestion_id" and type="str"
+    --> @dm:manipulate-string from="current_time,script_name,ingestion_id" and func="concat_columns" and to="ingestion_id"
+    --> @dm:map from = 'ingestion_id' & to = 'ingestion_id' & func = 'md5'
+    --> @dm:save name="temp-cmd_input"
+
+## ############################################################################
+--> @c:flex-block
+    --> @dm:empty
+    --> @exec:define-function name="test"
+       --> @exec:run-pipeline name="create_commad_builder_service_order"
+       --> @exec:run-pipeline name="Pipeline_to_poll_service_order_API"
+    --> @exec:end-function
+
+--> @c:new-block
+    --> @dm:empty
+    --> @exec:define-function name="Handle_error"
+       --> @dm:empty
+       --> @dm:recall name="temp-cmd_input"
+       --> @dm:recall name="temp-error" and return_empty="yes"
+       --> @dm:eval reason="'Timeout'"
+       --> @dm:eval execution_status ="'Failed'"
+       --> @dm:to-type columns="script_params"  and type="str"
+       --> @dm:eval script_params = "script_params if script_params != '[]' else None"
+       --> @dm:selectcolumns include="script_name|script_type|devices|script_params|USER_ID|network_type|executed_time|ingestion_id|execution_status|reason|emailId|current_time|orderId"
+       --> @rn:write-stream name="command_builder_run_details"
+    --> @exec:end-function
+
+## process schedule details
+## --> @c:new-block
+## --> @dm:recall name="temp-schedule"
+## --> @dm:add-missing-columns columns="schedule_dashboard"
+## --> @dm:to-type columns="schedule_dashboard" and type="str"
+## --> *dm:filter schedule_dashboard == "True"
+## --> @dm:skip-block-if-shape row_count=0
+## --> @dm:recall name="temp-cmd_input"
+## --> @dm:to-type columns="schedule" and type='str'
+## --> @dm:replace-data columns="schedule" and expr="'" and replace='"'
+## --> @dm:replace-data columns="schedule" and expr="False" and replace='false'
+## --> @dm:replace-data columns="schedule" and expr="True" and replace='true'
+## --> @dm:replace-data columns="schedule" and expr="None" and replace='null'
+## --> @dm:eval schedule = "json_loads(schedule) if schedule else schedule"
+## --> @dm:explode-json column= "schedule"
+## --> @dm:explode-json column="scheduleTime"
+## --> @dm:to-type columns="script_params" and type="str"
+## --> @dm:eval script_params = "script_params if script_params != '[]' else None"
+## --> @dm:save name="temp-schedule_details"
+## create entry in "script_schedule" dataset
+## #--> @c:data-loop columns="executed_time,USER_ID,script_name,startTime,startDate,endDate,scheduleType,timeZone,devices,network_type,script_params" and dataset ="temp-schedule_details"
+## --> @dm:recall name="temp-schedule"
+## --> @dm:add-missing-columns columns="schedule_dashboard"
+## --> @dm:to-type columns="schedule_dashboard" and type="str"
+## --> *dm:filter schedule_dashboard == "True"
+## --> @dm:skip-block-if-shape row_count=0
+## --> @dm:recall name="script_schedule" and return_empty ="yes"
+## ## --> @dm:addrow script_name ="$script_name" and startDate=$startDate and scheduleType="$scheduleType" and timeZone="$timeZone" and device= "$devices" and startTime=$startTime and updated_time="$executed_time" and USER_ID="$USER_ID" and inputs="$script_params" and network_type = "$network_type"
+## --> @dm:to-type columns="updated_time" and type="int"
+## --> @dm:save name="script_schedule"
+## call 'create_commad_builder_service_order' pipeline, It will create payload and send request to cisco BPA to create service order
+--> @c:data-loop columns="ingestion_id,retryCount,retryInterval" and dataset ="temp-cmd_input"
+    --> @dm:recall name="temp-cmd_input"
+    --> @dm:eval name="'create_commad_builder_service_order'"
+    --> @exec:run-pipeline-by-row pipeline_col= "name" and save_output="yes" and pipeline_type="Published"
+    --> @dm:selectcolumns exclude="script_name|script_type|devices|script_params|USER_ID|network_type|executed_time|ingestion_id|current_time|emailId"
+    --> @dm:enrich dict="temp-cmd_input" and src_key_cols="key" and dict_key_cols="key" and enrich_cols="script_name,script_type,devices,script_params,USER_ID,network_type,executed_time,ingestion_id,current_time,emailId"
+    ## if the 'create_commad_builder_service_order' pipeline fails, update its status in 'command_builder_run_details'
+    --> *exec:if-condition pipline_exec_status == "failed"
+       --> @dm:eval key="'key'"
+       --> @dm:eval execution_status ="'Failed'"
+       --> @dm:to-type columns="script_params" and type="str"
+       --> @dm:eval script_params = "script_params if script_params != '[]' else None"
+       --> @dm:rename-columns reason = pipline_exec_failure_reason
+       --> @dm:selectcolumns include="script_name|script_type|devices|script_params|USER_ID|network_type|executed_time|ingestion_id|execution_status|reason|emailId|orderId"
+       --> @rn:write-stream name="command_builder_run_details"
+    --> @exec:end-if
+    ## if the 'create_commad_builder_service_order' pipeline completes successfully, call 'Pipeline_to_poll_service_order_API' pipeline, it will poll the cisco BPA get service order status using orderId
+    ## retry count= 3 and sleep time = 3000
+    --> *exec:if-condition pipline_exec_status == "ok"
+       --> @dm:explode-json column="pipeline_exec_output"
+       --> @exec:retry-loop retries= $retryCount and retry_delay_millis = $retryInterval and on_failure_callback="Handle_error"
+          ## --> @exec:retry-loop retries= 100 and retry_delay_millis= 60000 and on_failure_callback="Handle_error
+          --> @dm:dedup columns ="data__id"
+          --> @dm:eval name="'Pipeline_to_poll_service_order_API'"
+          --> @exec:run-pipeline-by-row pipeline_col= "name" and save_output="yes" and pipeline_type="Published"
+          --> @dm:eval key="'key'"
+          --> @dm:selectcolumns exclude="script_name|script_type|devices|script_params|USER_ID|network_type|executed_time|ingestion_id|current_time|emailId"
+          --> @dm:enrich dict="temp-cmd_input" and src_key_cols="key" and dict_key_cols="key" and enrich_cols="script_name,script_type,devices,script_params,USER_ID,network_type,executed_time,ingestion_id,current_time,emailId"
+          ## If the 'Pipeline_to_poll_service_order_API' pipeline failes, update its status in 'command_builder_run_details'
+          --> *exec:if-condition pipline_exec_status == "failed"
+             --> @dm:rename-columns reason = pipline_exec_failure_reason
+             --> @dm:save name = "temp-error"
+             --> @dm:replace-data columns = "reason" and expr ="Input dataframe to met failure criteria '{}'. Aborting" and replace="The requested service order is still in process, so it has timed out"
+             --> @dm:eval execution_status ="'Failed'"
+             --> @dm:to-type columns="script_params" and type="str"
+             --> @dm:eval script_params = "script_params if script_params != '[]' else None"
+             --> @dm:selectcolumns include="script_name|script_type|devices|script_params|USER_ID|network_type|executed_time|ingestion_id|execution_status|reason|emailId|current_time|orderId"
+             --> @rn:write-stream name="command_builder_run_details"
+             --> @dm:fail-if-shape row_count > 0
+          --> @exec:end-if
+          ## If the 'Pipeline_to_poll_service_order_API' pipeline is completed, check whether service order is cancelled or completed, based on its status update its status in 'command_builder_run_details'
+          --> *exec:if-condition pipline_exec_status == "ok"
+             --> @dm:save name = "temp-poll-result"
+             --> @dm:recall name="temp_result_$ingestion_id" and return_empty ="yes"
+             --> *exec:if-shape num_rows > 0
+                --> @dm:eval key="'key'"
+                --> @dm:selectcolumns exclude="script_name|script_type|devices|script_params|USER_ID|network_type|executed_time|ingestion_id|current_time|emailId"
+                --> @dm:enrich dict="temp-poll-result" and src_key_cols="key" and dict_key_cols="key" and enrich_cols="script_name,script_type,devices,script_params,USER_ID,network_type,executed_time,ingestion_id,current_time,emailId,current_time"
+                --> @dm:rename-columns reason = data_cancelReason
+                --> @dm:to-type columns="script_params" and type="str"
+                --> @dm:eval script_params = "script_params if script_params != '[]' else None"
+                --> @dm:eval execution_status ="'Cancelled'"
+                --> @dm:selectcolumns include="script_name|script_type|devices|script_params|USER_ID|network_type|executed_time|ingestion_id|execution_status|reason|current_time|orderId"
+                --> @rn:write-stream name="command_builder_run_details"
+             --> @exec:end-if
+             --> *exec:if-shape num_rows = 0
+                --> @dm:recall name="temp-poll-result"
+                --> @dm:to-type columns="script_params" and type="str"
+                --> @dm:eval script_params = "script_params if script_params != '[]' else None"
+                --> @dm:rename-columns reason = pipline_exec_failure_reason
+                --> @dm:eval execution_status ="'Completed'"
+                --> @dm:selectcolumns include="script_name|script_type|devices|script_params|USER_ID|network_type|executed_time|ingestion_id|execution_status|reason|emailId|current_time|orderId"
+                --> @rn:write-stream name="command_builder_run_details"
+             --> @exec:end-if
+          --> @exec:end-if
+       --> @exec:end-loop
+    --> @exec:end-if
+
+--> @c:data-loop columns="ingestion_id" and dataset ="temp-cmd_input"
+    --> @dm:empty
+    --> @dm:addrow name="temp_result_$ingestion_id"
+    --> @dm:delete-dataset dataset_column="name"
+

@@ -1,0 +1,86 @@
+name: Bulkstats Metrics Correlation and Regression
+id: Bulkstats_Metrics_Correlation_and_Regression
+version: '2025_06_03'
+category: ML
+comment: Blueprint for Bulkstats Metrics Correlation and Regression
+enabled: true
+type: Service
+provider: CloudFabrix Software Inc.
+attrs: {}
+action_pipelines:
+    -   name: ml-bulkstats-available-metrics
+        label: Fetch Available bulkstats metrics
+        version: '*'
+        form: {}
+        site: rda.*
+        site_type: regex
+        instances: 1
+        scaling_policy:
+            min_instances: 0
+            max_instances: 1
+    -   name: ml-bulkstats-metrics-resampling
+        label: Resample Metrics
+        version: '*'
+        form: {}
+        site: rda.*
+        site_type: regex
+        instances: 1
+        scaling_policy:
+            min_instances: 0
+            max_instances: 1
+    -   name: ml-bulkstats-variance-analysis
+        label: Variance Analysis
+        version: '*'
+        form: {}
+        site: rda.*
+        site_type: regex
+        instances: 1
+        scaling_policy:
+            min_instances: 0
+            max_instances: 1
+    -   name: ml-bulkstats-metrics-regression
+        label: Regression
+        version: '*'
+        form: {}
+        site: rda.*
+        site_type: regex
+        instances: 1
+        scaling_policy:
+            min_instances: 0
+            max_instances: 1
+scheduled_pipelines:
+    -   name: ml-bulkstats-variance-analysis
+        label: Variance Analysis
+        version: '*'
+        form: {}
+        site: rda.*
+        site_type: regex
+        cron_expression: 0 */12 * * *
+    -   name: ml-bulkstats-metrics-periodic-resampling
+        label: Periodic Resampling
+        version: '*'
+        form: {}
+        site: rda.*
+        site_type: regex
+        cron_expression: 0 * * * *
+    -   name: ml-bulkstats-metrics-regression
+        label: Regression
+        version: '*'
+        form: {}
+        site: rda.*
+        site_type: regex
+        cron_expression: 0 0 * * *
+service_pipelines:
+    -   name: ml-bulkstats-metrics-prediction-parent
+        label: Live Anomaly Detection
+        restart_on_pipeline_update: true
+        version: '*'
+        form: {}
+        site: rda.*
+        site_type: regex
+        instances: 1
+        scaling_policy:
+            min_instances: 0
+            max_instances: 1
+dashboard_type: dashboard
+saved_time: '2025-07-04T11:04:17.950962'

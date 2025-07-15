@@ -1,0 +1,38 @@
+%% stream = no and limit = 0
+
+@exec:get-input
+    --> @dm:check-columns must_contain="device,ip_address,command" and action="fail"
+    --> @dm:manipulate-string from="command" and to="lower_commands" and func="lower"
+    --> @dm:save name="temp-input"
+    --> @dm:save name="dm_map"
+
+--> @c:data-loop dataset="temp-input" and columns="ip_address,lower_commands"
+    --> @dm:recall name="command_list"
+    --> *dm:filter command =="$lower_commands"
+    --> @dm:save name="temp-verified-output"
+
+--> @c:data-loop dataset="temp-input" and columns="device,ip_address,command"
+    --> @dm:recall name="temp-verified-output"
+    --> @dm:skip-block-if-shape row_count> 0
+    --> @dm:empty
+    --> @dm:addrow device_name ="$device" and ip_address="$ip_address" and command="$command" and    `execute-any-command:output_devices_0_command-response`="Invalid command" and status="Failed"
+    --> @dm:manipulate-string from="ip_address,command" and func="concat_columns" and to="reports_key"
+    --> @rn:write-stream name="NSO_executed_commands"
+    --> @dm:recall name="temp-verified-output"
+    --> @dm:fail-if-shape row_count	="0"
+
+--> @c:data-loop dataset="temp-input" and columns="command,device,ip_address"
+    ## --> @restclient:read url="http://10.122.127.196:8080/restconf/data/live-status-common:live-status/live-status-common:actions/execute-any-command:exec-any/execute-any-command:live-status-exec-any" and username="nsouser" and password="cisco123" and payload='{"devices":[{"device-name": "$device","command": "show version"}]}' and method="POST" and `Accept`  = "*/*" and `Content-Type`="application/yang-data+json"
+    --> @restclient:read url="http://10.122.127.196:8080/restconf/data/live-status-common:live-status/live-status-common:actions/execute-any-command:exec-any/execute-any-command:live-status-exec-any" and username="nsouser" and password="cisco123" and payload='{"devices":[{"device-name": "$device","command": "$command"}]}' and method="POST" and `Accept` = "*/*" and `Content-Type`="application/yang-data+json"
+    ## --> @dm:empty
+    ## --> @dm:addrow response = '{"execute-any-command:output":{"devices":[{"device-name":"ASR5500-2","command-response":"\nActive Software:\r\n  Image Version:                  21.27.5\r\n  Image Build Number:             87852\r\n  Image Description:              Deployment_Build\r\n  Image Date:                     Tue Nov 29 12:27:33 EST 2022\r\n  Boot Image:                     /flash/asr5500-21.27.5.bin.SPA\r\n  Source Commit ID:               c134e0a6c885a27cb2ff1c5ee3d8feb60444125b"}]}}'
+    ## --> @dm:explode-json column="response"
+    --> @dm:eval device_name="'$device'"
+    --> @dm:eval ip_address="'$ip_address'"
+    --> @dm:eval command="'$command'"
+    --> @dm:eval status="'Successful'"
+    --> @dm:copy-columns from = "execute-any-command:output" & to = "response"
+    --> @dm:manipulate-string from="ip_address,command" and func="concat_columns" and to="reports_key"
+    --> @dm:save name="temp-execute-command_output"
+    --> @rn:write-stream name="NSO_executed_commands"
+

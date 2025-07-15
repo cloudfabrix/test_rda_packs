@@ -1,0 +1,14 @@
+%% stream = no and limit = 0
+
+@c:new-block
+    --> @dm:empty
+    --> @agent:agent-config:configagent:getTeamsByCollabType collab_type='Others'
+    --> @dm:rename-columns project_id = "projectId" and team_name = "name" and collab_type="collabType" and team_id="teamId"
+    --> @dm:add-missing-columns columns = 'team_config'
+    --> @dm:fixnull columns = 'team_config' & value='[]'
+    --> @dm:save name="temp-team-details"
+
+--> @c:new-block
+    --> @exec:get-input
+    --> @dm:enrich dict = 'temp-team-details' & src_key_cols = 'project_id' & dict_key_cols = 'project_id' & enrich_cols = 'team_config,team_id,team_name'
+

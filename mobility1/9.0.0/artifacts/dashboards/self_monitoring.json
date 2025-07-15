@@ -1,0 +1,1291 @@
+{
+    "name": "self_monitoring",
+    "label": "Self Monitoring",
+    "description": "Host OS Performance Metrics Dashboard",
+    "version": "2024-05-23_1",
+    "enabled": true,
+    "live_edit": true,
+    "dashboard_style": "tabbed",
+    "dashboard_folder": "Host_OS",
+    "dashboard_type": "dashboard",
+    "custom_context": {
+        "rda-dashboard-live-edit": true
+    },
+    "status_poller": {
+        "stream": "host_os_metrics",
+        "frequency": 600,
+        "columns": [
+            "timestamp"
+        ],
+        "sorting": [
+            {
+                "timestamp": "desc"
+            }
+        ],
+        "query": "timestamp is after '${timestamp}'",
+        "defaults": {
+            "timestamp": "$UTCNOW"
+        },
+        "action": "refresh"
+    },
+    "dashboard_filters": {
+        "time_filter": true,
+        "default_time_filter_labels": [
+            "Last 24 hours"
+        ],
+        "columns_filter": [
+            {
+                "id": "timestamp",
+                "label": "Timestamp",
+                "type": "DATETIME"
+            },
+            {
+                "id": "i_deployment",
+                "label": "RDAF Deployment",
+                "type": "TEXT"
+            },
+            {
+                "id": "name",
+                "label": "Metric Name",
+                "type": "TEXT"
+            },
+            {
+                "id": "i_container_name",
+                "label": "Container Name",
+                "type": "TEXT"
+            },
+            {
+                "id": "i_host_ip",
+                "label": "Host IP",
+                "type": "TEXT"
+            },
+            {
+                "id": "i_host",
+                "label": "Hostname",
+                "type": "TEXT"
+            },
+            {
+                "id": "PARTITION",
+                "label": "Partition",
+                "type": "int"
+            }
+        ],
+        "group_filters": [
+            {
+                "stream": "host_os_metrics",
+                "title": "RDAF Deployment",
+                "limit": 50,
+                "group_by": [
+                    "i_deployment"
+                ],
+                "ts_column": "timestamp",
+                "agg": "cardinality",
+                "column": "i_deployment",
+                "type": "int",
+                "show_counts": false
+            },
+            {
+                "stream": "host_os_metrics",
+                "title": "Hostname",
+                "limit": 50,
+                "group_by": [
+                    "i_host"
+                ],
+                "ts_column": "timestamp",
+                "agg": "cardinality",
+                "column": "i_host",
+                "type": "int",
+                "show_counts": false
+            },
+            {
+                "stream": "host_os_metrics",
+                "title": "Host IP",
+                "limit": 50,
+                "group_by": [
+                    "i_host_ip"
+                ],
+                "ts_column": "timestamp",
+                "agg": "cardinality",
+                "column": "i_host_ip",
+                "type": "str",
+                "show_counts": false
+            },
+            {
+                "stream": "host_os_metrics",
+                "title": "Metric Name",
+                "limit": 50,
+                "group_by": [
+                    "name"
+                ],
+                "ts_column": "timestamp",
+                "agg": "cardinality",
+                "column": "name",
+                "type": "str",
+                "show_counts": false
+            },
+            {
+                "stream": "host_os_metrics",
+                "title": "Device Name",
+                "limit": 50,
+                "group_by": [
+                    "i_device"
+                ],
+                "ts_column": "timestamp",
+                "agg": "cardinality",
+                "column": "name",
+                "type": "str",
+                "show_counts": false
+            },
+            {
+                "stream": "host_os_metrics",
+                "title": "Tag Device",
+                "limit": 50,
+                "group_by": [
+                    "i_device"
+                ],
+                "ts_column": "timestamp",
+                "agg": "cardinality",
+                "column": "count_",
+                "type": "int",
+                "show_counts": false
+            },
+            {
+                "stream": "bulk_stat_ingestion_status",
+                "title": "Partition",
+                "limit": 50,
+                "group_by": [
+                    "PARTITION"
+                ],
+                "ts_column": "timestamp",
+                "agg": "cardinality",
+                "column": "count_",
+                "type": "int",
+                "show_counts": false
+            }
+        ]
+    },
+    "dashboard_sections": [
+        {
+            "title": "Overall",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "title": "RDAF Deployments",
+                    "widget_type": "pie_chart",
+                    "stream": "host_os_metrics",
+                    "ts_column": "timestamp",
+                    "column": "i_deployment",
+                    "agg": "cardinality",
+                    "group_by": [
+                        "i_deployment"
+                    ],
+                    "type": "str",
+                    "min_width": 4,
+                    "height": 4,
+                    "max_width": 4,
+                    "widget_id": "6f2c79fc"
+                },
+                {
+                    "title": "Host OS Metrics",
+                    "widget_type": "pie_chart",
+                    "stream": "host_os_metrics",
+                    "ts_column": "timestamp",
+                    "column": "name",
+                    "agg": "cardinality",
+                    "group_by": [
+                        "name"
+                    ],
+                    "type": "str",
+                    "min_width": 4,
+                    "height": 4,
+                    "max_width": 4,
+                    "widget_id": "8e762f04"
+                },
+                {
+                    "title": "Hosts",
+                    "widget_type": "pie_chart",
+                    "stream": "host_os_metrics",
+                    "ts_column": "timestamp",
+                    "column": "name",
+                    "agg": "cardinality",
+                    "group_by": [
+                        "i_host"
+                    ],
+                    "type": "str",
+                    "min_width": 4,
+                    "height": 4,
+                    "max_width": 4,
+                    "widget_id": "1cf4ed37"
+                },
+                {
+                    "title": "Tag Name",
+                    "widget_type": "pie_chart",
+                    "stream": "host_os_metrics",
+                    "ts_column": "timestamp",
+                    "column": "name",
+                    "agg": "cardinality",
+                    "group_by": [
+                        "i_name"
+                    ],
+                    "type": "str",
+                    "min_width": 4,
+                    "height": 4,
+                    "max_width": 4,
+                    "widget_id": "e36622e0"
+                },
+                {
+                    "title": "Interfaces",
+                    "widget_type": "pie_chart",
+                    "stream": "host_os_metrics",
+                    "ts_column": "timestamp",
+                    "column": "name",
+                    "agg": "cardinality",
+                    "group_by": [
+                        "i_interface"
+                    ],
+                    "type": "str",
+                    "min_width": 4,
+                    "height": 4,
+                    "max_width": 4,
+                    "widget_id": "01c7ccee"
+                },
+                {
+                    "title": "FS Type",
+                    "widget_type": "pie_chart",
+                    "stream": "host_os_metrics",
+                    "ts_column": "timestamp",
+                    "column": "name",
+                    "agg": "cardinality",
+                    "group_by": [
+                        "i_fstype"
+                    ],
+                    "type": "str",
+                    "min_width": 4,
+                    "height": 4,
+                    "max_width": 4,
+                    "widget_id": "7e0f2150"
+                },
+                {
+                    "title": "Path",
+                    "widget_type": "pie_chart",
+                    "stream": "host_os_metrics",
+                    "ts_column": "timestamp",
+                    "column": "name",
+                    "agg": "cardinality",
+                    "group_by": [
+                        "i_path"
+                    ],
+                    "type": "str",
+                    "min_width": 4,
+                    "height": 4,
+                    "max_width": 4,
+                    "widget_id": "a00a6e0b"
+                }
+            ]
+        },
+        {
+            "title": "CPU",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "title": "Top 5 devices by CPU Usage",
+                    "widget_type": "multi_bar_chart",
+                    "stream": "host_os_metrics",
+                    "ts_column": "timestamp",
+                    "extra_filter": "name = 'cpu'",
+                    "group_by": [
+                        "i_cpu",
+                        "i_host"
+                    ],
+                    "formatting": {
+                        "notation": "compact",
+                        "maximumFractionDigits": 2,
+                        "unit": "percent"
+                    },
+                    "chartProperties": {
+                        "yAxisLabel": "Hosts",
+                        "xAxisLabel": "Top 5 CPU Active Usage(%)",
+                        "stacked": false,
+                        "legendLocation": "right",
+                        "orientation": "horizontal"
+                    },
+                    "descending_order": false,
+                    "others_spec": {
+                        "limit": 5,
+                        "show_others": false,
+                        "label": "Other Names",
+                        "i_cpu": {
+                            "largest": false,
+                            "name_based_limit": false
+                        },
+                        "i_host": {
+                            "largest": true,
+                            "name_based_limit": false
+                        }
+                    },
+                    "column": "m_usage_active",
+                    "agg": "avg",
+                    "type": "int",
+                    "max_width": 6,
+                    "height": 4,
+                    "min_width": 6,
+                    "widget_id": "40c44086"
+                },
+                {
+                    "title": "CPU Usage by Host(%)",
+                    "widget_type": "timeseries",
+                    "stream": "host_os_metrics",
+                    "ts_column": "timestamp",
+                    "extra_filter": "name = 'cpu'",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "fixTimeWindow": true,
+                    "chartProperties": {
+                        "yAxisLabel": "%",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "options": {
+                            "elements": {
+                                "line": {
+                                    "borderWidth": 1
+                                },
+                                "point": {
+                                    "radius": 2,
+                                    "hitRadius": 3,
+                                    "hoverRadius": 2
+                                }
+                            }
+                        }
+                    },
+                    "interval": "auto",
+                    "group_by": [
+                        "i_host"
+                    ],
+                    "duration_hours": 108000,
+                    "formatting": {
+                        "notation": "compact",
+                        "maximumFractionDigits": 2,
+                        "unit": "percent"
+                    },
+                    "series_spec": [
+                        {
+                            "column": "m_usage_active",
+                            "agg": "avg",
+                            "type": "float"
+                        }
+                    ],
+                    "widget_id": "5f4b88de"
+                },
+                {
+                    "title": "CPU Idle Usage by Host",
+                    "widget_type": "timeseries",
+                    "stream": "host_os_metrics",
+                    "ts_column": "timestamp",
+                    "extra_filter": "name = 'cpu'",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "fixTimeWindow": true,
+                    "chartProperties": {
+                        "yAxisLabel": "%",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "options": {
+                            "elements": {
+                                "line": {
+                                    "borderWidth": 1
+                                },
+                                "point": {
+                                    "radius": 2,
+                                    "hitRadius": 3,
+                                    "hoverRadius": 2
+                                }
+                            }
+                        }
+                    },
+                    "interval": "auto",
+                    "group_by": [
+                        "i_host"
+                    ],
+                    "duration_hours": 108000,
+                    "formatting": {
+                        "notation": "compact",
+                        "maximumFractionDigits": 2,
+                        "unit": "percent"
+                    },
+                    "series_spec": [
+                        {
+                            "column": "m_usage_idle",
+                            "agg": "avg",
+                            "type": "float"
+                        }
+                    ],
+                    "widget_id": "df19927c"
+                }
+            ]
+        },
+        {
+            "title": "Memory",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "title": "Top 5 devices by Memory Usage",
+                    "widget_type": "multi_bar_chart",
+                    "stream": "host_os_metrics",
+                    "ts_column": "timestamp",
+                    "extra_filter": "name = 'mem'",
+                    "group_by": [
+                        "i_deployment",
+                        "i_host"
+                    ],
+                    "formatting": {
+                        "notation": "compact",
+                        "maximumFractionDigits": 2,
+                        "unit": "percent"
+                    },
+                    "chartProperties": {
+                        "yAxisLabel": "Hosts",
+                        "xAxisLabel": "Top 5 device by Memory Usage(%)",
+                        "stacked": false,
+                        "legendLocation": "right",
+                        "orientation": "horizontal"
+                    },
+                    "descending_order": false,
+                    "others_spec": {
+                        "limit": 5,
+                        "show_others": false,
+                        "label": "Other Names",
+                        "i_cpu": {
+                            "largest": false,
+                            "name_based_limit": false
+                        },
+                        "i_host": {
+                            "largest": true,
+                            "name_based_limit": false
+                        }
+                    },
+                    "column": "m_used_percent",
+                    "agg": "avg",
+                    "type": "int",
+                    "max_width": 6,
+                    "height": 4,
+                    "min_width": 6,
+                    "widget_id": "05331bdd"
+                },
+                {
+                    "title": "Memory Usage by Host(%)",
+                    "widget_type": "timeseries",
+                    "stream": "host_os_metrics",
+                    "extra_filter": "name = 'mem'",
+                    "ts_column": "timestamp",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "fixTimeWindow": true,
+                    "chartProperties": {
+                        "yAxisLabel": "%",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "options": {
+                            "elements": {
+                                "line": {
+                                    "borderWidth": 1
+                                },
+                                "point": {
+                                    "radius": 2,
+                                    "hitRadius": 3,
+                                    "hoverRadius": 2
+                                }
+                            }
+                        }
+                    },
+                    "interval": "auto",
+                    "group_by": [
+                        "i_host_ip"
+                    ],
+                    "duration_hours": 108000,
+                    "formatting": {
+                        "notation": "compact",
+                        "maximumFractionDigits": 2,
+                        "unit": "percent"
+                    },
+                    "series_spec": [
+                        {
+                            "column": "m_used_percent",
+                            "agg": "max",
+                            "type": "float"
+                        }
+                    ],
+                    "widget_id": "378f8149"
+                },
+                {
+                    "widget_type": "tabular",
+                    "title": "Memory Summary",
+                    "stream": "host_os_metrics",
+                    "ts_column": "timestamp",
+                    "extra_filter": "name = 'mem'",
+                    "sorting": [],
+                    "group_by": [
+                        "i_host_ip"
+                    ],
+                    "columns": {
+                        "m_free": {
+                            "title": "Memory Free",
+                            "hidden": true
+                        },
+                        "m_total": {
+                            "title": "Memory Total",
+                            "hidden": true
+                        },
+                        "m_used": {
+                            "title": "Memory Used",
+                            "hidden": true
+                        },
+                        "i_host_ip": "Host"
+                    },
+                    "custom_columns": [
+                        {
+                            "id": "m_total",
+                            "label": "Memory Total(GB)",
+                            "expr": "((m_total) * 0.000000001) "
+                        },
+                        {
+                            "id": "m_used",
+                            "label": "Memory Used(GB)",
+                            "expr": "((m_used) * 0.000000001) "
+                        },
+                        {
+                            "id": "m_free",
+                            "label": "Memory Free(GB)",
+                            "expr": "((m_free) * 0.000000001) "
+                        },
+                        {
+                            "id": "memory_used_percent",
+                            "label": "Memory Used(%)",
+                            "expr": "((m_used/m_total) * 100) "
+                        }
+                    ],
+                    "widget_id": "1613e3d1"
+                }
+            ]
+        },
+        {
+            "title": "Disk",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "title": "Top 5 devices by disk Usage",
+                    "widget_type": "multi_bar_chart",
+                    "stream": "host_os_metrics",
+                    "ts_column": "timestamp",
+                    "extra_filter": "name = 'disk'",
+                    "group_by": [
+                        "i_device",
+                        "i_host"
+                    ],
+                    "formatting": {
+                        "notation": "compact",
+                        "maximumFractionDigits": 2,
+                        "unit": "percent"
+                    },
+                    "chartProperties": {
+                        "yAxisLabel": "Hosts",
+                        "xAxisLabel": "Top 5 Disk Usage(%)",
+                        "stacked": false,
+                        "legendLocation": "right",
+                        "orientation": "horizontal"
+                    },
+                    "descending_order": false,
+                    "others_spec": {
+                        "limit": 5,
+                        "show_others": false,
+                        "i_device": {
+                            "largest": true,
+                            "name_based_limit": false
+                        },
+                        "i_host": {
+                            "largest": true,
+                            "name_based_limit": false
+                        }
+                    },
+                    "column": "m_used_percent",
+                    "agg": "max",
+                    "type": "int",
+                    "max_width": 6,
+                    "height": 4,
+                    "min_width": 6,
+                    "widget_id": "e01c712d"
+                },
+                {
+                    "title": "Bottom 5 devices by disk Usage",
+                    "widget_type": "multi_bar_chart",
+                    "stream": "host_os_metrics",
+                    "ts_column": "timestamp",
+                    "extra_filter": "name = 'disk'",
+                    "group_by": [
+                        "i_device",
+                        "i_host"
+                    ],
+                    "formatting": {
+                        "notation": "compact",
+                        "maximumFractionDigits": 2,
+                        "unit": "percent"
+                    },
+                    "chartProperties": {
+                        "yAxisLabel": "Hosts",
+                        "xAxisLabel": "Bottom 5 Disk Usage %",
+                        "stacked": false,
+                        "legendLocation": "right",
+                        "orientation": "horizontal"
+                    },
+                    "descending_order": true,
+                    "others_spec": {
+                        "limit": 5,
+                        "show_others": false,
+                        "i_device": {
+                            "largest": false,
+                            "name_based_limit": false
+                        },
+                        "i_host": {
+                            "largest": true,
+                            "name_based_limit": false
+                        }
+                    },
+                    "column": "m_used_percent",
+                    "agg": "max",
+                    "type": "int",
+                    "max_width": 6,
+                    "height": 4,
+                    "min_width": 6,
+                    "widget_id": "81f5fcc4"
+                },
+                {
+                    "title": "Disk Usage by Host(%)",
+                    "widget_type": "timeseries",
+                    "stream": "host_os_metrics",
+                    "extra_filter": "name = 'disk' ",
+                    "ts_column": "timestamp",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "fixTimeWindow": true,
+                    "chartProperties": {
+                        "yAxisLabel": "%",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "options": {
+                            "elements": {
+                                "line": {
+                                    "borderWidth": 1
+                                },
+                                "point": {
+                                    "radius": 2,
+                                    "hitRadius": 3,
+                                    "hoverRadius": 2
+                                }
+                            }
+                        }
+                    },
+                    "interval": "auto",
+                    "group_by": [
+                        "i_host"
+                    ],
+                    "duration_hours": 108000,
+                    "formatting": {
+                        "notation": "compact",
+                        "maximumFractionDigits": 2,
+                        "unit": "percent"
+                    },
+                    "series_spec": [
+                        {
+                            "column": "m_used_percent",
+                            "agg": "avg",
+                            "type": "float"
+                        }
+                    ],
+                    "widget_id": "b08bfbe0"
+                },
+                {
+                    "widget_type": "tabular",
+                    "title": "Disk Summary",
+                    "stream": "host_os_metrics",
+                    "ts_column": "timestamp",
+                    "extra_filter": "name = 'disk'",
+                    "sorting": [],
+                    "pivot": {
+                        "pivot_type": "advanced",
+                        "group_by": [
+                            "i_host_ip",
+                            "i_device"
+                        ],
+                        "series": [
+                            {
+                                "column": "m_total",
+                                "agg": "max",
+                                "type": "int",
+                                "label": "Disk_Total"
+                            },
+                            {
+                                "column": "m_used",
+                                "agg": "max",
+                                "type": "int",
+                                "label": "Disk_Used"
+                            },
+                            {
+                                "column": "m_free",
+                                "agg": "max",
+                                "type": "int",
+                                "label": "Disk_free"
+                            }
+                        ]
+                    },
+                    "columns": {
+                        "m_free": {
+                            "title": "Disk Free",
+                            "hidden": true
+                        },
+                        "m_used": {
+                            "title": "Disk Used",
+                            "hidden": true
+                        },
+                        "i_host_ip": "Host",
+                        "i_device": "Device"
+                    },
+                    "custom_columns": [
+                        {
+                            "id": "m_total_new",
+                            "label": "Disk Total(GB)",
+                            "expr": "((Disk_Total) * 0.00000001) ",
+                            "visible": true
+                        },
+                        {
+                            "id": "m_used",
+                            "label": "Disk Used(GB)",
+                            "expr": "((Disk_Used) * 0.00000001) "
+                        },
+                        {
+                            "id": "m_free",
+                            "label": "Disk Free(GB)",
+                            "expr": "((Disk_free) * 0.00000001) "
+                        },
+                        {
+                            "id": "disk_used_percent",
+                            "label": "Disk Used(%)",
+                            "expr": "((Disk_Used/Disk_Total) * 100) "
+                        }
+                    ],
+                    "hide_columns": [
+                        "Disk_Total",
+                        "Disk_Used",
+                        "Disk_free"
+                    ],
+                    "widget_id": "b8052269"
+                }
+            ]
+        },
+        {
+            "title": "Network",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "title": "Network Usage(Data Receieved)",
+                    "widget_type": "timeseries",
+                    "stream": "host_os_metrics",
+                    "extra_filter": "name = 'net'",
+                    "ts_column": "timestamp",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "fixTimeWindow": true,
+                    "formatter": "ByteFormatter",
+                    "chartProperties": {
+                        "yAxisLabel": null,
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "options": {
+                            "elements": {
+                                "line": {
+                                    "borderWidth": 1
+                                },
+                                "point": {
+                                    "radius": 2,
+                                    "hitRadius": 3,
+                                    "hoverRadius": 2
+                                }
+                            }
+                        }
+                    },
+                    "interval": "15Min",
+                    "duration_hours": 108000,
+                    "group_by": [
+                        "i_deployment"
+                    ],
+                    "series_spec": [
+                        {
+                            "column": "m_ip_inreceives",
+                            "agg": "delta",
+                            "label": "Delta",
+                            "type": "float"
+                        }
+                    ],
+                    "widget_id": "98a01d7f"
+                },
+                {
+                    "title": "Network Usage(Packet Drop In)",
+                    "widget_type": "timeseries",
+                    "stream": "host_os_metrics",
+                    "extra_filter": "name = 'net'",
+                    "ts_column": "timestamp",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "fixTimeWindow": true,
+                    "formatter": "ByteFormatter",
+                    "chartProperties": {
+                        "yAxisLabel": null,
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "options": {
+                            "elements": {
+                                "line": {
+                                    "borderWidth": 1
+                                },
+                                "point": {
+                                    "radius": 2,
+                                    "hitRadius": 3,
+                                    "hoverRadius": 2
+                                }
+                            }
+                        }
+                    },
+                    "interval": "1h",
+                    "group_by": [
+                        "i_deployment"
+                    ],
+                    "duration_hours": 108000,
+                    "formatting": {
+                        "unit": "gigabyte",
+                        "style": "unit",
+                        "maximumFractionDigits": 2
+                    },
+                    "series_spec": [
+                        {
+                            "column": "m_ip_outdiscards",
+                            "agg": "delta",
+                            "label": "Delta",
+                            "type": "float"
+                        }
+                    ],
+                    "widget_id": "5f4b88du"
+                },
+                {
+                    "title": "Network Usage(Packets Sent)",
+                    "widget_type": "timeseries",
+                    "stream": "host_os_metrics",
+                    "extra_filter": "name = 'net'",
+                    "ts_column": "timestamp",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "fixTimeWindow": true,
+                    "formatter": "ByteFormatter",
+                    "chartProperties": {
+                        "yAxisLabel": null,
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "options": {
+                            "elements": {
+                                "line": {
+                                    "borderWidth": 1
+                                },
+                                "point": {
+                                    "radius": 2,
+                                    "hitRadius": 3,
+                                    "hoverRadius": 2
+                                }
+                            }
+                        }
+                    },
+                    "interval": "1h",
+                    "group_by": [
+                        "i_deployment"
+                    ],
+                    "duration_hours": 108000,
+                    "formatting": {
+                        "unit": "gigabyte",
+                        "style": "unit",
+                        "maximumFractionDigits": 2
+                    },
+                    "series_spec": [
+                        {
+                            "column": "m_ip_outtransmits",
+                            "agg": "delta",
+                            "label": "Delta",
+                            "type": "float"
+                        }
+                    ],
+                    "widget_id": "5f4b88da"
+                },
+                {
+                    "title": "Network Usage(Packet Recevied)",
+                    "widget_type": "timeseries",
+                    "stream": "host_os_metrics",
+                    "extra_filter": "name = 'net'",
+                    "ts_column": "timestamp",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "fixTimeWindow": true,
+                    "formatter": "ByteFormatter",
+                    "chartProperties": {
+                        "yAxisLabel": null,
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "options": {
+                            "elements": {
+                                "line": {
+                                    "borderWidth": 1
+                                },
+                                "point": {
+                                    "radius": 2,
+                                    "hitRadius": 3,
+                                    "hoverRadius": 2
+                                }
+                            }
+                        }
+                    },
+                    "interval": "1h",
+                    "group_by": [
+                        "i_deployment"
+                    ],
+                    "duration_hours": 108000,
+                    "formatting": {
+                        "unit": "gigabyte",
+                        "style": "unit",
+                        "maximumFractionDigits": 2
+                    },
+                    "series_spec": [
+                        {
+                            "column": "m_ip_indelivers",
+                            "agg": "delta",
+                            "label": "Delta",
+                            "type": "float"
+                        }
+                    ],
+                    "widget_id": "5a602c16"
+                }
+            ]
+        },
+        {
+            "title": "Docker",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "title": "Top 5 Container by CPU Usage",
+                    "widget_type": "multi_bar_chart",
+                    "stream": "docker_metrics",
+                    "ts_column": "timestamp",
+                    "extra_filter": "name = 'docker_container_cpu'",
+                    "group_by": [
+                        "i_cpu",
+                        "i_container_name"
+                    ],
+                    "formatting": {
+                        "notation": "compact",
+                        "maximumFractionDigits": 2,
+                        "unit": "percent"
+                    },
+                    "chartProperties": {
+                        "yAxisLabel": "Container",
+                        "xAxisLabel": "Top 5 CPU Active Usage(%)",
+                        "stacked": false,
+                        "legendLocation": "right",
+                        "orientation": "horizontal"
+                    },
+                    "descending_order": false,
+                    "others_spec": {
+                        "limit": 5,
+                        "show_others": false,
+                        "label": "Other Names",
+                        "i_cpu": {
+                            "largest": false,
+                            "name_based_limit": false
+                        },
+                        "i_container_name": {
+                            "largest": true,
+                            "name_based_limit": false
+                        }
+                    },
+                    "column": "m_usage_total",
+                    "agg": "avg",
+                    "type": "int",
+                    "max_width": 6,
+                    "height": 4,
+                    "min_width": 6,
+                    "widget_id": "ea27491e"
+                },
+                {
+                    "title": "CPU Usage by Conatainer(%)",
+                    "widget_type": "timeseries",
+                    "stream": "docker_metrics",
+                    "ts_column": "timestamp",
+                    "extra_filter": "name = 'docker_container_cpu'",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "fixTimeWindow": true,
+                    "chartProperties": {
+                        "yAxisLabel": "%",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "options": {
+                            "elements": {
+                                "line": {
+                                    "borderWidth": 1
+                                },
+                                "point": {
+                                    "radius": 2,
+                                    "hitRadius": 3,
+                                    "hoverRadius": 2
+                                }
+                            }
+                        }
+                    },
+                    "interval": "auto",
+                    "group_by": [
+                        "i_container_name"
+                    ],
+                    "duration_hours": 108000,
+                    "formatting": {
+                        "notation": "compact",
+                        "maximumFractionDigits": 2,
+                        "unit": "percent"
+                    },
+                    "series_spec": [
+                        {
+                            "column": "m_usage_total",
+                            "agg": "avg",
+                            "type": "float"
+                        }
+                    ],
+                    "widget_id": "a8349ae9"
+                },
+                {
+                    "title": "Memory Usage by Container(%)",
+                    "widget_type": "timeseries",
+                    "stream": "docker_metrics",
+                    "extra_filter": "name = 'docker_container_mem'",
+                    "ts_column": "timestamp",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "fixTimeWindow": true,
+                    "chartProperties": {
+                        "yAxisLabel": "%",
+                        "xAxisLabel": null,
+                        "legendLocation": "right",
+                        "options": {
+                            "elements": {
+                                "line": {
+                                    "borderWidth": 1
+                                },
+                                "point": {
+                                    "radius": 2,
+                                    "hitRadius": 3,
+                                    "hoverRadius": 2
+                                }
+                            }
+                        }
+                    },
+                    "interval": "auto",
+                    "group_by": [
+                        "i_container_name"
+                    ],
+                    "duration_hours": 108000,
+                    "formatting": {
+                        "notation": "compact",
+                        "maximumFractionDigits": 2,
+                        "unit": "percent"
+                    },
+                    "series_spec": [
+                        {
+                            "column": "m_usage_percent",
+                            "agg": "max",
+                            "type": "float"
+                        }
+                    ],
+                    "widget_id": "3bfb3a00"
+                },
+                {
+                    "title": "Container Metrics",
+                    "widget_type": "pie_chart",
+                    "stream": "docker_metrics",
+                    "ts_column": "timestamp",
+                    "column": "name",
+                    "agg": "cardinality",
+                    "group_by": [
+                        "name"
+                    ],
+                    "type": "str",
+                    "min_width": 4,
+                    "height": 4,
+                    "max_width": 4,
+                    "widget_id": "4a0e5197"
+                },
+                {
+                    "title": "Containers",
+                    "widget_type": "pie_chart",
+                    "stream": "docker_metrics",
+                    "ts_column": "timestamp",
+                    "column": "i_container_name",
+                    "agg": "cardinality",
+                    "group_by": [
+                        "i_container_name"
+                    ],
+                    "type": "str",
+                    "min_width": 4,
+                    "height": 4,
+                    "max_width": 4,
+                    "widget_id": "b1186a07"
+                },
+                {
+                    "title": "Container Running",
+                    "widget_type": "pie_chart",
+                    "stream": "docker_metrics",
+                    "ts_column": "timestamp",
+                    "column": "i_container_status",
+                    "agg": "cardinality",
+                    "group_by": [
+                        "i_container_status"
+                    ],
+                    "type": "str",
+                    "min_width": 4,
+                    "height": 4,
+                    "max_width": 4,
+                    "widget_id": "14016461"
+                },
+                {
+                    "title": "Container Version",
+                    "widget_type": "pie_chart",
+                    "stream": "docker_metrics",
+                    "ts_column": "timestamp",
+                    "column": "i_container_version",
+                    "agg": "cardinality",
+                    "group_by": [
+                        "i_container_version"
+                    ],
+                    "type": "str",
+                    "min_width": 4,
+                    "height": 4,
+                    "max_width": 4,
+                    "widget_id": "31211bd0"
+                },
+                {
+                    "widget_type": "tabular",
+                    "title": "Conatainer Summary",
+                    "stream": "docker_metrics",
+                    "ts_column": "timestamp",
+                    "extra_filter": "name = 'docker_container_status'",
+                    "sorting": [],
+                    "columns": {
+                        "i_host": "Host",
+                        "timestamp": "Time",
+                        "i_container_name": "Container Name",
+                        "i_container_status": "Container Status",
+                        "i_container_image": "Conatainer Image",
+                        "i_container_version": "Container Version"
+                    },
+                    "widget_id": "03a37276"
+                }
+            ]
+        },
+        {
+            "title": "Kafka",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "title": "LAG by Kafka Partition",
+                    "widget_type": "timeseries",
+                    "stream": "bulk_stat_ingestion_status",
+                    "ts_column": "timestamp",
+                    "max_width": 12,
+                    "height": 6,
+                    "min_width": 12,
+                    "fixTimeWindow": true,
+                    "chartProperties": {
+                        "yAxisLabel": "LAG",
+                        "xAxisLabel": null,
+                        "legendLocation": "bottom",
+                        "options": {
+                            "elements": {
+                                "line": {
+                                    "borderWidth": 1
+                                },
+                                "point": {
+                                    "radius": 2,
+                                    "hitRadius": 3,
+                                    "hoverRadius": 2
+                                }
+                            }
+                        }
+                    },
+                    "interval": "auto",
+                    "group_by": [
+                        "PARTITION"
+                    ],
+                    "duration_hours": 108000,
+                    "formatting": {
+                        "notation": "compact",
+                        "maximumFractionDigits": 2,
+                        "unit": "percent"
+                    },
+                    "series_spec": [
+                        {
+                            "column": "LAG",
+                            "agg": "max",
+                            "type": "int"
+                        }
+                    ],
+                    "widget_id": "4e5b190b"
+                },
+                {
+                    "widget_type": "tabular",
+                    "title": "Kafka LAG Summary",
+                    "stream": "bulk_stat_ingestion_status",
+                    "ts_column": "timestamp",
+                    "sorting": [],
+                    "group_by": [
+                        "PARTITION"
+                    ],
+                    "columns": {
+                        "timestamp": "Timestamp",
+                        "HOST": "Host",
+                        "CONSUMER-ID": {
+                            "title": "Consumer-Id",
+                            "hidden": false
+                        },
+                        "PARTITION": {
+                            "title": "Partition",
+                            "hidden": false
+                        },
+                        "CURRENT-OFFSET": {
+                            "title": "Current-Offset",
+                            "hidden": false
+                        },
+                        "LOG-END-OFFSET": {
+                            "title": "Log-End-Offset",
+                            "hidden": false
+                        },
+                        "LAG": {
+                            "title": "Lag",
+                            "hidden": false
+                        }
+                    },
+                    "widget_id": "3a1bbb85"
+                }
+            ]
+        }
+    ],
+    "saved_time": "2025-06-06T02:21:13.743997"
+}

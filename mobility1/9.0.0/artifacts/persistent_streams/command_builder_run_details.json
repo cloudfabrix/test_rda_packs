@@ -1,0 +1,16 @@
+{
+  "name": "command_builder_run_details",
+  "datastore_type": "OS",
+  "read_only": false,
+  "attrs": {
+    "unique_keys": [
+      "ingestion_id"
+    ],
+    "default_values": {
+      "iconUrl": "Not Available",
+      "iconURL": "Not Available"
+    }
+  },
+  "status": "Running",
+  "index_name": "3f89175ce8104956a289bfef8427d152-stream-1e6207e2-command_builder_run_details"
+}
