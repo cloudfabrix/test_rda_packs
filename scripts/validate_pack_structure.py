@@ -46,6 +46,14 @@ def validate_manifest_path(manifest_rel_path):
 
     print(f"✅ Validated: {manifest_rel_path}")
 
+def check_tar_without_manifest():
+    for root, dirs, files in os.walk(REPO_ROOT):
+        file_set = set(files)
+        if "manifest.yaml" not in file_set:
+            tar_files = [f for f in file_set if f.endswith(".tar.gz")]
+            if tar_files:
+                rel_path = os.path.relpath(root, REPO_ROOT)
+                fail(f"Directory '{rel_path}' contains .tar.gz file(s) {tar_files} but no manifest.yaml")
 def main():
     manifest_files = get_all_manifest_files()
     if not manifest_files:
@@ -53,6 +61,8 @@ def main():
 
     for manifest in manifest_files:
         validate_manifest_path(manifest)
+
+    check_tar_without_manifest()
 
 if __name__ == "__main__":
     main()
