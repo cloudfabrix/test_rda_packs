@@ -1,11 +1,14 @@
 name: Generate Metadata
 
 on:
-  push:
-    branches: [main]
+  workflow_run:
+    workflows: ["Validate Structure"]
+    types:
+      - completed
 
 jobs:
   generate:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     name: Generate Metadata
     runs-on: ubuntu-latest
 

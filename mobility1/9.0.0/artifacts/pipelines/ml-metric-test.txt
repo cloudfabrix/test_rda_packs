@@ -1,8 +1,0 @@
-%% stream = no and limit = 0
-
-@dm:empty
-    --> @dm:addrow name='ml-bulkstats-metrics-regression-train-output' and limit=0
-    --> #dm:query-persistent-stream device is 'VNNYCANZ42G' and KPI_Name is 'Gx_CCA_Numberof_3XXX_Errors'
-    --> @dm:eval asset_id="'VNNYCANZ42G'" and metric_id="'Gx_CCA_Numberof_3XXX_Errors'"
-    --> @rn:write-stream name='ml-bulkstats-metrics-regression-train-output'
-
