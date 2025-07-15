@@ -1,0 +1,205 @@
+{
+    "name": "store-scripts",
+    "label": "Scripts Store",
+    "description": "Scripts Management Page",
+    "enabled": true,
+    "dashboard_type": "dashboard",
+    "dashboard_style": "auto",
+    "stream": "rda_objects_meta",
+    "dashboard_folder": "Default",
+    "dashboard_filters": {
+        "time_filter": true,
+        "additional_datetime_column_filters": [
+            {
+                "id": "saved_time",
+                "label": "Saved Time"
+            }
+        ],
+        "columns_filter": [
+            {
+                "id": "saved_time",
+                "label": "Dataset Saved",
+                "type": "DATETIME"
+            },
+            {
+                "id": "folder",
+                "label": "Folder",
+                "type": "TEXT"
+            },
+            {
+                "id": "name",
+                "label": "Name",
+                "type": "TEXT"
+            },
+            {
+                "id": "file_type",
+                "label": "File Type",
+                "type": "TEXT"
+            },
+            {
+                "id": "file_size",
+                "label": "Raw Size",
+                "type": "DOUBLE"
+            },
+            {
+                "id": "humansized_file_size",
+                "label": "Size",
+                "type": "TEXT"
+            },
+            {
+                "id": "description",
+                "label": "Description",
+                "type": "TEXT"
+            },
+            {
+                "id": "retention_days",
+                "label": "Retention Days",
+                "type": "DOUBLE"
+            }
+        ]
+    },
+    "dashboard_sections": [
+        {
+            "title": "Object Store",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "title": "Object store",
+                    "extra_filter": "folder is 'scripts'",
+                    "widget_type": "tabular",
+                    "stream": "rda_objects_meta",
+                    "height": 10,
+                    "min_wdith": 12,
+                    "paginated": true,
+                    "remote_searchable": true,
+                    "remote_searchable_cols": [
+                        "name",
+                        "folder",
+                        "file_type",
+                        "humansized_file_size",
+                        "description"
+                    ],
+                    "duration_hours": 87600,
+                    "columns": {
+                        "name": {
+                            "title": "Name",
+                            "key": true
+                        },
+                        "folder": {
+                            "title": "Folder",
+                            "key": true
+                        },
+                        "description": {
+                            "title": "Description"
+                        },
+                        "saved_time": {
+                            "title": "Saved Time",
+                            "type": "DATETIME"
+                        },
+                        "file_type": {
+                            "title": "File Type",
+                            "key": true
+                        },
+                        "file_size": {
+                            "title": "Raw Size"
+                        },
+                        "humansized_file_size": {
+                            "title": "Size"
+                        },
+                        "data_path": {
+                            "title": "File Path",
+                            "key": true,
+                            "visible": false
+                        },
+                        "retention_days": {
+                            "title": "Retention Days",
+                            "key": true
+                        }
+                    },
+                    "sorting": [
+                        {
+                            "saved_time": "desc"
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "permission": "rda:object:upload",
+                            "title": "Upload",
+                            "icon": "mdi mdi-plus",
+                            "type": "POPUP_FORM",
+                            "selectionType": "NONE",
+                            "identifier": "saas-service-action:add-object",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.object.add",
+                                        "folderName": "scripts"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "permission": "rda:object:download",
+                            "title": "Download",
+                            "type": "POPUP_FORM",
+                            "selectionType": "SINGLE",
+                            "identifier": "saas-service-action:download-object",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.object.download"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "permission": "rda:object:delete",
+                            "title": "Delete",
+                            "type": "POPUP_FORM",
+                            "selectionType": "SINGLE",
+                            "identifier": "saas-service-action:delete-object",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.object.delete"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "permission": "rda:object:update_retention",
+                            "title": "Update",
+                            "type": "POPUP_FORM",
+                            "selectionType": "SINGLE",
+                            "identifier": "saas-service-action:update-retention-days",
+                            "api-endpoint": {
+                                "service-name": "saas-reports",
+                                "methodName": "getForm",
+                                "stringified-params": true,
+                                "parse-output": false,
+                                "params": [
+                                    {
+                                        "formId": "rda.saas.object.update_retention"
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    "widget_id": "01dc3a55"
+                }
+            ]
+        }
+    ]
+}
