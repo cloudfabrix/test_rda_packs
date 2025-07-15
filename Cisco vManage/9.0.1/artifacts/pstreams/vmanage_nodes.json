@@ -1,7 +1,0 @@
-{
-    "retention_days": 7,
-    "unique_keys": [
-        "node_id"
-    ],
-    "system_defined": "no"
-}

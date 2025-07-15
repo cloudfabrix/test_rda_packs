@@ -1,8 +1,0 @@
-{
-    "retention_days": 7,
-    "unique_keys": [
-        "uuid",
-        "bot_name"
-    ],
-    "system_defined": "no"
-}
