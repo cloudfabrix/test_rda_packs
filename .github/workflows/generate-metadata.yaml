@@ -2,7 +2,7 @@ name: Generate Metadata
 
 on:
   workflow_run:
-    workflows: ["Validate Structure"]
+    workflows: ["Validate Pack Structure"]
     types:
       - completed
 
