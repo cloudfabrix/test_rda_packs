@@ -11,10 +11,14 @@ def fail(message):
     print(f"❌ ERROR: {message}")
     sys.exit(1)
 
-def get_changed_manifest_files():
-    result = subprocess.run(["git", "diff", "--name-only", "origin/main...HEAD"], capture_output=True, text=True)
+def get_changed_or_added_manifest_files():
+    result = subprocess.run(
+        ["git", "diff", "--diff-filter=AM", "--name-only", "origin/main...HEAD"],
+        capture_output=True, text=True
+    )
     if result.returncode != 0:
         fail("Could not determine changed files from git")
+
     files = result.stdout.strip().split("\n")
     return [f for f in files if f.endswith("manifest.yaml")]
 
@@ -32,14 +36,12 @@ def validate_manifest_path(manifest_rel_path):
     if not name or not version:
         fail(f"Missing 'name' or 'version' in manifest: {manifest_rel_path}")
 
-    # Normalize paths for comparison
-    expected_dir = os.path.join(name, version)
-    actual_dir = os.path.dirname(manifest_rel_path)
+    expected_dir = os.path.normpath(os.path.join(name, version))
+    actual_dir = os.path.normpath(os.path.dirname(manifest_rel_path))
 
-    if os.path.normpath(expected_dir) != os.path.normpath(actual_dir):
-        fail(f"Manifest is in wrong path: expected '{expected_dir}/manifest.yaml' but found '{manifest_rel_path}'")
+    if expected_dir != actual_dir:
+        fail(f"Manifest is in wrong path: expected '{expected_dir}/manifest.yaml', but found '{manifest_rel_path}'")
 
-    # Check for .tar.gz file in same directory
     abs_dir = os.path.join(REPO_ROOT, actual_dir)
     if not any(f.endswith(".tar.gz") for f in os.listdir(abs_dir)):
         fail(f".tar.gz file is missing in directory: {actual_dir}")
@@ -47,9 +49,9 @@ def validate_manifest_path(manifest_rel_path):
     print(f"✅ Validated: {manifest_rel_path}")
 
 def main():
-    changed_manifests = get_changed_manifest_files()
+    changed_manifests = get_changed_or_added_manifest_files()
     if not changed_manifests:
-        print("✅ No manifest.yaml files changed.")
+        print("✅ No new or changed manifest.yaml files to validate.")
         return
 
     for manifest in changed_manifests:

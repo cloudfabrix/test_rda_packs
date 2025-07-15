@@ -2,17 +2,21 @@ name: Validate Pack Structure
 
 on:
   push:
-    branches: ["**"]  # All branches
+    branches: ["**"]  # Run on all branches
 
 jobs:
   validate:
+    name: Validate Pack Structure
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Required to diff with origin/main
+          fetch-depth: 0  # Important for diffing origin/main
+
+      - name: Fetch origin/main
+        run: git fetch origin main
 
       - name: Set up Python
         uses: actions/setup-python@v5
