@@ -68,23 +68,6 @@
     ]
   },
   {
-    "pack_name": "Cisco vManage",
-    "pack_version": "9.0.1",
-    "tar_file_name": "vmanage_pack.tar.gz",
-    "tar_file_url": "https://raw.githubusercontent.com/cloudfabrix/rda_packs/main/Cisco vManage/9.0.1/vmanage_pack.tar.gz",
-    "description": "Cisco vManage pack is designed for inventory collection for vManage using **query-api** bot.",
-    "required_fabric_services": [
-      {
-        "name": "api-server",
-        "version": ">=8.0.0"
-      },
-      {
-        "name": "rda_worker",
-        "version": ">=8.0.0"
-      }
-    ]
-  },
-  {
     "pack_name": "Fabrix AIOps Asset Correlation Regression",
     "pack_version": "9.0.0",
     "tar_file_name": "ml_corr_reg_pack.tar.gz",
@@ -673,6 +656,23 @@
       {
         "name": "api-server",
         "version": ">=8.1.0"
+      }
+    ]
+  },
+  {
+    "pack_name": "Scripts Store",
+    "pack_version": "1.0.0",
+    "tar_file_name": "scripts_store_pack.tar.gz",
+    "tar_file_url": "https://raw.githubusercontent.com/cloudfabrix/rda_packs/main/Scripts Store/1.0.0/scripts_store_pack.tar.gz",
+    "description": "This pack is designed to generate a dashboard for Scripts Store to be used by **sshv2:write-files** to copy script files to target systems.",
+    "required_fabric_services": [
+      {
+        "name": "rda_worker",
+        "version": ">=8.1"
+      },
+      {
+        "name": "rda_api_server",
+        "version": ">=8.1"
       }
     ]
   },
