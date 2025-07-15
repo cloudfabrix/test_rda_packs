@@ -18,7 +18,7 @@ def get_changed_or_added_manifest_files():
     )
     if result.returncode != 0:
         fail("Could not determine changed files from git")
-
+    print("📁 Files changed:", result.stdout.strip())
     files = result.stdout.strip().split("\n")
     return [f for f in files if f.endswith("manifest.yaml")]
 
