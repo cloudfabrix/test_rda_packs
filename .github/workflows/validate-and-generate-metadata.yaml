@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0  # Required for diffing with origin/main
 
       - name: Fetch base branch for diff
-  	    run: git fetch origin +refs/heads/main:refs/remotes/origin/main
+        run: git fetch origin +refs/heads/main:refs/remotes/origin/main
         
       - name: Set up Python
         uses: actions/setup-python@v5
