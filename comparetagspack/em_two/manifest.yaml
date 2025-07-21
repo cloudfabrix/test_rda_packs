@@ -1,0 +1,69 @@
+name: test pack
+label: Test Pack func func
+scope: system
+# Pack version needs to be conforming to <major>.<minor>.<micro> etc versioning.
+# More detailed spec for versioning: https://packaging.python.org/en/latest/specifications/version-specifiers/
+version: 7.0.0
+folder: /collection/network/cisco/test_pack_func
+published_date: 2024-03-19
+publisher: Fabrix.ai
+
+# Description of the package. Supports HTML/markdown/plain text
+# Either can provide description as an inline string in this file
+# or have description.html and description.md and give corresponding file paths instead.
+# If description is provided by multiple ways, the order of precedence is description.md > description.html > description.value
+#launch_dashboard: "nsx_demo_inventory_pack"
+
+
+artifacts:
+#
+#  dashboards:
+#    - name: nsx_demo_tier1_gateway_pack
+#      file: ./artifacts/dashboards/nsx_demo_tier1_gateway_pack.json
+#      tags:
+#        - TAG_test
+#
+#  tags:
+#    - name: TAG_test
+#      description: Tag created via pack and attached to 'nsx_demo_tier1_gateway_pack' dashboard.
+#      remove_on_deactivation: true
+#
+#  user_groups:
+#    - name: msp_user
+#      tags:
+#        - TAG_test
+#      role: tenant-user-profile
+#      remove_on_deactivation: true
+
+#  fsm_models:
+#    - name: oia_ticketing_with_soothing_interval
+#      file: ./artifacts/fsm_models/oia_ticketing_with_soothing_interval.yml
+#      folder: AOTS_ticketing_pack
+#      version: 2024.03.19.1
+#
+#  formatting_templates:
+#    - name: test_raise_alerts_from_anomalies
+#      file: ./artifacts/formatting_templates/raise_alerts_from_anomalies.txt
+#      folder: test_templates
+#      version: 2024.03.19.1
+
+  endpoints:
+    - name: Bulkstats
+      file: ./artifacts/endpoints/bulk_end_corr_regrr.json
+
+  mappings:
+    - name: bulk_map_corr_regr
+      file: ./artifacts/mappings/bulk_map_corr_regr.json
+#
+#  correlation_policies:
+#    - name: pulse-1-cp
+#      file: ./artifacts/correlation_policies/pulse-1-cp.json
+#
+#  suppression_policies:
+#    - name: acme1
+#      file: ./artifacts/suppression_policies/acme1.json
+#
+#
+#  teams_configuration:
+#    - name: test1
+#      file: ./artifacts/teams_configuration/test1.json

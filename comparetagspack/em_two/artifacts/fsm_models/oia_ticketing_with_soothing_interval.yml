@@ -1,0 +1,403 @@
+---
+name: oia_ticketing_with_soothing_interval
+states:
+  - active
+  - cancelled
+  - resolved
+  - closed
+key_attributes:
+  - incident_id
+  - project_id
+variables:
+  soothing_interval_sec: 10
+  team_config: {} 
+  team_id: None
+  team_name: None
+  auto_share:
+    create: true
+    update: true
+    resolved: true
+    alert_count_changes: true                
+  inc_data: {}
+  project_id: None
+  alert_source: None
+  i_priority: None
+  i_state: None
+  i_alert_count: None
+  i_priority_updated: False
+  i_state_updated: False
+  i_alert_count_updated: False
+  itsm_ticket_id: None
+  itsm_ticket_number: None
+  active_alerts: {}
+  soothing_interval_done: False
+  alert_event_count: 0
+  ticket_created: False
+  incident_id: None
+  customer_id: None
+  inbound_close_received: False
+  inbound_update_received: False
+  alerts : {}               
+  alert_common_fields:
+    - a_id
+    - a_source_systemname
+    - a_status
+    - incident_id
+    - project_id
+    - customer_id
+  alert_delta_fields:
+    - a_message
+    - a_severity
+    - a_status
+initial_state: init
+final_states:
+  - cancelled
+  - resolved
+  - closed
+transitions:
+  event:save-alert:
+      - evaluate: |
+          {% if event.get("a_created_by") not in ["CORRELATION"] %}
+
+              {% do context.setdefault("alerts", {}) %}
+              {% do context.setdefault("team_config", {}) %}
+              {% do context.setdefault("alert_source", None) %}
+              {% do context.setdefault("incident_event_count", 0) %}
+              
+              {% do context.update(alert_event_count = context.alert_event_count + 1) %}
+              {% do context.update(incident_id=event.get("a_incident_id")) %} 
+              {% do context.update(customer_id=event.get("customer_id")) %} 
+              {% do context.update(project_id=event.get("project_id")) %}
+
+              {% set is_new_alert = None %}              
+              
+              {% do context.update(alert_source=event.get("a_source_systemname")) %}              
+              
+              {% if context.alerts.get(event.get("a_id")) %}                  
+                  {% set is_new_alert = False %}                      
+                  {% set existing_alert = context.alerts.get(event.get("a_id")) %} 
+                  {% set current_updated_keys = {} %}                     
+                  {% set all_attr = ((existing_alert.keys() | list) + context.alert_delta_fields + context.alert_common_fields) | unique %}
+                  {% for key in all_attr %}                            
+                      {% if key in event %}
+                          {% if key in existing_alert %}
+                              {% if existing_alert[key] != event[key]  %}                          
+                                  {% do current_updated_keys.update({key:event[key]}) %}                                
+                              {% endif %}
+                          {% else %} 
+                              {% do current_updated_keys.update({key:event[key]}) %}                            
+                          {% endif %}
+                      {% else %} 
+                          {% do current_updated_keys.update({key:event[key]}) %}
+                      {% endif %}                            
+                  {% endfor %}  
+                  
+                  {% if current_updated_keys.items()|length > 0 %}                                            
+                      {% do event.update(al_update_ready="True") %}
+                      {% do event.update(alert_change="updated") %}
+                      {% do event.update({"updated_keys":current_updated_keys.keys() | list | join(",")}) %}                      
+                  {% endif %}                   
+
+              {% else %}
+                  {% set is_new_alert = True %}
+              {% endif %} 
+
+              {% set current_alert = {} %}
+              {% for key, value in event.items() %}
+                  {% if key in context.alert_common_fields or key in context.alert_delta_fields %}
+                      {% do current_alert.update({key: value}) %}
+                  {% endif %}
+              {% endfor %}
+              {% do context.alerts.update({event.get("a_id"): current_alert}) %} 
+              
+              {% if is_new_alert %} 
+                    {% do event.update(al_update_ready="True") %}
+                    {% do event.update(alert_change="new") %}                      
+              {% endif %}
+              
+              {% if event.get("a_status") in [ "CLEARED" ] %}
+                  {% do context.active_alerts.pop(event.get("a_id"), None) %}
+              {% else %}
+                  {% do context.active_alerts.update({ event.get("a_id"): event.get("a_id")}) %}                      
+              {% endif %}
+
+          {% endif %}  
+        condition: |
+              {{ event.get("a_created_by") not in ["CORRELATION"] }}   
+        fire:
+          - type: event
+            name: run-alert-update
+            condition: |
+              {{ context.soothing_interval_done and context.ticket_created and event.get("al_update_ready") == "True"}}
+            params:
+              eventType: event
+              eventName: update-received 
+  event:inc-update:
+    - evaluate: | 
+        {% do context.update(team_id=event.get("team_id")) %}
+        {% do context.update(team_name=event.get("team_name")) %}
+        {% do context.update(incident_id=event.get("incident_id")) %} 
+        {% do context.update(customer_id=event.get("customer_id")) %} 
+        {% do context.update(project_id=event.get("project_id")) %}
+        {% do context.setdefault("team_config", {}) %}
+        {% do context.setdefault("incident_event_count", 0) %}
+        {% do context.setdefault("alert_source", None) %}
+        {% do context.setdefault("soothing_interval_sec", 0) %}
+        {% do context.setdefault("i_alert_count", None) %}
+        {% do context.setdefault("auto_share",{ 'create': true, 'update': true,'resolved': true, 'alert_count_changes': true }) %}
+        {% do context.update(incident_event_count = context.incident_event_count + 1) %}
+
+        {% do context.team_config.update({event.get("project_id"): event.get("team_config", "[]")|json_to_dict}) %}
+        {% if context.team_config and context.team_config[event.get("project_id")]%}             
+            {% for entry in context.team_config[event.get("project_id")] %}             
+                {% if event.get("i_alert_sources").lower() == entry.get("alert_source").lower() %} 
+                    {% do context.update(auto_share=entry.get("auto_share", context.auto_share)) %}
+                    {% do context.update(soothing_interval_sec=entry.get("execution_delay", context.soothing_interval_sec)) %}                                                                   
+                {% endif %} 
+            {% endfor %}
+        {% endif %}
+     
+        {% do context.update(soothing_interval_sec=event.get("attrs_soothing_interval_sec", context.soothing_interval_sec)) %}
+        {% do context.update(i_state_updated=False) %}
+        {% do context.update(i_priority_updated=False) %}
+        {% do context.update(i_alert_count_updated=False) %}  
+        {% if context.inc_data and context.i_priority and context.i_priority != event.get("i_priority") %}
+            {% do context.update(i_priority_updated=True) %}    
+            {% do event.update(priority_notes="Priority updated to " + event.get("i_priority_label", "") + ". Was: " + context.inc_data.i_priority_label) %}        
+        {% endif %}
+        {% if context.inc_data and context.i_state and context.i_state != event.get("i_state") %}
+            {% do context.update(i_state_updated=True) %}
+        {% endif %}
+        {% if context.inc_data and context.i_alert_count and context.i_alert_count != event.get("i_alert_count", 0) %}
+            {% do context.update(i_alert_count_updated=True) %}
+            {% do event.update(alert_count_notes="Current count is " + (event.get("i_alert_count", 0)|int|string) + ". Was: " + (context.i_alert_count|int|string)) %}
+        {% endif %}
+        {% do context.update(inc_data=event) %}
+        {% do context.update(i_state=event.get("i_state")) %}
+        {% do context.update(i_priority=event.get("i_priority")) %}
+        {% do context.update(i_alert_count=event.get("i_alert_count",0)) %}
+        {% if context.i_priority_updated or context.i_alert_count_updated %}
+            {% do event.update(inc_update_ready="True") %}
+            {% do event.update(i_priority_updated=context.i_priority_updated|string) %}
+            {% do event.update(i_alert_count_updated=context.i_alert_count_updated|string) %}
+        {% endif %}
+
+      fire:
+        - type: timer
+          name: activate-ticketing-with-soothing-interval
+          condition: |
+              {{ context.incident_event_count == 1 and context.soothing_interval_sec > 0 and not context.soothing_interval_done and not context.ticket_created}} 
+          params:
+            eventType: event
+            eventName: activate-ticketing
+            duration: |
+              {{ context.soothing_interval_sec|float }} 
+        - type: event
+          name: activate-ticketing-without-soothing-interval
+          condition: |
+            {{ context.incident_event_count == 1 and context.soothing_interval_sec <= 0 and not context.soothing_interval_done and not context.ticket_created}} 
+          params:
+            eventType: event
+            eventName: activate-ticketing
+        - type: event
+          name: run-incident-update
+          condition: |
+            {{ context.soothing_interval_done and context.ticket_created and event.get("inc_update_ready") == "True" }}
+          params:
+            eventType: event
+            eventName: update-received 
+        - type: timer
+          name: run-resolve-ticket
+          enabled: True
+          condition: |
+            {{ context.inc_data.i_state in ["Resolved", "Closed", "Cancelled"] }}      
+          params:
+            eventType: event
+            eventName: resolve-ticket
+            duration: |
+              {{ 10|float }} 
+  event:activate-ticketing:
+    - to: active
+      evaluate: |
+        {% do context.update(soothing_interval_done=True) %}
+        {% do context.update(i_state_updated=False) %}
+        {% do context.update(i_priority_updated=False) %}        
+      fire: 
+        - type: event
+          name: run-create-ticket
+          params:
+            eventType: event
+            eventName: create-ticket 
+        - type: event
+          name: run-notifier
+          enabled: False
+          params:
+            eventType: event
+            eventName: event-notifier
+  event:create-ticket:
+    - condition: |
+              {{ context.auto_share["create"] }}  
+      fire:
+        - type: publish-to-kafka
+          name: write-create-ticket-input-to-stream
+          params:
+            stream-name: fsm-oia-external-ticket-inputs
+            additional_inputs:  
+              inc_data: |
+                {{ {} | tojson }}             
+              incident_id: |
+                {{ context.incident_id|string }}
+              project_id: |
+                {{ context.project_id|string }}
+              customer_id: |
+                {{ context.customer_id|string }}
+              ticket_created: |
+                {{ context.ticket_created|string }}
+              itsm_ticket_id: |
+                {{ context.itsm_ticket_id|string }}
+              itsm_ticket_number: |
+                {{ context.itsm_ticket_number|string }}
+              team_id: |
+                {{ context.team_id|string }}
+              team_name: |
+                {{ context.team_name|string }}
+              fsmContextVars: |
+                {{ {} | tojson }}
+  event:save-ticket-id:
+    - evaluate: |
+        {% do context.update(itsm_ticket_id=event.get("ticket_id")) %}
+        {% do context.update(itsm_ticket_number=event.get("ticket_number")) %}
+        {% do context.update(ticket_created=True) %}
+  event:inbound-close-received: 
+    - evaluate: |
+        {% do context.update(inbound_close_received=True) %}
+  event:inbound-update-received: 
+    - evaluate: |
+        {% do context.update(inbound_update_received=True) %}
+  event:reset-update-received: 
+    - evaluate: |
+        {% do context.update(inbound_update_received=False) %}        
+  event:update-ticket:  
+    - to: active 
+      fire:
+        - type: publish-to-kafka
+          name: write-update-ticket-input-to-stream
+          condition: |
+            {{ not context.inbound_update_received and not context.inbound_close_received }}
+          params:
+            stream-name: fsm-oia-external-ticket-inputs
+            additional_inputs:   
+              inc_data: |
+                {{ {} | tojson }}           
+              incident_id: |
+                {{ context.inc_data.incident_id|string }}
+              project_id: |
+                {{ context.inc_data.project_id|string }}
+              customer_id: |
+                {{ context.inc_data.customer_id|string }}
+              i_priority_label: |
+                {{ context.inc_data.i_priority_label|string }}
+              i_summary: |
+                {{ context.inc_data.i_summary|string }}
+              i_source_key: |
+                {{ context.inc_data.i_source_key|string }}
+              fsmContextVars: |
+                {{ {} | tojson }}   
+              itsm_ticket_id: |
+                {{ context.itsm_ticket_id|string }}
+              itsm_ticket_number: |
+                {{ context.itsm_ticket_number|string }}
+              ticket_created: |
+                {{ context.ticket_created|string }}
+              team_id: |
+                {{ context.team_id|string }}
+              team_name: |
+                {{ context.team_name|string }}
+        - type: event
+          name: reset-update-received
+          params:
+            eventType: event
+            eventName: reset-update-received
+  event:resolve-ticket:
+    - to: resolved 
+      condition: |
+              {{ context.auto_share["resolved"] }}
+      fire:
+        - type: publish-to-kafka
+          name: write-resolve-ticket-input-to-stream
+          condition: | 
+            {{ context.soothing_interval_done and context.ticket_created and not context.inbound_close_received }}
+          params:
+            stream-name: fsm-oia-external-ticket-inputs
+            additional_inputs:              
+              inc_data: |
+                {{ {} | tojson }}
+              incident_id: |
+                {{ context.incident_id|string }}
+              project_id: |
+                {{ context.project_id|string }}
+              customer_id: |
+                {{ context.customer_id|string }}
+              ticket_created: |
+                {{ context.ticket_created|string }}
+              itsm_ticket_id: |
+                {{ context.itsm_ticket_id|string }}
+              itsm_ticket_number: |
+                {{ context.itsm_ticket_number|string }}
+              team_id: |
+                {{ context.team_id|string }}
+              team_name: |
+                {{ context.team_name|string }}
+              fsmContextVars: |
+                {{ {} | tojson }}     
+  event:update-received:
+    - condition: |
+          {{ context.soothing_interval_done and context.ticket_created }}
+      fire:
+        - type: event
+          name: run-alert-update-ticket
+          condition: | 
+            {{ event.get("al_update_ready") == "True" and context.auto_share["update"]}}
+          params:
+            eventType: event
+            eventName: update-ticket
+        - type: event
+          name: run-inc-priority-update-ticket
+          condition: | 
+            {{ event.get("inc_update_ready") == "True" and event.get("i_priority_updated") == "True" and context.auto_share["update"]}}
+          params:
+            eventType: event
+            eventName: update-ticket
+        - type: event
+          name: run-alert_count-changes-update-ticket
+          condition: | 
+            {{ event.get("inc_update_ready") == "True" and event.get("i_alert_count_updated") == "True" and context.auto_share["alert_count_changes"]}}
+          params:
+            eventType: event
+            eventName: update-ticket
+  event:event-notifier:
+    - enabled: False
+      fire:
+        - type: publish-to-kafka
+          name: write-event-notifier-input-to-stream
+          params:
+            stream-name: fsm-oia-external-ticket-inputs
+            additional_inputs:              
+              incident_id: |
+                {{ context.incident_id|string }}
+              project_id: |
+                {{ context.project_id|string }}
+              customer_id: |
+                {{ context.customer_id|string }}
+              ticket_created: |
+                {{ context.ticket_created|string }}
+              itsm_ticket_id: |
+                {{ context.itsm_ticket_id|string }}
+              itsm_ticket_number: |
+                {{ context.itsm_ticket_number|string }}
+              team_id: |
+                {{ context.team_id|string }}
+              team_name: |
+                {{ context.team_name|string }}
+              fsmContextVars: |
+                {{ {} | tojson }}

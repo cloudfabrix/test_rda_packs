@@ -1,0 +1,705 @@
+{
+  "name": "cisco-dnac-client-details",
+  "description": "Catalyst Center Client Details",
+  "label": "DT Catalyst Center Network",
+  "enabled": false,
+  "dashboard_type": "dashboard",
+  "dashboard_style": "auto",
+  "dashboard_folder": "Cisco_DNAC_Client_Details_DT",
+  "stream": "cisco_dnac_reports",
+  "dashboard_filters": {
+    "time_filter": true,
+    "app_filter": "(`dnac_name` not in \"DNAC_Retail\")",
+    "default_time_filter_labels": [
+      "Last 1 week"
+    ],
+    "additional_datetime_column_filters": [
+      {
+        "id": "last_updated_client_details",
+        "label": "Last Updated"
+      }
+    ],
+    "custom_time_filters": [
+      "24h",
+      "2d",
+      "3d",
+      "1w",
+      "2w",
+      "3w",
+      "1M",
+      "2M",
+      "3M",
+      "6M",
+      "12M"
+    ],
+    "columns_filter": [
+      {
+        "id": "dnac_name",
+        "label": "CatC Name",
+        "type": "TEXT"
+      },
+      {
+        "id": "dnac_hostname",
+        "label": "CatC Hostname",
+        "type": "TEXT"
+      },
+      {
+        "id": "dnac_category",
+        "label": "CatC Category",
+        "type": "TEXT"
+      },
+      {
+        "id": "client_details_hostName",
+        "label": "Hostname",
+        "type": "TEXT"
+      },
+      {
+        "id": "client_details_username",
+        "label": "Username",
+        "type": "TEXT"
+      },
+      {
+        "id": "client_details_macAddress",
+        "label": "MAC Address",
+        "type": "TEXT"
+      },
+      {
+        "id": "client_details_ipv4",
+        "label": "IPv4 Address",
+        "type": "TEXT"
+      },
+      {
+        "id": "client_details_deviceType",
+        "label": "Client Type",
+        "type": "TEXT"
+      },
+      {
+        "id": "client_details_connectedDeviceName",
+        "label": "AP Name",
+        "type": "TEXT"
+      },
+      {
+        "id": "client_details_frequency",
+        "label": "Frequency",
+        "type": "DOUBLE"
+      },
+      {
+        "id": "client_details_site",
+        "label": "Site",
+        "type": "TEXT"
+      },
+      {
+        "id": "client_details_lastUpdated",
+        "label": "Last Updated (String)",
+        "type": "TEXT"
+      },
+      {
+        "id": "client_details_ssid",
+        "label": "SSID",
+        "type": "TEXT"
+      },
+      {
+        "id": "client_details_linkSpeed",
+        "label": "LinkSpeed",
+        "type": "TEXT"
+      },
+      {
+        "id": "client_details_txRate_min",
+        "label": "Transfer Rate (Min)",
+        "type": "DOUBLE"
+      },
+      {
+        "id": "client_details_txRate_max",
+        "label": "Transfer Rate (Max)",
+        "type": "DOUBLE"
+      },
+      {
+        "id": "client_details_txRate_avg",
+        "label": "Transfer Rate (Avg)",
+        "type": "DOUBLE"
+      },
+      {
+        "id": "client_details_rxRate_min",
+        "label": "Receiving Rate (Min)",
+        "type": "DOUBLE"
+      },
+      {
+        "id": "client_details_rxRate_max",
+        "label": "Receiving Rate (Max)",
+        "type": "DOUBLE"
+      },
+      {
+        "id": "client_details_rxRate_avg",
+        "label": "Receiving Rate (Avg)",
+        "type": "DOUBLE"
+      },
+      {
+        "id": "client_details_txBytes_sum",
+        "label": "Transfer Bytes (Sum)",
+        "type": "DOUBLE"
+      },
+      {
+        "id": "client_details_rxBytes_sum",
+        "label": "Receiving Bytes (Sum)",
+        "type": "DOUBLE"
+      },
+      {
+        "id": "client_details_dataRate_median",
+        "label": "Data Rate (Median)",
+        "type": "DOUBLE"
+      },
+      {
+        "id": "client_details_usage_sum",
+        "label": "Usage (Sum)",
+        "type": "DOUBLE"
+      },
+      {
+        "id": "client_details_usage_sum_gbps",
+        "label": "Usage (MB)",
+        "type": "DOUBLE"
+      },
+      {
+        "id": "client_details_usage_sum_tbps",
+        "label": "Usage (GB)",
+        "type": "DOUBLE"
+      },
+      {
+        "id": "Days",
+        "label": "Days",
+        "type": "TEXT"
+      },
+      {
+        "id": "clli_code",
+        "label": "CLLI Code",
+        "type": "TEXT"
+      },
+      {
+        "id": "region",
+        "label": "Region",
+        "type": "TEXT"
+      },
+      {
+        "id": "state",
+        "label": "State",
+        "type": "TEXT"
+      },
+      {
+        "id": "city",
+        "label": "City",
+        "type": "TEXT"
+      },
+      {
+        "id": "building",
+        "label": "Building",
+        "type": "TEXT"
+      },
+      {
+        "id": "floor",
+        "label": "Floor",
+        "type": "TEXT"
+      },
+      {
+        "id": "rto_priority",
+        "label": "DT Phase",
+        "type": "TEXT"
+      },
+      {
+        "id": "last_updated_client_details",
+        "label": "Last Updated",
+        "type": "DATETIME"
+      }
+    ],
+    "group_filters": [
+      {
+        "stream": "cisco_dnac_reports",
+        "title": "Catalyst Center",
+        "extra_filter": "(source in 'Client_Details')",
+        "duration_hours": 1080,
+        "limit": 200,
+        "group_by": [
+          "dnac_name"
+        ],
+        "ts_column": "last_updated_client_details",
+        "agg": "value_count",
+        "column": "reports_key"
+      },
+      {
+        "stream": "cisco_dnac_reports",
+        "title": "DT Phase",
+        "extra_filter": "(source in 'Client_Details') and (rto_priority not in 'Not Available')",
+        "duration_hours": 1080,
+        "limit": 200,
+        "group_by": [
+          "rto_priority"
+        ],
+        "ts_column": "timestamp",
+        "agg": "value_count",
+        "column": "reports_key"
+      },
+      {
+        "stream": "cisco_dnac_reports",
+        "title": "SSID",
+        "extra_filter": "(source in 'Client_Details')",
+        "duration_hours": 1080,
+        "limit": 200,
+        "group_by": [
+          "client_details_ssid"
+        ],
+        "ts_column": "last_updated_client_details",
+        "agg": "value_count",
+        "column": "reports_key"
+      },
+      {
+        "stream": "cisco_dnac_reports",
+        "title": "Client Type",
+        "extra_filter": "(source in 'Client_Details')",
+        "duration_hours": 1080,
+        "limit": 200,
+        "group_by": [
+          "client_details_deviceType"
+        ],
+        "ts_column": "last_updated_client_details",
+        "agg": "value_count",
+        "column": "reports_key"
+      },
+      {
+        "stream": "cisco_dnac_reports",
+        "title": "State",
+        "extra_filter": "(source in 'Client_Details')",
+        "duration_hours": 1080,
+        "limit": 200,
+        "group_by": [
+          "state"
+        ],
+        "ts_column": "last_updated_client_details",
+        "agg": "value_count",
+        "column": "reports_key"
+      },
+      {
+        "stream": "cisco_dnac_reports",
+        "title": "City",
+        "extra_filter": "(source in 'Client_Details')",
+        "duration_hours": 1080,
+        "limit": 200,
+        "group_by": [
+          "city"
+        ],
+        "ts_column": "last_updated_client_details",
+        "agg": "value_count",
+        "column": "reports_key"
+      },
+      {
+        "stream": "cisco_dnac_reports",
+        "title": "Building",
+        "extra_filter": "(source in 'Client_Details')",
+        "duration_hours": 1080,
+        "limit": 200,
+        "group_by": [
+          "building"
+        ],
+        "ts_column": "last_updated_client_details",
+        "agg": "value_count",
+        "column": "reports_key"
+      },
+      {
+        "stream": "cisco_dnac_reports",
+        "title": "CLLI Code",
+        "extra_filter": "(source in 'Client_Details')",
+        "duration_hours": 1080,
+        "limit": 200,
+        "group_by": [
+          "clli_code"
+        ],
+        "ts_column": "last_updated_client_details",
+        "agg": "value_count",
+        "column": "reports_key"
+      }
+    ]
+  },
+  "dashboard_sections": [
+    {
+      "title": "Client Details",
+      "show_filter": true,
+      "widgets": [
+        {
+          "title": "Clients",
+          "widget_type": "custom_counter",
+          "stream": "cisco_dnac_reports",
+          "extra_filter": "(source in 'Client_Details')",
+          "duration_hours": 1080,
+          "ts_column": "timestamp",
+          "column": "client_details_macAddress",
+          "agg": "value_count",
+          "type": "int",
+          "min_width": 4,
+          "height": 3,
+          "max_width": 4,
+          "widget_id": "2bb558ae"
+        },
+        {
+          "title": "Access Points",
+          "widget_type": "custom_counter",
+          "stream": "cisco_dnac_reports",
+          "extra_filter": "(source in 'Client_Details')",
+          "duration_hours": 1080,
+          "ts_column": "timestamp",
+          "column": "client_details_connectedDeviceName",
+          "agg": "cardinality",
+          "type": "int",
+          "min_width": 4,
+          "height": 3,
+          "max_width": 4,
+          "widget_id": "94540464"
+        },
+        {
+          "widget_type": "label",
+          "min_width": 4,
+          "height": 3,
+          "max_width": 4,
+          "sorting": [
+            {
+              "endTime": "desc"
+            }
+          ],
+          "label": "{% set all_latest_data = {} %}\r\n{% for latest in latest_end_time %}\r\n    {% set last_updated_time = latest.get(\"label\") %}\r\n    {% set _ = all_latest_data.update({ \"latest\": last_updated_time }) or \"\" %}\r\n{% endfor %}\r\n\r\n<br><br> <center><h4> Last Collected at </h4></center><br><center><h3>{{all_latest_data.get(\"latest\")}}</h3></center>",
+          "segments": [
+            {
+              "stream": "cisco_dnac_reports",
+              "variable": "latest_end_time",
+              "ts_column": "timestamp",
+              "extra_filter": "(source in 'report_execution_time')",
+              "duration_hours": 1080,
+              "agg": "cardinality",
+              "group_by": "endTime",
+              "column": "dnac_name"
+            }
+          ],
+          "widget_id": "19ed9b15"
+        },
+        {
+          "title": "Data Usage (GB)",
+          "widget_type": "custom_counter",
+          "stream": "cisco_dnac_reports",
+          "extra_filter": "(source in 'Client_Details')",
+          "duration_hours": 1080,
+          "ts_column": "timestamp",
+          "column": "client_details_usage_sum_tbps",
+          "agg": "sum",
+          "type": "float",
+          "min_width": 4,
+          "height": 4,
+          "max_width": 4,
+          "widget_id": "3faf724f"
+        },
+        {
+          "widget_type": "pie_chart",
+          "title": "Gigabytes Used",
+          "stream": "cisco_dnac_reports",
+          "extra_filter": "(source in 'Client_Details')",
+          "duration_hours": 1080,
+          "ts_column": "timestamp",
+          "column": "client_details_usage_sum_tbps",
+          "agg": "sum",
+          "style": {
+            "color-map": {
+              "ATTCORP": "#e1b137",
+              "att-wifi": "#6495ed",
+              "attwifi - Passpoint": "#00b3b3"
+            }
+          },
+          "formatting": {
+            "maximumFractionDigits": 2
+          },
+          "group_by": [
+            "client_details_ssid"
+          ],
+          "type": "float",
+          "min_width": 4,
+          "height": 4,
+          "max_width": 4,
+          "widget_id": "a93ea7cb"
+        },
+        {
+          "widget_type": "pie_chart",
+          "title": "Client Counts By SSID",
+          "duration_hours": 1080,
+          "stream": "cisco_dnac_reports",
+          "ts_column": "timestamp",
+          "extra_filter": "(source in 'Client_Details')",
+          "column": "client_details_macAddress",
+          "agg": "value_count",
+          "style": {
+            "color-map": {
+              "ATTCORP": "#e1b137",
+              "att-wifi": "#6495ed",
+              "attwifi - Passpoint": "#00b3b3"
+            }
+          },
+          "group_by": [
+            "client_details_ssid"
+          ],
+          "min_width": 4,
+          "height": 4,
+          "max_width": 4,
+          "widget_id": "977376f4"
+        },
+        {
+          "widget_type": "fixed_multi_bar_chart",
+          "title": "Client Counts by Location",
+          "duration_hours": 1080,
+          "stream": "cisco_dnac_reports",
+          "ts_column": "timestamp",
+          "extra_filter": "(source in 'Client_Details')",
+          "min_width": 12,
+          "height": 6,
+          "max_width": 12,
+          "sort_by_value": true,
+          "limit": 1000,
+          "style": {
+            "color-map": {
+              "ATTCORP": "#e1b137",
+              "att-wifi": "#6495ed",
+              "attwifi - Passpoint": "#00b3b3"
+            }
+          },
+          "group_by": [
+            "client_details_ssid",
+            "clli_code"
+          ],
+          "agg": "value_count",
+          "column": "client_details_macAddress",
+          "chartProperties": {
+            "legendLocation": "top",
+            "stacked": true,
+            "xAxisLabel": "Client Count",
+            "yAxisLabel": "CLLI Code",
+            "orientation": "horizontal",
+            "barThickness": 20
+          },
+          "widget_id": "1a4a4136"
+        },
+        {
+          "title": "Client Count By SSID",
+          "widget_type": "timeseries",
+          "stream": "cisco_dnac_ssid_client_counts_by_site_timeseries",
+          "ts_column": "ssid_timestamp",
+          "extra_filter": "len_hierarchy >= 5",
+          "duration_hours": 1080,
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "style": {
+            "color-map": {
+              "SSID (ATTCORP)": [
+                "#e1b137"
+              ],
+              "SSID (att-wifi)": [
+                "#6495ed"
+              ],
+              "SSID (attwifi - Passpoint)": [
+                "#00b3b3"
+              ]
+            }
+          },
+          "gap_interval": "join",
+          "formatting": {
+            "maximumFractionDigits": 2
+          },
+          "chartProperties": {
+            "yAxisLabel": "Client Counts",
+            "xAxisLabel": "Local Time",
+            "legendLocation": "bottom",
+            "isDownsamplingDisabled": true
+          },
+          "interval": "60m",
+          "group_by": [
+            "ssid"
+          ],
+          "series_spec": [
+            {
+              "column": "ssid_client_count_by_site",
+              "agg": "sum",
+              "type": "int",
+              "label": "SSID"
+            }
+          ],
+          "widget_id": "7e83dd1e"
+        },
+        {
+          "title": "Daily Data Usage and Clients Count",
+          "duration_hours": 1080,
+          "widget_type": "mixed_chart_buckets",
+          "min_width": 12,
+          "height": 6,
+          "max_width": 12,
+          "extra_filter": "(source in 'Client_Details' and last_updated_client_details is before '2024-12-28T00:00:00.000000' )",
+          "sort_by_value": false,
+          "style": {
+            "color-map": {
+              "ATTCORP": "#e1b137",
+              "att-wifi": "#6495ed",
+              "attwifi - Passpoint": "#00b3b3"
+            }
+          },
+          "others_spec": {
+            "limit": 30,
+            "label": "Others",
+            "client_details_ssid": {
+              "largest": false,
+              "descending_order": false,
+              "name_based_limit": false
+            },
+            "client_day": {
+              "largest": false,
+              "descending_order": false,
+              "name_based_limit": false
+            }
+          },
+          "axis": [
+            {
+              "stream": "cisco_dnac_reports",
+              "ts_column": "timestamp",
+              "chartProperties": {
+                "yAxisLabel": "Total Usage",
+                "xAxisLabel": "Days",
+                "stacked": false,
+                "legendLocation": "right",
+                "orientation": "vertical"
+              },
+              "group_by": [
+                "client_details_ssid",
+                "client_day"
+              ],
+              "column": "client_details_usage_sum_tbps",
+              "agg": "sum",
+              "type": "int"
+            },
+            {
+              "stream": "cisco_dnac_reports",
+              "ts_column": "timestamp",
+              "chartProperties": {
+                "yAxisLabel": "Clients",
+                "xAxisLabel": "Days"
+              },
+              "group_by": [
+                "count_",
+                "client_day"
+              ],
+              "group_label": "Clients",
+              "column": "_RDA_Id",
+              "agg": "value_count",
+              "graph_type": "line"
+            }
+          ],
+          "widget_id": "aa7f29d7"
+        },
+        {
+          "title": "Top 10 Clients by Total Usage (GB)",
+          "widget_type": "bar_chart",
+          "stream": "cisco_dnac_reports",
+          "ts_column": "timestamp",
+          "extra_filter": "(source in 'Client_Details')",
+          "duration_hours": 1080,
+          "top_n": 10,
+          "sorting": [
+            {
+              "client_details_usage_sum": "desc"
+            }
+          ],
+          "formatting": {
+            "notation": "compact",
+            "style": "unit",
+            "unit": "gigabyte"
+          },
+          "chartProperties": {
+            "yAxisLabel": null,
+            "xAxisLabel": "Total Usage",
+            "stacked": true,
+            "legendLocation": "none",
+            "orientation": "horizontal"
+          },
+          "group_by": [
+            "client_details_macAddress"
+          ],
+          "column": "client_details_usage_sum_tbps",
+          "agg": "sum",
+          "widget_id": "67f19507"
+        },
+        {
+          "title": "Top 10 Access Points by Total Usage (GB)",
+          "widget_type": "bar_chart",
+          "stream": "cisco_dnac_reports",
+          "ts_column": "timestamp",
+          "extra_filter": "(source in 'Client_Details')",
+          "duration_hours": 1080,
+          "top_n": 10,
+          "sorting": [
+            {
+              "client_details_usage_sum_tbps": "desc"
+            }
+          ],
+          "formatting": {
+            "notation": "compact",
+            "style": "unit",
+            "unit": "gigabyte"
+          },
+          "chartProperties": {
+            "yAxisLabel": null,
+            "xAxisLabel": "Total Usage",
+            "stacked": true,
+            "legendLocation": "none",
+            "orientation": "horizontal"
+          },
+          "group_by": [
+            "client_details_connectedDeviceName"
+          ],
+          "column": "client_details_usage_sum_tbps",
+          "agg": "sum",
+          "widget_id": "1908dce6"
+        },
+        {
+          "title": "Average Tx and Rx Rate (Kbps) by SSID",
+          "widget_type": "timeseries",
+          "stream": "cisco_dnac_reports",
+          "extra_filter": "(source in 'Client_Details' and last_updated_client_details is before '2024-12-28T00:00:00.000000' )",
+          "duration_hours": 1080,
+          "gap_interval": "join",
+          "ts_column": "last_updated_client_details",
+          "max_width": 12,
+          "height": 6,
+          "min_width": 12,
+          "formatting": {
+            "notation": "compact",
+            "maximumFractionDigits": 2,
+            "style": "unit",
+            "unit": "kilobyte"
+          },
+          "chartProperties": {
+            "yAxisLabel": "Avg Rate(Kbps)",
+            "xAxisLabel": "Local Time",
+            "legendLocation": "bottom"
+          },
+          "interval": "60m",
+          "group_by": [
+            "client_details_ssid"
+          ],
+          "series_spec": [
+            {
+              "column": "client_details_txRate_avg_gbps",
+              "agg": "avg",
+              "type": "int",
+              "label": "Tx Rate"
+            },
+            {
+              "column": "client_details_rxRate_avg_gbps",
+              "agg": "avg",
+              "type": "int",
+              "label": "Rx Rate"
+            }
+          ],
+          "widget_id": "e17a0e12"
+        }
+      ]
+    }
+  ]
+}

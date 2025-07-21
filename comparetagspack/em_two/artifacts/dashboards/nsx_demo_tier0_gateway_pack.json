@@ -1,0 +1,116 @@
+{
+    "name": "nsx_tier0_gateway_pack",
+    "description": "NSX Tier0 Gateway Analytics pack",
+    "label": "NSX Tier0 Gateway Pack",
+    "enabled": false,
+    "live_edit": true,
+    "dashboard_type": "template",
+    "dashboard_style": "auto",
+    "dashboard_folder": "NSX",
+    "dashboard_filters": {
+        "time_filter": true,
+        "default_time_filter_labels": [
+            "Last 12 months"
+        ],
+        "columns_filter": [
+            {
+                "id": "nsx_ip",
+                "label": "NSX IP",
+                "type": "TEXT"
+            },
+            {
+                "id": "collection_timestamp",
+                "label": "Collection Timestamp",
+                "type": "DATETIME"
+            }
+        ],
+        "group_filters": [
+            {
+                "stream": "nsx_demo_tier0_pack",
+                "title": "NSX IP",
+                "group_by": [
+                    "nsx_ip"
+                ],
+                "others_spec": {
+                    "limit": 250
+                },
+                "ts_column": "collection_timestamp",
+                "agg": "value_count",
+                "column": "_id",
+                "type": "int"
+            }
+        ],
+        "additional_datetime_column_filters": [
+            {
+                "id": "collection_timestamp",
+                "label": "Collection Timestamp"
+            }
+        ]
+    },
+    "dashboard_sections": [
+        {
+            "title": "Tier0 Gateway",
+            "show_filter": true,
+            "widgets": [
+                {
+                    "widget_type": "label",
+                    "max_width": 12,
+                    "height": 0.5,
+                    "min_width": 12,
+                    "label": "<div style='text-align:center;width:100%;'><h1><a style='text-decoration:none;color:#0066ff;' target='_blank'>Tier0 Gateway Inventory</a></h1></div>",
+                    "widget_id": "33317e49"
+                },
+                {
+                    "widget_type": "pie_chart",
+                    "title": "Tier0 Gateway by NSX IP",
+                    "stream": "nsx_demo_tier0_pack",
+                    "ts_column": "collection_timestamp",
+                    "extra_filter": "node_type = 'Tier0_Gateway'",
+                    "others_spec": {
+                        "limit": 25
+                    },
+                    "column": "_id",
+                    "agg": "value_count",
+                    "group_by": [
+                        "nsx_ip"
+                    ],
+                    "type": "str",
+                    "min_width": 4,
+                    "height": 4,
+                    "max_width": 4,
+                    "widget_id": "59283228"
+                },
+                {
+                    "widget_type": "tabular",
+                    "title": "Tier0 Gateway Details",
+                    "stream": "nsx_demo_tier0_pack",
+                    "extra_filter": "node_type = 'Tier0_Gateway'",
+                    "ts_column": "collection_timestamp",
+                    "sorting": [],
+                    "resizableColumns": false,
+                    "paginated": true,
+                    "virtual_scrolling": false,
+                    "showRowSummary": true,
+                    "max_rows": 200,
+                    "columns": {
+                        "tier0_gw_name": "Tier0 Name",
+                        "tier0_path": "Tier0 Path",
+                        "asset_status": "Asset Status",
+                        "connectivity": "Connectivity",
+                        "ha_mode": "HA Mode",
+                        "failover_mode": "Failover Mode",
+                        "transit_subnets": "Transit Subnets",
+                        "internal_transit_subnets": "Internal Transit Subnets",
+                        "nsx_ip": "NSX IP",
+                        "collection_timestamp": {
+                            "title": "Collection Timestamp",
+                            "type": "DATETIME"
+                        }
+                    },
+                    "widget_id": "6619adf7"
+                }
+            ]
+        }
+    ],
+    "saved_time": "2024-05-31T10:17:39.475061"
+}

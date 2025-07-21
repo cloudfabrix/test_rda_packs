@@ -1,0 +1,42 @@
+{
+  "teamId": "6b574995-8705-40d3-977a-67201c9bd192",
+  "name": "test1",
+  "description": "",
+  "collabType": "BMC",
+  "autoShare": true,
+  "autoShareAttributes": [
+     "incReceived",
+     "incResolved",
+     "incResolved",
+     "incAssigned",
+     "incAlertCountChanges",
+     "diagTools"
+   ],
+  "useCustomizedIcon": true,
+  "customizedIconData": [
+    {
+	"name": "cfx",
+	"id": "5d66a336",
+	"type": "png",
+	"public": "Yes",
+	"thumbnail": true,
+	"url": "/iconpub/5d66a336"
+    }
+  ],
+  "projectId": "865ea3d4-2edf-11f0-a4a6-0242ac130006",
+  "customerId": "024d5e4967b24cd180686f324ba1f883",
+  "attributes": [
+    {
+      "attribute": "bmcDS",
+      "value": "eaa09c94-972e-4f38-88d6-00c14b2648fe"
+    },
+    {
+      "attribute": "incComment",
+      "value": "Hello ${team_name}, a message has been shared from CloudFabrix Incident Room. Please login to ${incident_link} and review the recommended next steps."
+    },
+    {
+      "attribute": "incTemplate",
+      "value": "*Summary*: ${summary}\n*Priority*: ${priority}\n*Opened Time*: ${datetime_created}\n*State*: ${state}\n*Created By*: ${creator}\n*Target Application/ Infrastructure Stack*: ${stackType} (${stackLabel})"
+    }
+  ]
+}
