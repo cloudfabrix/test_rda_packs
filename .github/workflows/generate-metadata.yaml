@@ -1,25 +1,28 @@
 name: Generate Metadata
 
 on:
-  workflow_run:
-    workflows: ["Validate Pack Structure"]
-    types:
-      - completed
+  push:
+    branches:
+      - main
 
 jobs:
   generate:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: github.actor != 'github-actions[bot]'
     name: Generate Metadata
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.x'
+
       - run: pip install pyyaml packaging
+
       - name: Run metadata generation
         run: python scripts/generate_packs_metadata.py
+
       - name: Commit and push metadata
         run: |
           if git diff --quiet --exit-code metadata/; then
@@ -33,5 +36,4 @@ jobs:
             git add metadata/latest_packs.md
             git commit -m "Auto-update packs metadata"
             git push
-          fi
 
