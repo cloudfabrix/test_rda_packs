@@ -36,4 +36,5 @@ jobs:
             git add metadata/latest_packs.md
             git commit -m "Auto-update packs metadata"
             git push
+          fi
 
