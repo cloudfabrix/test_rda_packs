@@ -37,4 +37,3 @@ jobs:
             git commit -m "Auto-update packs metadata"
             git push
           fi
-
