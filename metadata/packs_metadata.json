@@ -11,8 +11,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Base Pack",
+        "version": ">=5.0.0"
       }
     ]
   },
@@ -28,8 +34,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Fabrix Inventory Collection Base Pack",
+        "version": ">=6.0.0"
       }
     ]
   },
@@ -45,8 +57,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Base Pack",
+        "version": ">=5.0.0"
       }
     ]
   },
@@ -62,8 +80,18 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Fabrix Inventory Collection Base Pack",
+        "version": ">=6.0.0"
+      },
+      {
+        "name": "Fabrix AIOps Fault Management Base",
+        "version": ">=8.0.2"
       }
     ]
   },
@@ -78,6 +106,16 @@
         "name": "api-server",
         "version": ">=8.1.0"
       }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Fabrix Inventory Collection Base Pack",
+        "version": ">=7.0.0"
+      },
+      {
+        "name": "Fabrix AIOps Fault Management Base",
+        "version": ">=8.0.2"
+      }
     ]
   },
   {
@@ -90,6 +128,12 @@
       {
         "name": "api-server",
         "version": ">=8.1.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Fabrix Inventory Collection Base Pack",
+        "version": ">=6.0.0"
       }
     ]
   },
@@ -105,10 +149,11 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
       }
-    ]
+    ],
+    "required_base_packs": "None"
   },
   {
     "pack_name": "Fabrix AIOps Fault Management Base",
@@ -122,10 +167,11 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
       }
-    ]
+    ],
+    "required_base_packs": "None"
   },
   {
     "pack_name": "Fabrix AIOps Fault Management Base",
@@ -139,10 +185,11 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
       }
-    ]
+    ],
+    "required_base_packs": "None"
   },
   {
     "pack_name": "Fabrix AIOps Fault Management Base",
@@ -179,7 +226,8 @@
         "name": "cfxdimensions-app-collaboration",
         "version": ">=8.1.0"
       }
-    ]
+    ],
+    "required_base_packs": "None"
   },
   {
     "pack_name": "Fabrix AIOps ML",
@@ -191,6 +239,16 @@
       {
         "name": "api-server",
         "version": ">=8.1.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Fabrix Inventory Collection Base Pack",
+        "version": ">=6.0.0"
+      },
+      {
+        "name": "Fabrix AIOps Fault Management Base",
+        "version": ">=8.0.2"
       }
     ]
   },
@@ -206,8 +264,18 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Fabrix Inventory Collection Base Pack",
+        "version": ">=6.0.0"
+      },
+      {
+        "name": "Fabrix AIOps Fault Management Base",
+        "version": ">=8.0.2"
       }
     ]
   },
@@ -223,8 +291,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Network Device Discovery",
+        "version": ">=8.0.1"
       }
     ]
   },
@@ -240,8 +314,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Network Device Discovery",
+        "version": ">=8.0.2"
       }
     ]
   },
@@ -257,8 +337,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Network Device Discovery",
+        "version": ">=8.0.3"
       }
     ]
   },
@@ -274,8 +360,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Network Device Discovery",
+        "version": ">=8.0.2"
       }
     ]
   },
@@ -291,8 +383,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Network Device Discovery",
+        "version": ">=8.0.3"
       }
     ]
   },
@@ -308,8 +406,18 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Network Device Discovery",
+        "version": ">=8.0.2"
+      },
+      {
+        "name": "Fabrix AIOps Fault Management Base",
+        "version": ">=8.0.2"
       }
     ]
   },
@@ -325,8 +433,18 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Network Device Discovery",
+        "version": ">=8.0.3"
+      },
+      {
+        "name": "Fabrix AIOps Fault Management Base",
+        "version": ">=8.0.3"
       }
     ]
   },
@@ -365,6 +483,16 @@
         "name": "cfxdimensions-app-collaboration",
         "version": ">=8.1.0"
       }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Network Device Discovery",
+        "version": ">=9.0.0"
+      },
+      {
+        "name": "Fabrix AIOps Fault Management Base",
+        "version": ">=9.0.4"
+      }
     ]
   },
   {
@@ -379,8 +507,18 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Network Device Discovery",
+        "version": ">=8.0.2"
+      },
+      {
+        "name": "Fabrix AIOps Fault Management Base",
+        "version": ">=8.0.2"
       }
     ]
   },
@@ -396,8 +534,18 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Network Device Discovery",
+        "version": ">=8.0.3"
+      },
+      {
+        "name": "Fabrix AIOps Fault Management Base",
+        "version": ">=8.0.3"
       }
     ]
   },
@@ -436,6 +584,16 @@
         "name": "cfxdimensions-app-collaboration",
         "version": ">=8.1.0"
       }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Network Device Discovery",
+        "version": ">=9.0.0"
+      },
+      {
+        "name": "Fabrix AIOps Fault Management Base",
+        "version": ">=9.0.0"
+      }
     ]
   },
   {
@@ -450,10 +608,11 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
       }
-    ]
+    ],
+    "required_base_packs": "None"
   },
   {
     "pack_name": "Fabrix Inventory Collection Base Pack",
@@ -467,10 +626,11 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
       }
-    ]
+    ],
+    "required_base_packs": "None"
   },
   {
     "pack_name": "Fabrix Inventory Collection Base Pack",
@@ -484,10 +644,11 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
       }
-    ]
+    ],
+    "required_base_packs": "None"
   },
   {
     "pack_name": "Fabrix Inventory Collection Base Pack",
@@ -501,10 +662,11 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
       }
-    ]
+    ],
+    "required_base_packs": "None"
   },
   {
     "pack_name": "Linux and Windows Host OS",
@@ -518,8 +680,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Base Pack",
+        "version": ">=5.0.0"
       }
     ]
   },
@@ -535,10 +703,34 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
       }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Fabrix Inventory Collection Base Pack",
+        "version": ">=7.0.0"
+      }
     ]
+  },
+  {
+    "pack_name": "Mobility",
+    "pack_version": "9.0.0",
+    "tar_file_name": "mobility_pack.tar.gz",
+    "tar_file_url": "https://raw.githubusercontent.com/cloudfabrix/rda_packs/main/Mobility/9.0.0/mobility_pack.tar.gz",
+    "description": "",
+    "required_fabric_services": [
+      {
+        "name": "api-server",
+        "version": ">=8.0.0"
+      },
+      {
+        "name": "worker",
+        "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": "None"
   },
   {
     "pack_name": "Multi Network Device Discovery",
@@ -552,8 +744,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Fabrix Inventory Collection Base Pack",
+        "version": ">=7.0.0"
       }
     ]
   },
@@ -569,8 +767,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Base Pack",
+        "version": ">=5.0.0"
       }
     ]
   },
@@ -586,8 +790,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Base Pack",
+        "version": ">=5.0.0"
       }
     ]
   },
@@ -603,8 +813,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Fabrix Inventory Collection Base Pack",
+        "version": ">=6.0.0"
       }
     ]
   },
@@ -620,8 +836,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Fabrix Inventory Collection Base Pack",
+        "version": ">=6.0.0"
       }
     ]
   },
@@ -640,6 +862,12 @@
         "name": "api-server",
         "version": ">=8.1.0"
       }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Fabrix Inventory Collection Base Pack",
+        "version": ">=7.2.0"
+      }
     ]
   },
   {
@@ -657,7 +885,26 @@
         "name": "rda_api_server",
         "version": ">=8.1"
       }
-    ]
+    ],
+    "required_base_packs": "None"
+  },
+  {
+    "pack_name": "test pack",
+    "pack_version": "7.0.0",
+    "tar_file_name": "em_one.tar.gz",
+    "tar_file_url": "https://raw.githubusercontent.com/cloudfabrix/rda_packs/main/comparetagspack/em_two/em_one.tar.gz",
+    "description": "test pack",
+    "required_fabric_services": [
+      {
+        "name": "api-server",
+        "version": ">=8.0.0"
+      },
+      {
+        "name": "worker",
+        "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": "None"
   },
   {
     "pack_name": "VMWare vCenter",
@@ -671,8 +918,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Base Pack",
+        "version": ">=5.0.0"
       }
     ]
   },
@@ -688,8 +941,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Fabrix Inventory Collection Base Pack",
+        "version": ">=6.0.0"
       }
     ]
   },
@@ -705,8 +964,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Fabrix Inventory Collection Base Pack",
+        "version": ">=6.0.0"
       }
     ]
   },
@@ -722,8 +987,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Base Pack",
+        "version": ">=5.0.0"
       }
     ]
   },
@@ -739,8 +1010,14 @@
         "version": ">=8.0.0"
       },
       {
-        "name": "rda_worker",
+        "name": "worker",
         "version": ">=8.0.0"
+      }
+    ],
+    "required_base_packs": [
+      {
+        "name": "Fabrix Inventory Collection Base Pack",
+        "version": ">=6.0.0"
       }
     ]
   }
