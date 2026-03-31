@@ -20,35 +20,45 @@ for pack_name in os.listdir(REPO_ROOT):
             continue
 
         manifest_path = os.path.join(version_path, "manifest.yaml")
-        description_path = os.path.join(version_path, "description.md")
         tar_file = next((f for f in os.listdir(version_path) if f.endswith(".tar.gz")), None)
 
-        if not os.path.exists(manifest_path) or not os.path.exists(description_path) or not tar_file:
+        if not os.path.exists(manifest_path) or not tar_file:
             continue
 
         with open(manifest_path) as mf:
             manifest = yaml.safe_load(mf)
 
+        # Extract required_base_packs from manifest
+        # If requires is commented out or doesn't exist, yaml.safe_load will return None
+        required_base_packs = manifest.get("requires")
+        
+        # Format required_base_packs if it's a list
+        if isinstance(required_base_packs, list):
+            # Format as list of dictionaries with name and version
+            formatted_requires = []
+            for req in required_base_packs:
+                if isinstance(req, dict):
+                    formatted_requires.append({
+                        "name": req.get("name", ""),
+                        "version": req.get("version", "")
+                    })
+            required_base_packs = formatted_requires if formatted_requires else "None"
+        else:
+            # If requires is None, commented out, or doesn't exist, set to "None"
+            required_base_packs = "None"
 
         description_text = manifest.get("name", "")  # fallback default
-        # Initialize description path and fallback
+        # Resolve description markdown from manifest when present
         desc_file_path = None
         desc_cfg = manifest.get("description", {})
 
         if isinstance(desc_cfg, dict):
             md_path = desc_cfg.get("md")
             if md_path:
-                if md_path.startswith("./"):
-                    desc_file_path = os.path.join(version_path, md_path[2:])
-                else:
-                    desc_file_path = os.path.abspath(os.path.join(REPO_ROOT, md_path))
+                desc_file_path = os.path.normpath(os.path.join(version_path, md_path))
             elif "value" in desc_cfg:
                 # If no md but value is provided
                 description_text = str(desc_cfg["value"])
-
-        # Fallback to default description.md only if text wasn't set from value
-        if not desc_file_path and description_text == manifest.get("name", ""):
-            desc_file_path = os.path.join(version_path, "description.md")
 
         if desc_file_path and os.path.exists(desc_file_path):
             with open(desc_file_path) as df:
@@ -76,7 +86,8 @@ for pack_name in os.listdir(REPO_ROOT):
             "tar_file_name": tar_file,
             "tar_file_url": f"https://raw.githubusercontent.com/cloudfabrix/rda_packs/main/{pack_name}/{version}/{tar_file}",
             "description": description_text,
-            "required_fabric_services": manifest.get("fabric_services", [{"name":"api-server","version":">=8.0.0"},{"name":"rda_worker","version":">=8.0.0"}]),
+            "required_fabric_services": manifest.get("fabric_services", [{"name":"api-server","version":">=8.0.0"},{"name":"worker","version":">=8.0.0"}]),
+            "required_base_packs": required_base_packs,
         }
 
         PACKS_METADATA.append(metadata)
@@ -114,8 +125,8 @@ with open(latest_packs_path) as f:
 
 # Prepare Markdown table
 md_lines = [
-    "| RDA Pack Name | RDA Pack Version | Supported Fabrix Services | Description |",
-    "|---------------|------------------|----------------------------|-------------|"
+    "| RDA Pack Name | RDA Pack Version | Supported Fabrix Services | Required Base Packs | Description |",
+    "|---------------|------------------|----------------------------|---------------------|-------------|"
 ]
 
 for pack in latest_packs_list:
@@ -137,7 +148,18 @@ for pack in latest_packs_list:
 
     services_str = services_str.replace("|", "\\|")
 
-    md_lines.append(f"| {pack_name_md} | {pack_version} | {services_str} | {description} |")
+    # Format required_base_packs for markdown
+    required_packs = pack.get("required_base_packs", "None")
+    if isinstance(required_packs, list):
+        required_packs_str = "<br>".join(f"{req.get('name', '')} ({req.get('version', '')})" for req in required_packs)
+    elif required_packs == "None" or required_packs is None:
+        required_packs_str = "None"
+    else:
+        required_packs_str = str(required_packs)
+    
+    required_packs_str = required_packs_str.replace("|", "\\|")
+
+    md_lines.append(f"| {pack_name_md} | {pack_version} | {services_str} | {required_packs_str} | {description} |")
 
 # Write the markdown file
 latest_packs_md_path = os.path.join(METADATA_DIR, "latest_packs.md")
