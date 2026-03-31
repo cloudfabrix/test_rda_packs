@@ -13,8 +13,8 @@ publisher: Fabrix
 # If description is provided by multiple ways, the order of precedence is description.md > description.html > description.value
 
 description: 
-
-   md: "./description.md"
+   value: "Cisco Meraki pack"
+   #md: "./description_foldertest_description.md"
 # Type could be collection/feature
 type: collection
 # Other packs that this solution requires to be deployed

@@ -14,7 +14,7 @@ publisher: Cloudfabrix
 
 description: 
 #  value: "vCenter Inventory collection"
-   md: "./description.md"
+   md: "./description_folder/test_description.md"
 # Type could be collection/feature
 type: collection
 # Other packs that this solution requires to be deployed
